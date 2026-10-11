@@ -531,23 +531,18 @@ function PunkShowcase() {
   }, [punks.length]);
 
   return (
-    <div className="relative w-full max-w-[170px] xs:max-w-[200px] sm:max-w-[270px] lg:max-w-[370px] aspect-[3/4] flex items-center justify-center">
-      {/* Ambient atmospheric backlight matching page mood */}
-      <div 
-        className={`absolute -inset-6 sm:-inset-8 blur-3xl rounded-full pointer-events-none -z-10 transition-all duration-300 ${
-          isGlitching ? 'bg-bbs/35 scale-110' : 'bg-bbs/15 scale-100'
-        }`} 
-      />
-      <div className="absolute -inset-4 blur-2xl rounded-full pointer-events-none -z-10 bg-[#3a1d6e]/40 mix-blend-screen" />
+    <div className="relative w-full max-w-[170px] xs:max-w-[200px] sm:max-w-[280px] lg:max-w-[380px] aspect-square flex items-center justify-center">
+      {/* Subtle dark grounding shadow under feet - NO white glow */}
+      <div className="absolute -bottom-2 inset-x-10 h-8 bg-black/70 blur-xl pointer-events-none -z-10" />
 
-      {/* Main Image Frame with deep radial mask fade */}
+      {/* Main Image Frame with deep circular radial mask fade to eliminate all box edges */}
       <div 
         className={`relative w-full h-full overflow-hidden transition-all duration-150 ${
           isGlitching ? 'brightness-125 contrast-125 filter hue-rotate-15' : 'brightness-100 contrast-100'
         }`}
         style={{
-          WebkitMaskImage: "radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.35) 78%, rgba(0,0,0,0) 94%)",
-          maskImage: "radial-gradient(ellipse at 50% 50%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.35) 78%, rgba(0,0,0,0) 94%)"
+          WebkitMaskImage: "radial-gradient(circle at 50% 50%, rgba(0,0,0,1) 34%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.3) 66%, rgba(0,0,0,0) 78%)",
+          maskImage: "radial-gradient(circle at 50% 50%, rgba(0,0,0,1) 34%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.3) 66%, rgba(0,0,0,0) 78%)"
         }}
       >
         {punks.map((punk, idx) => (
@@ -555,7 +550,10 @@ function PunkShowcase() {
             key={punk}
             src={`/punks/${punk}.webp`} 
             alt={`Punk #${punk}`} 
-            className={`absolute inset-0 w-full h-full object-cover pixelated transition-opacity duration-200 ${
+            style={{
+              filter: "drop-shadow(0 8px 18px rgba(0,0,0,0.6))"
+            }}
+            className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
               idx === punkIndex ? 'opacity-100' : 'opacity-0'
             } ${isGlitching ? 'scale-[1.01]' : 'scale-100'}`} 
           />
@@ -576,30 +574,21 @@ function PunkShowcase() {
           </>
         )}
 
-        {/* Smooth radial vignette blending into background color */}
-        <div className="absolute inset-0 z-20 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_38%,var(--background)_86%)]" />
+        {/* Smooth circular vignette overlay perfectly merging into background color */}
+        <div className="absolute inset-0 z-20 pointer-events-none bg-[radial-gradient(circle_at_50%_50%,transparent_32%,var(--background)_76%)]" />
 
-        {/* 4-Directional edge feathered gradient dissolves */}
-        <div className="absolute inset-x-0 top-0 h-14 pointer-events-none z-22 bg-gradient-to-b from-[var(--background)] to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-16 pointer-events-none z-22 bg-gradient-to-t from-[var(--background)] to-transparent" />
-        <div className="absolute inset-y-0 left-0 w-12 pointer-events-none z-22 bg-gradient-to-r from-[var(--background)] to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-12 pointer-events-none z-22 bg-gradient-to-l from-[var(--background)] to-transparent" />
-
-        {/* Authentic scanline overlay */}
+        {/* Authentic subtle scanline overlay */}
         <div className="absolute inset-0 z-25 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.18)_50%)] bg-[length:100%_4px]" />
       </div>
 
-      {/* Subtle Retro BBS HUD telemetry tag & corner reticles */}
-      <div className={`absolute top-1 left-1 z-30 font-mono text-[9px] xs:text-[10px] sm:text-xs px-1 border transition-colors duration-150 backdrop-blur-xs ${
+      {/* Subtle Retro BBS HUD telemetry tag */}
+      <div className={`absolute top-0 left-0 z-30 font-mono text-[9px] xs:text-[10px] sm:text-xs px-1 border transition-colors duration-150 backdrop-blur-xs ${
         isGlitching 
           ? 'bg-bbs text-background border-bbs font-bold shadow-[0_0_10px_var(--color-bbs)]' 
           : 'bg-background/80 text-bbs border-bbs/30'
       }`}>
         + {telemetry || `BUFFER_${punks[punkIndex]}`}
       </div>
-      <div className="absolute top-1 right-1 z-30 font-mono text-[9px] sm:text-xs text-bbs select-none opacity-40">┌ ┐</div>
-      <div className="absolute bottom-1 left-1 z-30 font-mono text-[9px] sm:text-xs text-bbs select-none opacity-40">└</div>
-      <div className="absolute bottom-1 right-1 z-30 font-mono text-[9px] sm:text-xs text-bbs select-none opacity-40">┘</div>
     </div>
   );
 }

@@ -36,40 +36,40 @@ export default function HowItWorksPage() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-20">
+    <div className="max-w-4xl mx-auto px-3 py-8 sm:px-6 sm:py-20 font-mono">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-20"
+        className="text-center mb-8 sm:mb-16"
       >
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">How It Works</h1>
-        <p className="text-secondary text-lg max-w-xl mx-auto">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 tracking-wider">[ HOW IT WORKS ]</h1>
+        <p className="text-bbs/70 text-sm sm:text-lg max-w-xl mx-auto">
           You don&apos;t buy access to Pace Punks. You earn eligibility by
           moving.
         </p>
       </motion.div>
 
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4 sm:gap-8">
         {steps.map((step, i) => (
           <motion.div
             key={step.num}
-            initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="card p-8 md:p-10 flex flex-col md:flex-row items-start gap-6"
+            transition={{ duration: 0.4, delay: i * 0.08 }}
+            className="border-2 border-bbs bg-background/85 p-4 sm:p-8 md:p-10 flex flex-col sm:flex-row items-start gap-4 sm:gap-6 shadow-[0_0_15px_var(--color-bbs-dim)]"
           >
             <div
-              className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.accent} flex items-center justify-center shrink-0`}
+              className={`w-12 h-12 sm:w-16 sm:h-16 border-2 border-bbs bg-bbs/10 flex items-center justify-center shrink-0`}
             >
-              <span className={`text-xl font-bold ${step.badge.split(" ")[1]}`}>
+              <span className="text-lg sm:text-xl font-bold text-bbs">
                 {step.num}
               </span>
             </div>
             <div>
-              <h3 className="text-2xl font-bold mb-2">{step.title}</h3>
-              <p className="text-secondary leading-relaxed">{step.desc}</p>
+              <h3 className="text-lg sm:text-2xl font-bold mb-1 sm:mb-2 text-bbs">{step.title}</h3>
+              <p className="text-bbs/80 text-xs sm:text-base leading-relaxed">{step.desc}</p>
             </div>
           </motion.div>
         ))}
@@ -80,28 +80,27 @@ export default function HowItWorksPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="mt-20 text-center"
+        className="mt-12 sm:mt-20 text-center"
       >
-        <div className="card p-10 md:p-14 bg-gradient-to-br from-mint/5 via-surface to-purple/5">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to earn your Punk?
+        <div className="border-2 border-bbs bg-background/90 p-6 sm:p-10 md:p-14 shadow-[0_0_20px_var(--color-bbs-dim)]">
+          <h2 className="text-2xl sm:text-4xl font-bold mb-3 tracking-wider text-bbs">
+            [ READY TO EARN YOUR PUNK? ]
           </h2>
-          <p className="text-secondary mb-8 max-w-md mx-auto">
-            Start walking in the Pace Punks app and qualify for the current
-            epoch.
+          <p className="text-bbs/70 mb-6 sm:mb-8 max-w-md mx-auto text-xs sm:text-base">
+            Start walking in the Pace Punks app and qualify for the active epoch.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/mint"
-              className="bg-foreground text-surface px-8 py-4 rounded-full font-semibold hover:opacity-90 transition-opacity"
+              className="border-2 border-bbs bg-bbs text-background px-6 py-3 font-bold text-xs sm:text-sm hover:bg-transparent hover:text-bbs transition-colors"
             >
-              Check Eligibility
+              [+] CHECK ELIGIBILITY / MINT
             </Link>
             <Link
               href="/epochs"
-              className="border border-border text-foreground px-8 py-4 rounded-full font-semibold hover:bg-surface transition-colors"
+              className="border-2 border-bbs bg-background text-bbs px-6 py-3 font-bold text-xs sm:text-sm hover:bg-bbs hover:text-background transition-colors"
             >
-              View Epochs
+              [&gt;] VIEW ACTIVE EPOCHS
             </Link>
           </div>
         </div>

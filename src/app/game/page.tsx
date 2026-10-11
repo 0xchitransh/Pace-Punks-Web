@@ -6,34 +6,33 @@ export default function GamePage() {
   const [showBoard, setShowBoard] = React.useState(false);
 
   return (
-    <div className="w-full min-h-[calc(100vh-3.5rem)] bg-background text-bbs px-3 py-2 md:px-6 md:py-2.5 font-mono tracking-widest relative z-10 flex flex-col items-center justify-start">
+    <div className="w-full min-h-[calc(100dvh-3.5rem)] bg-background text-bbs px-2 py-1.5 sm:px-4 sm:py-2.5 font-mono tracking-wider sm:tracking-widest relative z-10 flex flex-col items-center justify-start">
       <div className="w-full max-w-5xl flex flex-col gap-2">
         
         {/* Top Terminal Header & Telemetry - Compact single row */}
-        <div className="flex flex-wrap items-center justify-between border-b border-bbs/50 pb-1 text-xs">
-          <div className="flex items-center gap-2 text-bbs/70">
+        <div className="flex items-center justify-between border-b border-bbs/50 pb-1 text-xs gap-2">
+          <div className="flex items-center gap-1.5 text-bbs/70 text-[10px] sm:text-xs truncate max-w-[180px] xs:max-w-[260px] sm:max-w-none">
             <Link href="/" className="hover:text-white transition-colors">ROOT</Link>
             <span>/</span>
-            <span>SIMULATION</span>
-            <span>/</span>
+            <span className="hidden xs:inline">SIMULATION</span>
+            <span className="hidden xs:inline">/</span>
             <span className="text-bbs font-bold">CORRIDOR_RUN.EXE</span>
           </div>
 
-          <div className="flex items-center gap-3 text-[11px] text-bbs/80">
+          <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-bbs/80 shrink-0">
             <span className="hidden sm:inline">&gt; CANV: 2D</span>
-            <span className="hidden md:inline">&gt; BAYS: 12</span>
-            <span className="text-bbs font-bold">&gt; ONLINE</span>
+            <span className="text-bbs font-bold hidden xs:inline">&gt; ONLINE</span>
             <button
               onClick={() => setShowBoard(!showBoard)}
-              className="px-2 py-0.5 border border-bbs text-bbs hover:bg-bbs hover:text-background transition-colors font-bold"
+              className="px-2 py-0.5 border border-bbs text-bbs hover:bg-bbs hover:text-background transition-colors font-bold cursor-pointer"
             >
-              {showBoard ? "[HIDE BOARD]" : "[LEADERBOARD]"}
+              {showBoard ? "[HIDE]" : "[LEADERBOARD]"}
             </button>
           </div>
         </div>
 
-        {/* Embedded Arcade Cabinet Screen - Compacted so everything fits without scrolling */}
-        <div className="relative border-2 border-bbs shadow-[0_0_20px_var(--color-bbs-dim)] bg-black overflow-hidden w-full h-[380px] sm:h-[440px] md:h-[480px] max-h-[calc(100vh-160px)]">
+        {/* Embedded Arcade Cabinet Screen - Dynamic viewport height so it fits without scrolling */}
+        <div className="relative border-2 border-bbs shadow-[0_0_20px_var(--color-bbs-dim)] bg-black overflow-hidden w-full h-[320px] xs:h-[380px] sm:h-[450px] md:h-[500px] max-h-[calc(100dvh-135px)]">
           <iframe
             src="/game/index.html"
             title="Pace Punks Corridor Run"
@@ -42,16 +41,27 @@ export default function GamePage() {
           />
         </div>
 
-        {/* Tactical Controls & Quick Guide - Clean compact bar */}
-        <div className="border border-bbs/40 px-3 py-1 bg-background/90 text-[11px] md:text-xs flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2.5 flex-wrap">
+        {/* Tactical Controls & Quick Guide - Mobile-friendly controls guide */}
+        <div className="border border-bbs/40 px-2.5 py-1 bg-background/90 text-[10px] sm:text-xs flex flex-wrap items-center justify-between gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="text-bbs font-bold">&gt;&gt; CONTROLS:</span>
-            <span><b className="text-bbs">[SPACE/↑]</b> JUMP</span>
-            <span><b className="text-bbs">[↓]</b> DIVE</span>
-            <span><b className="text-bbs">[P]</b> PAUSE</span>
-            <span className="hidden sm:inline"><b className="text-bbs">[TOUCH]</b> TAP</span>
+            {/* Mobile Touch Hints */}
+            <span className="sm:hidden flex items-center gap-1.5">
+              <span><b className="text-bbs">[TAP]</b> JUMP</span>
+              <span>·</span>
+              <span><b className="text-bbs">[SWIPE ↓]</b> DIVE</span>
+              <span>·</span>
+              <span><b className="text-bbs">[HOLD]</b> HIGH</span>
+            </span>
+            {/* Desktop Keyboard Hints */}
+            <span className="hidden sm:inline-flex items-center gap-2.5">
+              <span><b className="text-bbs">[SPACE/↑]</b> JUMP</span>
+              <span><b className="text-bbs">[↓]</b> DIVE</span>
+              <span><b className="text-bbs">[P]</b> PAUSE</span>
+              <span><b className="text-bbs">[TOUCH]</b> TAP</span>
+            </span>
           </div>
-          <div className="text-bbs/70 hidden lg:block">
+          <div className="text-bbs/70 hidden md:block text-[11px]">
             BONUS GOLD CHIPS (+25) · AVOID DRONES
           </div>
         </div>

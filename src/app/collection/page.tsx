@@ -40,40 +40,39 @@ export default function CollectionPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-20">
+    <div className="max-w-7xl mx-auto px-3 py-8 sm:px-6 sm:py-20 font-mono">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="mb-12"
+        className="mb-8 sm:mb-12"
       >
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">Collection</h1>
-        <p className="text-secondary text-lg max-w-2xl">
-          Browse the Pace Punks collection. Every Punk was earned through real
-          movement.
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 tracking-wider">[ COLLECTION ARCHIVE ]</h1>
+        <p className="text-bbs/70 text-sm sm:text-lg max-w-2xl">
+          Browse the Pace Punks archive. Every Punk was earned through verified movement.
         </p>
       </motion.div>
 
       {/* Search & Filters */}
-      <div className="flex flex-col md:flex-row gap-4 mb-10">
+      <div className="flex flex-col md:flex-row gap-3 sm:gap-4 mb-6 sm:mb-10">
         <div className="flex-1 relative">
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name or #ID…"
-            className="w-full bg-surface border border-border rounded-2xl px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-foreground/10 placeholder:text-secondary"
+            className="w-full bg-background/80 border border-bbs/50 px-3.5 py-2.5 sm:px-5 sm:py-3.5 text-xs sm:text-sm focus:outline-none focus:border-bbs placeholder:text-bbs/40 text-bbs font-mono"
           />
         </div>
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-1.5 sm:gap-2 flex-wrap">
           {filters.map((f) => (
             <button
               key={f}
               onClick={() => setActiveFilter(f)}
-              className={`px-4 py-2.5 rounded-full text-sm font-medium transition-all cursor-pointer ${
+              className={`px-2.5 py-1.5 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
                 activeFilter === f
-                  ? "bg-foreground text-surface"
-                  : "bg-surface border border-border text-secondary hover:text-foreground"
+                  ? "bg-bbs text-background border-bbs"
+                  : "bg-background border-bbs/40 text-bbs hover:border-bbs"
               }`}
             >
               {f}

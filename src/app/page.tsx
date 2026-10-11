@@ -7,16 +7,16 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 export default function HomePage() {
   return (
-    <div className="w-full min-h-screen bg-background text-bbs p-6 pt-12 md:p-12 font-mono uppercase tracking-widest relative z-10">
-      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
+    <div className="w-full min-h-screen bg-background text-bbs p-3 pt-6 sm:p-6 sm:pt-10 md:p-12 font-mono uppercase tracking-wider sm:tracking-widest relative z-10">
+      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-24">
         
         {/* Left Terminal Text Content */}
         <div className="w-full lg:w-[60%] flex flex-col">
           
-          <div className="mb-12">
-            <p className="mb-2">CONNECTING TO PACE_PUNKS_BBS...</p>
-            <p className="mb-2">BAUD RATE: 9600</p>
-            <p className="mb-6">STATUS: <span className="text-bbs font-bold">ESTABLISHED</span></p>
+          <div className="mb-6 sm:mb-10 text-xs sm:text-base">
+            <p className="mb-1 sm:mb-2">CONNECTING TO PACE_PUNKS_BBS...</p>
+            <p className="mb-1 sm:mb-2">BAUD RATE: 9600</p>
+            <p className="mb-4 sm:mb-6">STATUS: <span className="text-bbs font-bold">ESTABLISHED</span></p>
           </div>
 
           <TypewriterText 
@@ -28,7 +28,7 @@ export default function HomePage() {
               "========================================="
             ]} 
             delay={50}
-            className="text-xl md:text-3xl mb-8 leading-relaxed whitespace-pre-wrap"
+            className="text-sm xs:text-base sm:text-xl md:text-3xl mb-6 sm:mb-8 leading-relaxed whitespace-pre-wrap break-all sm:break-normal"
           />
 
           <TypewriterText 
@@ -41,7 +41,7 @@ export default function HomePage() {
             ]} 
             delay={30}
             startDelay={1500}
-            className="text-sm md:text-base mb-12 leading-loose text-bbs/80"
+            className="text-xs sm:text-base mb-6 sm:mb-10 leading-loose text-bbs/80"
           />
 
           <TerminalPrompt />
@@ -454,6 +454,39 @@ function TerminalPrompt() {
         />
         <span className="bg-bbs w-2 h-5 inline-block shrink-0"></span>
       </form>
+
+      {/* Mobile-Friendly Quick Command Chips */}
+      <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-bbs/20 text-[10px] sm:text-xs">
+        <span className="text-bbs/60">&gt; QUICK:</span>
+        <button
+          type="button"
+          onClick={() => { setInput("JOIN"); inputRef.current?.focus(); }}
+          className="px-2 py-0.5 border border-bbs/50 text-bbs hover:bg-bbs hover:text-black transition-colors cursor-pointer"
+        >
+          [JOIN]
+        </button>
+        <button
+          type="button"
+          onClick={() => router.push("/epochs")}
+          className="px-2 py-0.5 border border-bbs/50 text-bbs hover:bg-bbs hover:text-black transition-colors cursor-pointer"
+        >
+          [EPOCHS]
+        </button>
+        <button
+          type="button"
+          onClick={() => router.push("/game")}
+          className="px-2 py-0.5 border border-bbs/50 text-bbs hover:bg-bbs hover:text-black transition-colors cursor-pointer"
+        >
+          [GAME]
+        </button>
+        <button
+          type="button"
+          onClick={() => router.push("/collection")}
+          className="px-2 py-0.5 border border-bbs/50 text-bbs hover:bg-bbs hover:text-black transition-colors cursor-pointer"
+        >
+          [COLLECTION]
+        </button>
+      </div>
     </div>
   );
 }
@@ -492,7 +525,7 @@ function PunkShowcase() {
   }, [punks.length]);
 
   return (
-    <div className="relative w-[320px] h-[420px] flex items-center justify-center">
+    <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[3/4] flex items-center justify-center">
       {/* Ambient scene backlight */}
       <div 
         className={`absolute -inset-4 blur-3xl rounded-full pointer-events-none -z-10 transition-all duration-300 ${

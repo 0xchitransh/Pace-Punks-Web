@@ -24,8 +24,10 @@
 .arcade__keys { margin: 0; color: var(--cream-dim); font-size: .6875rem; text-transform: none; }
 .arcade__btns { display: flex; flex-wrap: wrap; gap: .6rem; }
 @media (max-width: 480px) {
-  .arcade__btns { width: 100%; gap: .5rem; }
-  .arcade__btns .btn { flex: 1 1 0; padding: .5rem .4rem; font-size: .625rem; white-space: nowrap; }
+  .arcade__bar { padding: .35rem .5rem; gap: .35rem; }
+  .arcade__keys { display: none; }
+  .arcade__btns { width: 100%; gap: .35rem; }
+  .arcade__btns .btn { flex: 1 1 0; padding: .35rem .25rem; font-size: .625rem; white-space: nowrap; }
 }
 kbd { font-family: var(--f-label); font-size: .9em; padding: .05rem .35rem; border: 2px solid var(--line); background: var(--night-3); color: var(--cream); }
 

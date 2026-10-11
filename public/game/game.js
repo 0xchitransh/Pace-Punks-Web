@@ -399,13 +399,34 @@
     else if (k === "ArrowDown" || k === "KeyS") release(3);
   });
   var pointers = 0;
+  var touchStartY = 0;
+  var isDiving = false;
   stage.addEventListener("pointerdown", function (e) {
     if (e.target.closest("button, input, a, form")) return;
     e.preventDefault();
     pointers++;
+    touchStartY = e.clientY;
+    isDiving = false;
     if (pointers === 1) press(1);
   });
-  function up() { if (pointers > 0) { pointers = 0; release(0); } }
+  stage.addEventListener("pointermove", function (e) {
+    if (pointers > 0 && !isDiving && (e.clientY - touchStartY > 26)) {
+      isDiving = true;
+      release(0);
+      press(2); // dive!
+    }
+  });
+  function up() {
+    if (pointers > 0) {
+      pointers = 0;
+      if (isDiving) {
+        release(3);
+        isDiving = false;
+      } else {
+        release(0);
+      }
+    }
+  }
   window.addEventListener("pointerup", up);
   window.addEventListener("pointercancel", up);
   stage.addEventListener("contextmenu", function (e) { e.preventDefault(); });

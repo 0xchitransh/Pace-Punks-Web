@@ -38,9 +38,7 @@ export function Navbar() {
   const links = [
     { href: "/", label: "HOME", key: "1" },
     { href: "/epochs", label: "EPOCHS", key: "2" },
-    { href: "/collection", label: "COLLECTION", key: "3" },
-    { href: "/how-it-works", label: "HOW TO PLAY", key: "4" },
-    { href: "/game", label: "GAME", key: "5" },
+    { href: "/game", label: "GAME", key: "3" },
   ];
 
   return (

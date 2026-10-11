@@ -30,6 +30,10 @@ body {
   text-shadow: 0 0 6px color-mix(in srgb, var(--bbs-color) 90%, transparent), 0 0 12px color-mix(in srgb, var(--bbs-color) 70%, transparent), 0 0 22px color-mix(in srgb, var(--bbs-color) 40%, transparent);
 }
 
+.bg-bbs, .bg-bbs *, [class*="bg-bbs"], .text-background {
+  text-shadow: none !important;
+}
+
 /* CRT Scanline Effect */
 body::after {
   content: " ";

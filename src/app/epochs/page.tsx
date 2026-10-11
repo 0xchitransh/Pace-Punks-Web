@@ -118,22 +118,6 @@ export default function EpochsPage() {
 
   const activeEpoch = epochsData[activeEpochIndex];
 
-  // Countdown timer for live epoch
-  const [timeLeft, setTimeLeft] = React.useState({ days: 19, hours: 4, mins: 12, secs: 30 });
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      const diff = Math.max(0, activeEpoch.endTimestamp - Date.now());
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      const secs = Math.floor((diff / 1000) % 60);
-      setTimeLeft({ days, hours, mins, secs });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [activeEpoch]);
-
-  const percentMinted = ((activeEpoch.minted / activeEpoch.supply) * 100).toFixed(1);
-
   return (
     <div className="w-full min-h-screen bg-background text-bbs p-2.5 sm:p-6 md:p-10 font-mono tracking-wider sm:tracking-widest relative z-10 flex flex-col items-center">
       <div className="w-full max-w-6xl flex flex-col gap-4 sm:gap-6">
@@ -155,7 +139,7 @@ export default function EpochsPage() {
 
           <div className="flex items-center gap-1.5">
             <span className="text-xs text-bbs/70 hidden sm:inline">&gt; SUB-SYSTEMS:</span>
-            <span className="text-[10px] sm:text-xs px-2 py-0.5 sm:py-1 bg-bbs text-background font-bold">
+            <span className="text-[10px] sm:text-xs px-2 py-0.5 sm:py-1 border border-bbs text-bbs bg-bbs/15 font-bold">
               NODE_SYNC
             </span>
           </div>
@@ -194,9 +178,9 @@ export default function EpochsPage() {
                     EPOCH {ep.number}
                   </span>
                   <span
-                    className={`text-[9px] xs:text-[10px] px-1 py-0.2 sm:px-1.5 sm:py-0.5 font-bold self-start sm:self-auto ${
+                    className={`text-[9px] xs:text-[10px] px-1.5 py-0.5 font-bold self-start sm:self-auto ${
                       ep.status === "LIVE"
-                        ? "bg-bbs text-background font-bold"
+                        ? "border border-bbs text-bbs bg-bbs/20 font-bold"
                         : "border border-bbs/40 text-bbs/60"
                     }`}
                   >
@@ -220,15 +204,15 @@ export default function EpochsPage() {
           <span className="absolute -bottom-2.5 -left-1.5 text-bbs text-base font-mono">└</span>
           <span className="absolute -bottom-2.5 -right-1.5 text-bbs text-base font-mono">┘</span>
 
-          {/* Epoch Top Header with Countdown */}
+          {/* Epoch Top Header with Glitched / Redacted Status */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 sm:pb-4 mb-4 sm:mb-6 border-b-2 border-bbs/40 gap-3">
             <div>
               <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                <span className="text-[10px] sm:text-xs px-1.5 py-0.5 bg-bbs text-background font-bold">
+                <span className="text-[10px] sm:text-xs px-1.5 py-0.5 border border-bbs text-bbs bg-bbs/20 font-bold">
                   {activeEpoch.status}
                 </span>
-                <span className="text-[10px] sm:text-xs text-bbs/70">
-                  {activeEpoch.startDate} — {activeEpoch.endDate}
+                <span className="text-[10px] sm:text-xs text-bbs/70 font-mono">
+                  WINDOW: [CLASSIFIED // REDACTED]
                 </span>
               </div>
               <h2 className="text-xl sm:text-3xl font-bold tracking-wider text-bbs">
@@ -236,57 +220,38 @@ export default function EpochsPage() {
               </h2>
             </div>
 
-            {/* Live Synchronized Countdown Timer */}
-            {activeEpoch.status === "LIVE" ? (
-              <div className="border border-bbs/60 p-2 sm:p-2.5 bg-bbs/5 flex flex-col items-start sm:items-end w-full sm:w-auto">
-                <span className="text-[9px] sm:text-[10px] text-bbs/70 block mb-1">&gt; CLOSURE COUNTDOWN:</span>
-                <div className="flex items-center gap-1 sm:gap-2 font-mono text-xs sm:text-base font-bold text-bbs">
-                  <div className="text-center px-1 sm:px-1.5 py-0.5 bg-background border border-bbs/40 min-w-[34px] sm:min-w-[42px]">
-                    <span>{String(timeLeft.days).padStart(2, "0")}</span>
-                    <span className="text-[8px] sm:text-[9px] block text-bbs/60">DAYS</span>
-                  </div>
-                  <span>:</span>
-                  <div className="text-center px-1 sm:px-1.5 py-0.5 bg-background border border-bbs/40 min-w-[34px] sm:min-w-[42px]">
-                    <span>{String(timeLeft.hours).padStart(2, "0")}</span>
-                    <span className="text-[8px] sm:text-[9px] block text-bbs/60">HRS</span>
-                  </div>
-                  <span>:</span>
-                  <div className="text-center px-1 sm:px-1.5 py-0.5 bg-background border border-bbs/40 min-w-[34px] sm:min-w-[42px]">
-                    <span>{String(timeLeft.mins).padStart(2, "0")}</span>
-                    <span className="text-[8px] sm:text-[9px] block text-bbs/60">MIN</span>
-                  </div>
-                  <span>:</span>
-                  <div className="text-center px-1 sm:px-1.5 py-0.5 bg-background border border-bbs/40 min-w-[34px] sm:min-w-[42px]">
-                    <span>{String(timeLeft.secs).padStart(2, "0")}</span>
-                    <span className="text-[8px] sm:text-[9px] block text-bbs/60">SEC</span>
-                  </div>
-                </div>
+            {/* Glitched Redacted Countdown / Time Window */}
+            <div className="border border-bbs/50 p-2 sm:p-2.5 bg-bbs/[0.04] flex flex-col items-start sm:items-end w-full sm:w-auto font-mono">
+              <span className="text-[9px] sm:text-[10px] text-bbs/70 block mb-1">&gt; CLOSURE_STATUS:</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold">
+                <span className="px-1.5 py-0.5 border border-red-500/60 bg-red-950/40 text-red-400 text-[10px] sm:text-xs tracking-wider">
+                  [REDACTED]
+                </span>
+                <span className="tracking-widest text-bbs/80 select-none">
+                  ██:██:██:██
+                </span>
               </div>
-            ) : (
-              <div className="border border-bbs/40 p-2 text-xs text-bbs/60">
-                [!] LOCKED ARCHIVE: OPENS {activeEpoch.startDate}
-              </div>
-            )}
+            </div>
           </div>
 
           {/* Mode Switcher Navigation */}
           <div className="flex items-center gap-1.5 sm:gap-2 border-b border-bbs/30 pb-2.5 mb-4 sm:mb-6 text-xs overflow-x-auto">
             <button
               onClick={() => setViewMode("OVERVIEW")}
-              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 font-bold transition-colors whitespace-nowrap ${
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 font-bold transition-colors whitespace-nowrap border ${
                 viewMode === "OVERVIEW"
-                  ? "bg-bbs text-background"
-                  : "border border-bbs/50 hover:bg-bbs/10 text-bbs"
+                  ? "border-bbs bg-bbs/25 text-bbs shadow-[0_0_12px_var(--color-bbs-dim)]"
+                  : "border-bbs/40 text-bbs/70 hover:bg-bbs/10 hover:text-bbs"
               }`}
             >
               [1] OVERVIEW &amp; SPEC
             </button>
             <button
               onClick={() => setViewMode("TELEMETRY")}
-              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 font-bold transition-colors whitespace-nowrap ${
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 font-bold transition-colors whitespace-nowrap border ${
                 viewMode === "TELEMETRY"
-                  ? "bg-bbs text-background"
-                  : "border border-bbs/50 hover:bg-bbs/10 text-bbs"
+                  ? "border-bbs bg-bbs/25 text-bbs shadow-[0_0_12px_var(--color-bbs-dim)]"
+                  : "border-bbs/40 text-bbs/70 hover:bg-bbs/10 hover:text-bbs"
               }`}
             >
               [2] LIVE MINTER FEED
@@ -363,26 +328,26 @@ export default function EpochsPage() {
               {/* Right Column: Telemetry Specs & Tier Matrix */}
               <div className="lg:col-span-7 flex flex-col justify-between gap-4 sm:gap-6">
 
-                {/* Live ASCII Verification Stream Bar - Mobile & Desktop Responsive */}
+                {/* Live ASCII Verification Stream Bar - Glitched & Redacted */}
                 <div className="border border-bbs/40 p-2.5 sm:p-3 bg-bbs/[0.02]">
-                  <div className="flex justify-between text-xs mb-1.5 font-bold">
+                  <div className="flex justify-between items-center text-xs mb-1.5 font-bold">
                     <span className="text-bbs/80 text-[11px] sm:text-xs">&gt; VERIFICATION STREAM:</span>
-                    <span className="text-xs">{percentMinted}%</span>
+                    <span className="text-bbs font-mono text-[11px] sm:text-xs px-1.5 py-0.5 border border-bbs/30 bg-bbs/10 tracking-widest">[REDACTED // ██.█%]</span>
                   </div>
 
-                  {/* Desktop / Tablet ASCII Bar (36 Chars) */}
-                  <div className="hidden sm:block w-full font-mono text-xs tracking-tighter text-bbs overflow-hidden">
-                    [{Array(Math.max(1, Math.floor((activeEpoch.minted / activeEpoch.supply) * 36))).fill('=').join('')}&gt;{Array(Math.max(0, 36 - Math.floor((activeEpoch.minted / activeEpoch.supply) * 36))).fill('.').join('')}]
+                  {/* Desktop / Tablet Glitched ASCII Bar */}
+                  <div className="hidden sm:block w-full font-mono text-xs tracking-widest text-bbs/80 overflow-hidden select-none">
+                    [====████▒▒▓▓#?%&amp;*!====████▒▒▓▓====]
                   </div>
 
-                  {/* Mobile Compact ASCII Bar (18 Chars - Never Overflows 320px) */}
-                  <div className="block sm:hidden w-full font-mono text-[11px] tracking-tight text-bbs overflow-hidden">
-                    [{Array(Math.max(1, Math.floor((activeEpoch.minted / activeEpoch.supply) * 18))).fill('=').join('')}&gt;{Array(Math.max(0, 18 - Math.floor((activeEpoch.minted / activeEpoch.supply) * 18))).fill('.').join('')}]
+                  {/* Mobile Compact Glitched ASCII Bar */}
+                  <div className="block sm:hidden w-full font-mono text-[11px] tracking-tight text-bbs/80 overflow-hidden select-none">
+                    [==███▒▒▓▓?%*!==]
                   </div>
 
-                  <div className="flex justify-between text-[10px] text-bbs/60 mt-1">
-                    <span>RESERVED: {activeEpoch.minted}</span>
-                    <span>REMAINING: {activeEpoch.supply - activeEpoch.minted}</span>
+                  <div className="flex justify-between text-[10px] text-bbs/60 mt-1 font-mono">
+                    <span>RESERVED: [CLASSIFIED]</span>
+                    <span>SUPPLY: [REDACTED // ████]</span>
                   </div>
                 </div>
 

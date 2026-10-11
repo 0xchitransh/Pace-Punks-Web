@@ -7,18 +7,18 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 export default function HomePage() {
   return (
-    <div className="w-full min-h-screen bg-background text-bbs p-2.5 pt-3 sm:p-6 sm:pt-8 md:p-12 font-mono uppercase tracking-wider sm:tracking-widest relative z-10">
+    <div className="w-full min-h-screen bg-background text-bbs p-3 pt-4 sm:p-6 sm:pt-8 md:p-12 font-mono uppercase tracking-wider sm:tracking-widest relative z-10">
       <div className="max-w-6xl mx-auto">
         
         {/* Responsive Grid: Character on the right for BOTH mobile and laptop */}
-        <div className="grid grid-cols-12 gap-2.5 sm:gap-6 lg:gap-16 items-start">
+        <div className="grid grid-cols-12 gap-3 sm:gap-6 lg:gap-16 items-start">
           
           {/* Top Left Header Text on Mobile / Left Column Top on Laptop */}
           <div className="col-span-7 sm:col-span-7 lg:col-span-7 flex flex-col justify-start">
-            <div className="mb-2 sm:mb-5 text-[10px] xs:text-xs sm:text-base">
+            <div className="mb-2 sm:mb-4 text-xs sm:text-base">
               <p className="mb-0.5 sm:mb-1">CONNECTING TO BBS...</p>
               <p className="mb-0.5 sm:mb-1">BAUD RATE: 9600</p>
-              <p className="mb-1.5 sm:mb-3">STATUS: <span className="text-bbs font-bold">ESTABLISHED</span></p>
+              <p className="mb-2 sm:mb-3">STATUS: <span className="text-bbs font-bold">ESTABLISHED</span></p>
             </div>
 
             <TypewriterText 
@@ -30,7 +30,7 @@ export default function HomePage() {
                 "==================="
               ]} 
               delay={50}
-              className="text-xs xs:text-sm sm:text-xl lg:text-3xl mb-2 sm:mb-6 leading-tight sm:leading-relaxed whitespace-pre-wrap font-bold"
+              className="text-sm xs:text-base sm:text-xl lg:text-3xl mb-2.5 sm:mb-5 leading-tight sm:leading-relaxed whitespace-pre-wrap font-bold"
             />
 
             <TypewriterText 
@@ -42,7 +42,7 @@ export default function HomePage() {
               ]} 
               delay={30}
               startDelay={1500}
-              className="text-[10px] xs:text-xs sm:text-base mb-2 sm:mb-6 leading-normal sm:leading-loose text-bbs/80"
+              className="text-xs sm:text-base mb-2.5 sm:mb-5 leading-normal sm:leading-loose text-bbs/80"
             />
           </div>
 
@@ -52,7 +52,7 @@ export default function HomePage() {
           </div>
 
           {/* Terminal Prompt: Full width under top section on mobile, left column bottom on laptop */}
-          <div className="col-span-12 lg:col-span-7 mt-1 sm:mt-3 lg:mt-0">
+          <div className="col-span-12 lg:col-span-7 mt-3 sm:mt-5 lg:mt-0">
             <TerminalPrompt />
           </div>
 
@@ -434,7 +434,7 @@ function TerminalPrompt() {
       className="flex flex-col gap-2 text-sm md:text-base cursor-text font-mono" 
       onClick={() => inputRef.current?.focus()}
     >
-      <div className="flex flex-col gap-1.5 overflow-y-auto max-h-[380px] pr-2 scrollbar-none">
+      <div className="flex flex-col gap-1.5 overflow-y-auto min-h-[110px] sm:min-h-[160px] max-h-[380px] pr-2 scrollbar-none">
         {history.map((line, i) => (
           <div key={i} className="leading-relaxed whitespace-pre-wrap select-text">
             {line}

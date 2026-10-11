@@ -15,9 +15,9 @@ export function CityBackground() {
 
   return (
     <div 
-      className="fixed inset-0 z-0 pointer-events-none opacity-25 mix-blend-screen"
+      className="fixed inset-0 z-0 pointer-events-none opacity-30 mix-blend-screen"
       style={{
-        // Only one building skyline layer plus sky
+        // One building skyline layer plus sky, scaled responsively for both mobile and laptop
         backgroundImage: `
           url('/bg/Buildings%201.png'),
           url('/bg/Sky.png')
@@ -27,7 +27,7 @@ export function CityBackground() {
           center center
         `,
         backgroundRepeat: 'repeat-x, no-repeat',
-        backgroundSize: 'auto 280px, cover',
+        backgroundSize: 'auto clamp(380px, 58vh, 520px), cover',
         imageRendering: 'pixelated'
       }}
     />

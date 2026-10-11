@@ -162,22 +162,14 @@ export default function EpochsPage() {
         </div>
 
         {/* System Directive Banner */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs border border-bbs/40 p-3 bg-background/85">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs border border-bbs/40 p-3 bg-background/85">
           <div className="border-b md:border-b-0 md:border-r border-bbs/30 pb-2 md:pb-0 md:pr-3">
             <span className="text-bbs/60 block mb-0.5">&gt; DIRECTIVE:</span>
             <span className="font-semibold text-bbs">STEP-VERIFIED ON-CHAIN RELEASE</span>
           </div>
-          <div className="border-b md:border-b-0 md:border-r border-bbs/30 pb-2 md:pb-0 md:pr-3">
+          <div>
             <span className="text-bbs/60 block mb-0.5">&gt; PROTOCOL:</span>
             <span className="font-semibold text-bbs">ZERO SPECULATION / UTILITY ONLY</span>
-          </div>
-          <div className="border-b md:border-b-0 md:border-r border-bbs/30 pb-2 md:pb-0 md:pr-3">
-            <span className="text-bbs/60 block mb-0.5">&gt; ACTIVE CADENCE:</span>
-            <span className="font-semibold text-bbs">1 EPOCH PER 30 DAYS</span>
-          </div>
-          <div>
-            <span className="text-bbs/60 block mb-0.5">&gt; TOTAL COLLECTION:</span>
-            <span className="font-semibold text-bbs">6,000 UNIQUE PUNKS</span>
           </div>
         </div>
 
@@ -197,7 +189,7 @@ export default function EpochsPage() {
                     : "border-bbs/40 bg-background/60 hover:border-bbs/70 hover:bg-bbs/5"
                 }`}
               >
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center justify-between">
                   <span className="text-base sm:text-lg font-bold text-bbs tracking-wider">EPOCH {ep.number}</span>
                   <span
                     className={`text-[10px] px-1.5 py-0.5 font-bold ${
@@ -208,10 +200,6 @@ export default function EpochsPage() {
                   >
                     {ep.status}
                   </span>
-                </div>
-                <div className="text-xs text-bbs/70 mt-1 flex justify-between">
-                  <span>SUPPLY: {ep.supply}</span>
-                  <span>{ep.requirement}</span>
                 </div>
                 {isCurrent && (
                   <div className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-bbs border border-background"></div>
@@ -370,22 +358,6 @@ export default function EpochsPage() {
 
               {/* Right Column: Telemetry Specs & Tier Matrix */}
               <div className="lg:col-span-7 flex flex-col justify-between gap-6">
-                
-                {/* Stats Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
-                  <div className="border border-bbs/40 p-3 bg-bbs/[0.03]">
-                    <span className="text-bbs/60 block mb-0.5">&gt; REQUIREMENT</span>
-                    <span className="text-base sm:text-lg font-bold text-bbs">{activeEpoch.requirement}</span>
-                  </div>
-                  <div className="border border-bbs/40 p-3 bg-bbs/[0.03]">
-                    <span className="text-bbs/60 block mb-0.5">&gt; TOTAL SUPPLY</span>
-                    <span className="text-base sm:text-lg font-bold text-bbs">{activeEpoch.supply.toLocaleString()} PUNKS</span>
-                  </div>
-                  <div className="border border-bbs/40 p-3 bg-bbs/[0.03] col-span-2 sm:col-span-1">
-                    <span className="text-bbs/60 block mb-0.5">&gt; COMPLETED</span>
-                    <span className="text-base sm:text-lg font-bold text-bbs">{activeEpoch.minted.toLocaleString()} UNITS</span>
-                  </div>
-                </div>
 
                 {/* Live ASCII Verification Stream Bar */}
                 <div className="border border-bbs/40 p-3 bg-bbs/[0.02]">

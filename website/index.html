@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Pace Punks is a walking game for your phone. Every verified minute you move powers up a pixel Punk. Join early access.">
+<meta name="theme-color" content="#140F33">
+<meta property="og:title" content="Pace Punks: early access">
+<meta property="og:description" content="Walk it. Level it. Evolve it. A walking game with 6,000 pixel Punks. Join early access.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon-180.png">
+<!--ARTIFACT:START-->
+<title>Pace Punks Early Access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Silkscreen:wght@400;700&family=Sora:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<!--HEAD:END-->
+</head>
+<body>
+<!--BODY:START-->
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <div class="wrap nav__inner">
+    <a class="brand" href="#top" aria-label="Pace Punks home">
+      <img src="assets/img/mark.svg" alt="" width="36" height="36" class="px">
+      <img src="assets/img/wordmark.svg" alt="Pace Punks" width="168" height="23" class="px brand__word">
+    </a>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#punk">Your Punk</a>
+      <a href="#collection">Collection</a>
+      <a href="#releases">Releases</a>
+      <a href="#faq">FAQ</a>
+      <a href="game/index.html">Play</a>
+    </nav>
+    <a class="btn btn--sm" href="#join">Join early access</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <canvas class="hero__sky" id="sky" width="320" height="120" aria-hidden="true"></canvas>
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <p class="chip chip--live"><span class="dot"></span>Early access · Season 0 playtest</p>
+        <h1 class="display">Walk it.<br>Level it.<br><span class="sunset">Evolve it.</span></h1>
+        <p class="lede">Pace Punks is a walking game for your phone. Every verified minute you move powers up a pixel Punk with its own stats, sneakers and attitude.</p>
+        <form class="quick" id="quickForm" novalidate>
+          <label for="quickEmail" class="sr">Email address</label>
+          <input id="quickEmail" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" required>
+          <button class="btn" type="submit">Get early access</button>
+        </form>
+        <p class="fine">Free to join. Coming to iOS and Android.</p>
+      </div>
+
+      <div class="stage" aria-label="Featured Punks">
+        <div class="stage__frame">
+          <canvas id="stageCanvas" width="627" height="627" class="stage__art px" role="img" aria-label="Pace Punk"></canvas>
+          <div class="hud" aria-hidden="true">
+            <div class="hud__row"><span class="label">Today</span><span class="hud__val"><b>32</b> min</span></div>
+            <div class="hud__row"><span class="label">Move score</span><span class="hud__val"><b>35</b>/35</span></div>
+            <div class="hud__bar"><span class="label">Battery</span><i style="--v:.71;--c:var(--aqua)"></i></div>
+            <div class="hud__bar"><span class="label">Durability</span><i style="--v:.88;--c:var(--sunset)"></i></div>
+            <div class="hud__lvl label">LV 07 · <span id="stageName">#0008</span></div>
+          </div>
+        </div>
+        <p class="stage__note label"><span>Example HUD · art from the first 100 previews</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track" id="marqueeA"></div>
+    <div class="marquee__track marquee__track--rev" id="marqueeB"></div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how">
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2 class="h2">Your steps are the game controller.</h2>
+      <ol class="steps">
+        <li class="step">
+          <span class="step__n">1</span>
+          <h3>Move</h3>
+          <p>Walk for at least 10 minutes. The app verifies each session on your phone, and overlapping data only counts once.</p>
+        </li>
+        <li class="step">
+          <span class="step__n">2</span>
+          <h3>Score</h3>
+          <p>Earn up to <b>35 Movement Score</b> a day. It never resets, and it unlocks your place in each Punk release.</p>
+        </li>
+        <li class="step">
+          <span class="step__n">3</span>
+          <h3>Earn GP</h3>
+          <p>Verified minutes earn GP, the in-game currency. Spend it on repairs, levels and upgrades for your Punk.</p>
+        </li>
+        <li class="step">
+          <span class="step__n">4</span>
+          <h3>Level up</h3>
+          <p>Climb from level 1 to 30, gain two attribute points per level, then unlock one evolution with a new look.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- YOUR PUNK -->
+  <section class="section section--alt" id="punk">
+    <div class="wrap">
+      <p class="eyebrow">Your Punk</p>
+      <h2 class="h2">Five stats. Each one has a single job.</h2>
+      <p class="sub">Every Punk starts at 20 in each attribute and caps at 100. You decide where the points go.</p>
+
+      <div class="punkcard">
+        <div class="punkcard__art">
+          <img id="buildArt" class="px" src="assets/punks/0016.webp" alt="Pace Punk #0016" width="627" height="627" loading="lazy">
+          <div class="build">
+            <span class="label">Build</span>
+            <div class="build__tabs" role="tablist" aria-label="Example builds">
+              <button role="tab" aria-selected="true" data-build="start">Lv 1</button>
+              <button role="tab" aria-selected="false" data-build="walker">Walker</button>
+              <button role="tab" aria-selected="false" data-build="grinder">Grinder</button>
+              <button role="tab" aria-selected="false" data-build="balanced">Lv 30</button>
+            </div>
+          </div>
+        </div>
+        <ul class="attrs" id="attrs">
+          <li style="--c:var(--a-eff)"><div class="attrs__top"><span class="label">Efficiency</span><b data-k="E">20</b></div><div class="meter"><i></i></div><p>Raises your share of the daily GP pool.</p></li>
+          <li style="--c:var(--a-sta)"><div class="attrs__top"><span class="label">Stamina</span><b data-k="S">20</b></div><div class="meter"><i></i></div><p>Bigger battery, so more minutes a day count toward GP.</p></li>
+          <li style="--c:var(--a-res)"><div class="attrs__top"><span class="label">Resilience</span><b data-k="R">20</b></div><div class="meter"><i></i></div><p>Your Punk wears out slower, so you repair less.</p></li>
+          <li style="--c:var(--a-mom)"><div class="attrs__top"><span class="label">Momentum</span><b data-k="M">20</b></div><div class="meter"><i></i></div><p>Rewards five active days a week. Rest days never break it.</p></li>
+          <li style="--c:var(--a-foc)"><div class="attrs__top"><span class="label">Focus</span><b data-k="F">20</b></div><div class="meter"><i></i></div><p>More XP from each walk, then cosmetic mastery after level 30.</p></li>
+        </ul>
+      </div>
+
+      <div class="mech">
+        <article class="mech__item">
+          <h3><span class="label tag tag--aqua">Battery</span></h3>
+          <p>Your daily rewardable minutes. It recharges for free every day, and you can't buy extra.</p>
+          <p class="mono"><span id="batteryOut">33</span> min/day at Stamina <span id="batteryS">20</span></p>
+        </article>
+        <article class="mech__item">
+          <h3><span class="label tag tag--sunset">Durability</span></h3>
+          <p>A 0–100 condition meter that drops as you walk. Fix it with GP or a repair patch from a Pace Box.</p>
+          <p class="mono">Resilience slows wear by up to 50%</p>
+        </article>
+        <article class="mech__item">
+          <h3><span class="label tag tag--pink">Pace Boxes</span></h3>
+          <p>Free to open. No keys, no paid rerolls, and the odds are published.</p>
+          <table class="odds">
+            <tbody>
+              <tr><td>Repair patch</td><td>40%</td></tr>
+              <tr><td>Attribute upgrade card</td><td>25%</td></tr>
+              <tr><td>Focus booster</td><td>20%</td></tr>
+              <tr><td>Cosmetic</td><td>10%</td></tr>
+              <tr><td>Invite code</td><td>5%</td></tr>
+            </tbody>
+          </table>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOVEMENT SCORE -->
+  <section class="section" id="score">
+    <div class="wrap score">
+      <div class="score__intro">
+        <p class="eyebrow">Movement Score</p>
+        <h2 class="h2">See how soon you'd qualify.</h2>
+        <p class="sub">Each release of Punks has a lifetime Movement Score requirement. Scores carry over, so a late starter earns at exactly the same rate as an early one. Minting never spends your score.</p>
+        <div class="calc">
+          <div class="calc__field">
+            <label for="mins" class="label">Minutes per active day <output id="minsOut" for="mins">30</output></label>
+            <input type="range" id="mins" min="0" max="60" step="1" value="30">
+          </div>
+          <div class="calc__field">
+            <label for="days" class="label">Active days per week <output id="daysOut" for="days">5</output></label>
+            <input type="range" id="days" min="1" max="7" step="1" value="5">
+          </div>
+          <div class="calc__result">
+            <div><span class="label">Daily score</span><b id="dailyScore" class="bignum">35</b></div>
+            <div><span class="label">Per week</span><b id="weeklyScore" class="bignum">175</b></div>
+          </div>
+          <p class="fine" id="scoreRule">10 minutes to score. 20+ minutes adds a 5 point bonus. Score counts up to 30 minutes a day.</p>
+        </div>
+      </div>
+      <div class="ladder" id="ladder" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- COLLECTION -->
+  <section class="section section--alt" id="collection">
+    <div class="wrap">
+      <div class="coll__head">
+        <div>
+          <p class="eyebrow">The first 100</p>
+          <h2 class="h2">Meet the crew.</h2>
+          <p class="sub">Preview Punks from the first art drop, built from eight trait layers. Tap one to see its traits.</p>
+        </div>
+        <div class="filters">
+          <label class="sr" for="fType">Trait type</label>
+          <select id="fType">
+            <option value="">All traits</option>
+          </select>
+          <label class="sr" for="fValue">Trait value</label>
+          <select id="fValue" disabled>
+            <option value="">Any</option>
+          </select>
+          <span class="label count" id="fCount">100 Punks</span>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <p class="fine center">Previews only. The final trait list and rarity are published before any release, and you see your exact Punk before you pay.</p>
+    </div>
+  </section>
+
+  <!-- RELEASES -->
+  <section class="section" id="releases">
+    <div class="wrap">
+      <p class="eyebrow">Releases</p>
+      <h2 class="h2">6,000 Punks. Ten releases of 600.</h2>
+      <p class="sub">The price of each release is fixed now and doubles from one to the next. A release only opens after the one before it sells out, the game is ready, and at least 30 days have passed. Later releases may never open.</p>
+      <div class="epochs__wrap"><div class="epochs" id="epochs"></div></div>
+      <div class="epochs__key"><span><i style="background:var(--sunset)"></i>First release</span><span><i style="background:var(--night-3)"></i>Launch target, releases 1–6</span><span><i style="background:var(--night-2)"></i>Future releases 7–10, only if demand is there</span></div>
+      <ul class="rules">
+        <li><b>See it before you buy.</b> Your Punk and its in-game stats are shown before payment. No blind rolls.</li>
+        <li><b>Fair draw.</b> If a release is oversubscribed, buyers are picked by a verifiable random draw with a public waitlist.</li>
+        <li><b>One each.</b> One Punk per verified person per release, and people without a Punk get first access.</li>
+        <li><b>No discounts, no hidden cuts.</b> Fees and taxes are shown separately from the fixed price.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FREE VS HOLDER -->
+  <section class="section section--alt" id="free">
+    <div class="wrap">
+      <p class="eyebrow">Free or holder</p>
+      <h2 class="h2">The game is free. A Punk makes it yours.</h2>
+      <div class="split">
+        <article class="tier">
+          <h3 class="tier__name">Free player</h3>
+          <ul>
+            <li>Activity tracking, goals and clubs</li>
+            <li>Quests and free Pace Boxes</li>
+            <li>28-day GP trial from your first walk</li>
+            <li>Free-player weekly leaderboard</li>
+          </ul>
+        </article>
+        <article class="tier tier--holder">
+          <h3 class="tier__name">Punk holder</h3>
+          <ul>
+            <li>Your own Punk with stats, battery and durability</li>
+            <li>Levels 1–30, builds and one evolution</li>
+            <li>Holder leaderboard and community seasons</li>
+            <li>Founder cosmetics for early supporters</li>
+          </ul>
+        </article>
+      </div>
+      <div class="pool">
+        <div class="pool__bar" role="img" aria-label="Daily GP budget: 85 percent holders, 15 percent free players">
+          <span style="flex:85">Holders 85%</span><span style="flex:15">Free 15%</span>
+        </div>
+        <p class="fine">How each day's GP budget is split. Owning more Punks doesn't multiply your daily GP.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="section" id="roadmap">
+    <div class="wrap">
+      <p class="eyebrow">Roadmap</p>
+      <h2 class="h2">We prove the game first.</h2>
+      <ol class="road">
+        <li class="road__item road__item--now">
+          <span class="label tag tag--aqua">Now recruiting</span>
+          <h3>Season 0 playtest</h3>
+          <p>200–500 early access players test walking, levels, battery, repairs and Pace Boxes. GP in the playtest is for testing only.</p>
+        </li>
+        <li class="road__item">
+          <span class="label tag">Next</span>
+          <h3>Game pilot</h3>
+          <p>Up to 1,000 verified players for at least 90 days. We tune rewards, fraud checks and appeals with real data.</p>
+        </li>
+        <li class="road__item">
+          <span class="label tag">Then</span>
+          <h3>First release</h3>
+          <p>600 Punks at $4.65 each, opened only once the pilot hits its targets. Movement Score 60 to qualify.</p>
+        </li>
+        <li class="road__item">
+          <span class="label tag">Later</span>
+          <h3>PP token</h3>
+          <p>A capped token you could convert leftover GP into. Details are still to be decided and need an audit and legal review first.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section class="section join" id="join">
+    <div class="wrap join__grid">
+      <div class="join__copy">
+        <p class="eyebrow">Early access</p>
+        <h2 class="h2">Get on the list.</h2>
+        <p class="sub">Early access members hear first about the playtest, app downloads and release dates.</p>
+        <div class="join__punks" id="joinPunks" aria-hidden="true"></div>
+      </div>
+
+      <div class="panel">
+        <form id="joinForm" class="form" novalidate>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="you@email.com">
+            <p class="err" id="emailErr" hidden>Enter an email address like name@example.com.</p>
+          </div>
+          <div class="field">
+            <label for="handle">X handle <span class="opt">optional</span></label>
+            <input id="handle" name="x_handle" type="text" autocomplete="off" placeholder="@yourname" maxlength="16">
+          </div>
+          <fieldset class="field">
+            <legend>Your phone</legend>
+            <div class="seg">
+              <input type="radio" id="osIos" name="platform" value="ios"><label for="osIos">iPhone</label>
+              <input type="radio" id="osAndroid" name="platform" value="android"><label for="osAndroid">Android</label>
+              <input type="radio" id="osBoth" name="platform" value="both"><label for="osBoth">Both</label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="move">How do you usually move?</label>
+            <select id="move" name="activity">
+              <option value="walk">Walking</option>
+              <option value="run">Running</option>
+              <option value="hike">Hiking</option>
+              <option value="adaptive">Wheelchair or adaptive</option>
+              <option value="mixed">A bit of everything</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="code">Invite code <span class="opt">optional</span></label>
+            <input id="code" name="invite_code" type="text" autocomplete="off" maxlength="24">
+          </div>
+          <label class="check"><input type="checkbox" id="playtest" name="playtest" checked> <span>Put me forward for the Season 0 playtest</span></label>
+          <label class="check"><input type="checkbox" id="consent" name="consent" required> <span>Email me about Pace Punks early access. I can unsubscribe anytime. <a href="privacy.html">Privacy</a></span></label>
+          <p class="err" id="consentErr" hidden>Tick the box so we can email you.</p>
+          <div class="hp" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" tabindex="-1" autocomplete="off"></div>
+          <button class="btn btn--wide" type="submit" id="joinBtn">Join early access</button>
+          <p class="err" id="sendErr" hidden>We couldn't save your signup. Check your connection and try again.</p>
+        </form>
+
+        <div class="done" id="done" hidden tabindex="-1">
+          <img src="assets/img/mark.svg" alt="" width="64" height="64" class="px">
+          <h3 class="display">You're on the list.</h3>
+          <p>We'll email <b id="doneEmail"></b> when the playtest opens.</p>
+          <p class="fine" id="demoNote" hidden>Preview mode: this signup was kept in your browser only. Connect a signup endpoint in <code>assets/js/config.js</code> to collect real signups.</p>
+          <div class="share">
+            <input id="shareUrl" readonly aria-label="Link to share">
+            <button class="btn btn--sm btn--ghost" type="button" id="copyBtn">Copy link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--alt" id="faq">
+    <div class="wrap faq">
+      <div>
+        <p class="eyebrow">FAQ</p>
+        <h2 class="h2">Good questions.</h2>
+      </div>
+      <div class="faq__list">
+        <details open>
+          <summary>Is Pace Punks free?</summary>
+          <p>Yes. Tracking, clubs, quests and Pace Boxes are free for everyone. New players also get a 28-day GP trial that starts on their first verified walk. A Punk adds a character you level up, but you can play without one.</p>
+        </details>
+        <details>
+          <summary>Do I need a crypto wallet?</summary>
+          <p>No. Early access and the playtest only need an email. Details about owning a Punk come with the first release.</p>
+        </details>
+        <details>
+          <summary>What counts as movement?</summary>
+          <p>During the pilot, walking and supported accessible activity. You need 10 verified minutes in a day to score. Going faster doesn't earn more, so walk at your own pace.</p>
+        </details>
+        <details>
+          <summary>How do you stop cheating?</summary>
+          <p>The app checks every walking minute against your phone's motion sensor and activity type, so shaking the phone, cycling or driving doesn't count. Location is optional and only used for speed, never to store your route. Before rewards go live, the server double-checks walks too, and if one is rejected by mistake you can appeal for seven days.</p>
+        </details>
+        <details>
+          <summary>Is a Punk an investment?</summary>
+          <p>No. Punks are collectible game characters and GP is an in-game currency. We make no promises about resale value, income or token prices. Play because the game is fun.</p>
+        </details>
+        <details>
+          <summary>When can I get a Punk?</summary>
+          <p>After the playtest and pilot. The first release is 600 Punks at $4.65, and you'll need a lifetime Movement Score of 60, about two days of 20+ minute walks.</p>
+        </details>
+        <details>
+          <summary>Which phones will it run on?</summary>
+          <p>iPhone and Android. Tell us which one you use when you sign up so we can invite the right testers.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div class="foot__brand">
+      <img src="assets/img/wordmark.svg" alt="Pace Punks" width="168" height="23" class="px">
+      <p class="fine">A walking game with pixel Punks.</p>
+    </div>
+    <nav class="foot__links" aria-label="Social">
+      <a data-social="x" href="#">X</a>
+      <a data-social="discord" href="#">Discord</a>
+      <a data-social="instagram" href="#">Instagram</a>
+      <a href="game/index.html">Play Corridor Run</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+    <p class="fine foot__legal">© 2026 Pace Punks. Pace Punks is a game. Nothing on this site is financial advice or a promise of earnings. Releases depend on demand and may not all open. Availability can depend on where you live.</p>
+  </div>
+</footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/punks-data.js"></script>
+<script src="assets/js/main.js"></script>
+<!--BODY:END-->
+</body>
+</html>

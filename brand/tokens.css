@@ -1,0 +1,27 @@
+/* Pace Punks brand tokens. Import Google Fonts:
+   https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Silkscreen:wght@400;700&family=Sora:wght@400;600&display=swap */
+:root {
+  --pp-night: #140F33;
+  --pp-night-2: #1E1749;
+  --pp-night-3: #2A2163;
+  --pp-line: #3B3180;
+  --pp-cream: #FFF3DE;
+  --pp-cream-dim: #BDB3D9;
+  --pp-sunset: #FF7A3D;
+  --pp-neon-pink: #FF4FA3;
+  --pp-aqua-pulse: #3EE6D2;
+  --pp-gold: #FFC93D;
+  --pp-danger: #FF5A5A;
+  --pp-attr-efficiency: #FF7A3D;
+  --pp-attr-stamina: #3EE6D2;
+  --pp-attr-resilience: #8C7CFF;
+  --pp-attr-momentum: #FF4FA3;
+  --pp-attr-focus: #FFC93D;
+  --pp-font-display: "Pixelify Sans", "Silkscreen", ui-monospace, monospace;
+  --pp-font-label: "Silkscreen", ui-monospace, monospace;
+  --pp-font-body: "Sora", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --pp-shadow-pixel: 4px 4px 0 var(--pp-neon-pink);
+  --pp-shadow-pixel-sm: 2px 2px 0 var(--pp-neon-pink);
+  --pp-radius-sm: 4px;
+  --pp-radius-md: 8px;
+}

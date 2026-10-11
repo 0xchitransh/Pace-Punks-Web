@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Corridor Run: a Pace Punks mini game. Jump the crates, grab chips, and climb the global leaderboard.">
+<meta name="theme-color" content="#140F33">
+<meta property="og:title" content="Corridor Run · Pace Punks">
+<meta property="og:description" content="Your Punk is late for the playtest. Jump the crates, grab chips, beat the board.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="../assets/img/og-image.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/img/apple-touch-icon-180.png">
+<title>Corridor Run · Pace Punks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Silkscreen:wght@400;700&family=Sora:wght@400;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="game.css">
+<link rel="preload" href="assets/punk-run.webp" as="image">
+</head>
+<body class="g-page">
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href="../index.html" aria-label="Pace Punks home">
+      <img src="../assets/img/mark.svg" alt="" width="36" height="36" class="px">
+      <img src="../assets/img/wordmark.svg" alt="Pace Punks" width="168" height="23" class="px brand__word">
+    </a>
+    <nav class="nav__links" aria-label="Site">
+      <a href="../index.html">Home</a>
+      <a href="#board">Leaderboard</a>
+      <a href="#rules">How scoring works</a>
+    </nav>
+    <a class="btn btn--sm" href="../index.html#join">Join early access</a>
+  </div>
+</header>
+
+<main class="g-main">
+  <div class="wrap">
+    <div class="g-head">
+      <p class="eyebrow">Mini game</p>
+      <h1 class="display g-title">Corridor Run</h1>
+      <p class="g-lede">Your Punk is late for the playtest. Jump the crates, grab chips, beat the board.</p>
+    </div>
+
+    <div class="g-grid">
+      <section class="arcade" id="arcade" aria-label="Corridor Run game">
+        <div class="gstage" id="stage">
+          <canvas id="game" tabindex="0" aria-label="Game. Press Space or tap to jump."></canvas>
+
+          <div class="scr scr--start" id="scrStart">
+            <p class="scr__kicker label">Pace Punks</p>
+            <p class="scr__title">Corridor Run</p>
+            <p class="scr__hint"><span class="only-kb">Press <kbd>Space</kbd> to run</span><span class="only-touch">Tap to run</span></p>
+            <p class="scr__sub label" id="startBest"></p>
+          </div>
+
+          <div class="scr scr--over" id="scrOver" hidden>
+            <p class="scr__title scr__title--sm">Wiped out</p>
+            <p class="scr__tag label" id="overTag" hidden>New best</p>
+            <div class="scr__scores">
+              <div><span class="label">Score</span><b id="overScore">00000</b></div>
+              <div><span class="label">Best</span><b id="overBest">00000</b></div>
+            </div>
+            <p class="scr__status" id="overStatus" role="status"></p>
+            <form class="scr__name" id="nameForm" hidden autocomplete="off">
+              <label for="nameInput" class="sr">Leaderboard name</label>
+              <input id="nameInput" maxlength="14" minlength="3" placeholder="Your name" required>
+              <button class="btn btn--sm" type="submit">Post score</button>
+            </form>
+            <button class="btn" id="btnAgain" type="button">Run again</button>
+            <p class="scr__hint scr__hint--sm"><span class="only-kb"><kbd>Space</kbd> to retry</span><span class="only-touch">Tap to retry</span></p>
+          </div>
+
+          <div class="scr scr--pause" id="scrPause" hidden>
+            <p class="scr__title scr__title--sm" id="pauseCount">Paused</p>
+            <p class="scr__hint"><span class="only-kb">Press <kbd>Space</kbd> to resume</span><span class="only-touch">Tap to resume</span></p>
+          </div>
+        </div>
+
+        <div class="arcade__bar">
+          <p class="arcade__keys label"><span class="only-kb"><kbd>Space</kbd> or <kbd>↑</kbd> jump · hold for higher · <kbd>↓</kbd> drop · <kbd>P</kbd> pause</span><span class="only-touch">Tap to jump · hold for higher</span></p>
+          <div class="arcade__btns">
+            <button class="btn btn--sm btn--ghost" id="btnMusic" type="button" aria-pressed="false">Music on</button>
+            <button class="btn btn--sm btn--ghost" id="btnMute" type="button" aria-pressed="false">Sound on</button>
+            <button class="btn btn--sm btn--ghost" id="btnFull" type="button">Full screen</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="lb" id="board" aria-labelledby="boardTitle">
+        <div class="lb__head">
+          <h2 class="lb__title" id="boardTitle">Leaderboard</h2>
+          <button class="lb__refresh label" id="btnRefresh" type="button">Refresh</button>
+        </div>
+        <p class="lb__mode label" id="boardMode" hidden>Preview mode: scores stay on this device until the board is connected.</p>
+        <ol class="lb__list" id="boardList"></ol>
+        <div class="lb__row lb__row--you is-me" id="boardYou" hidden></div>
+        <p class="lb__note fine" id="boardNote"></p>
+        <p class="lb__me fine" id="meLine">Running as <b id="myName">not set</b> · <button class="lb__link" id="btnEditName" type="button">change</button></p>
+        <form class="lb__edit" id="editForm" hidden autocomplete="off">
+          <label for="editInput" class="sr">Runner name</label>
+          <input id="editInput" maxlength="14" minlength="3" placeholder="Runner name" required>
+          <button class="btn btn--sm" type="submit">Save</button>
+        </form>
+      </aside>
+    </div>
+
+    <section class="rules" id="rules" aria-labelledby="rulesTitle">
+      <h2 class="h2" id="rulesTitle">How scoring works</h2>
+      <ul class="rules__list">
+        <li><b>Distance.</b> One point for every few steps. The run keeps getting faster and the obstacles keep getting closer the longer you last.</li>
+        <li><b>Chips.</b> Each gold chip you grab adds 25 points.</li>
+        <li><b>Big jumps.</b> Tap for a hop, hold for a high jump. On a keyboard, press down to drop fast.</li>
+        <li><b>A long journey.</b> The corridor runs through twelve parts of the station, from the mint concourse and the engine rooms to the labs, the sunset deck, the lounge and the aquarium, each with its own colours. Then it starts over.</li>
+        <li><b>Watch the drones.</b> Low drones need a jump. High drones only catch you if you jump into them.</li>
+        <li><b>Fair board.</b> Every ranked run is replayed on the server from your button presses, and the replay decides the score. Edited scores, sped-up games and reused runs are rejected. One spot per runner name.</li>
+      </ul>
+      <p class="fine">Corridor Run is a free mini game. Points here are just for the leaderboard and are not GP.</p>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div class="foot__brand">
+      <img src="../assets/img/wordmark.svg" alt="Pace Punks" width="168" height="23" class="px">
+      <p class="fine">A walking game with pixel Punks.</p>
+    </div>
+    <nav class="foot__links" aria-label="Links">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#join">Early access</a>
+      <a href="../privacy.html">Privacy</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="../assets/js/config.js"></script>
+<script src="sim.js"></script>
+<script src="leaderboard.js"></script>
+<script src="corridor.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

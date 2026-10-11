@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Corridor Run · Pace Punks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Silkscreen:wght@400;700&family=VT323&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="game.css">
+<link rel="preload" href="assets/punk-run.webp" as="image">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+  }
+  .arcade {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #000;
+  }
+  .gstage {
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto !important;
+    max-height: none !important;
+  }
+  .arcade__bar {
+    flex-shrink: 0;
+    background: #0b0820;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+</style>
+</head>
+<body class="g-page">
+  <section class="arcade" id="arcade" aria-label="Corridor Run game">
+    <div class="gstage" id="stage">
+      <canvas id="game" tabindex="0" aria-label="Game. Press Space or tap to jump."></canvas>
+
+      <div class="scr scr--start" id="scrStart">
+        <p class="scr__title">PACE PUNKS</p>
+        <p class="scr__hint"><span class="only-kb">Press <kbd>Space</kbd> to run</span><span class="only-touch">Tap to run</span></p>
+        <p class="scr__sub label" id="startBest"></p>
+      </div>
+
+      <div class="scr scr--over" id="scrOver" hidden>
+        <p class="scr__title scr__title--sm">Wiped out</p>
+        <p class="scr__tag label" id="overTag" hidden>New best</p>
+        <div class="scr__scores">
+          <div><span class="label">Score</span><b id="overScore">00000</b></div>
+          <div><span class="label">Best</span><b id="overBest">00000</b></div>
+        </div>
+        <p class="scr__status" id="overStatus" role="status"></p>
+        <form class="scr__name" id="nameForm" hidden autocomplete="off">
+          <label for="nameInput" class="sr">Leaderboard name</label>
+          <input id="nameInput" maxlength="14" minlength="3" placeholder="Username" required>
+          <label for="emailInput" class="sr">Email address</label>
+          <input id="emailInput" type="email" placeholder="Email address" required>
+          <button class="btn btn--sm" type="submit">Post score</button>
+        </form>
+        <button class="btn" id="btnAgain" type="button">Run again</button>
+        <p class="scr__hint scr__hint--sm"><span class="only-kb"><kbd>Space</kbd> to retry</span><span class="only-touch">Tap to retry</span></p>
+      </div>
+
+      <div class="scr scr--pause" id="scrPause" hidden>
+        <p class="scr__title scr__title--sm" id="pauseCount">Paused</p>
+        <p class="scr__hint"><span class="only-kb">Press <kbd>Space</kbd> to resume</span><span class="only-touch">Tap to resume</span></p>
+      </div>
+    </div>
+
+    <div class="arcade__bar">
+      <p class="arcade__keys label"><span class="only-kb"><kbd>Space</kbd> or <kbd>↑</kbd> jump · hold for higher · <kbd>↓</kbd> drop · <kbd>P</kbd> pause</span><span class="only-touch">Tap to jump · hold for higher</span></p>
+      <div class="arcade__btns">
+        <button class="btn btn--sm btn--ghost" id="btnMusic" type="button" aria-pressed="false">Music on</button>
+        <button class="btn btn--sm btn--ghost" id="btnMute" type="button" aria-pressed="false">Sound on</button>
+        <button class="btn btn--sm btn--ghost" id="btnFull" type="button">Full screen</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hidden leaderboard hooks to keep scripts functioning without null reference errors -->
+  <div style="display:none;" aria-hidden="true">
+    <ol id="boardList"></ol>
+    <div id="boardYou"></div>
+    <span id="boardNote"></span>
+    <span id="boardMode"></span>
+    <span id="myName"></span>
+    <button id="btnRefresh" type="button"></button>
+    <button id="btnEditName" type="button"></button>
+    <form id="editForm"><input id="editInput"></form>
+  </div>
+
+  <script src="../assets/js/config.js"></script>
+  <script src="sim.js"></script>
+  <script src="leaderboard.js"></script>
+  <script src="corridor.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

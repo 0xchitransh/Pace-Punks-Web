@@ -7,51 +7,57 @@ import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 export default function HomePage() {
   return (
-    <div className="w-full min-h-screen bg-background text-bbs p-3 pt-6 sm:p-6 sm:pt-10 md:p-12 font-mono uppercase tracking-wider sm:tracking-widest relative z-10">
-      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-24">
+    <div className="w-full min-h-screen bg-background text-bbs p-2.5 pt-3 sm:p-6 sm:pt-8 md:p-12 font-mono uppercase tracking-wider sm:tracking-widest relative z-10">
+      <div className="max-w-6xl mx-auto">
         
-        {/* Left Terminal Text Content */}
-        <div className="w-full lg:w-[60%] flex flex-col">
+        {/* Responsive Grid: Character on the right for BOTH mobile and laptop */}
+        <div className="grid grid-cols-12 gap-2.5 sm:gap-6 lg:gap-16 items-start">
           
-          <div className="mb-6 sm:mb-10 text-xs sm:text-base">
-            <p className="mb-1 sm:mb-2">CONNECTING TO PACE_PUNKS_BBS...</p>
-            <p className="mb-1 sm:mb-2">BAUD RATE: 9600</p>
-            <p className="mb-4 sm:mb-6">STATUS: <span className="text-bbs font-bold">ESTABLISHED</span></p>
+          {/* Top Left Header Text on Mobile / Left Column Top on Laptop */}
+          <div className="col-span-7 sm:col-span-7 lg:col-span-7 flex flex-col justify-start">
+            <div className="mb-2 sm:mb-5 text-[10px] xs:text-xs sm:text-base">
+              <p className="mb-0.5 sm:mb-1">CONNECTING TO BBS...</p>
+              <p className="mb-0.5 sm:mb-1">BAUD RATE: 9600</p>
+              <p className="mb-1.5 sm:mb-3">STATUS: <span className="text-bbs font-bold">ESTABLISHED</span></p>
+            </div>
+
+            <TypewriterText 
+              text={[
+                "===================",
+                " WALK IT.",
+                " LEVEL IT.",
+                " EVOLVE IT.",
+                "==================="
+              ]} 
+              delay={50}
+              className="text-xs xs:text-sm sm:text-xl lg:text-3xl mb-2 sm:mb-6 leading-tight sm:leading-relaxed whitespace-pre-wrap font-bold"
+            />
+
+            <TypewriterText 
+              text={[
+                "> PACE PUNKS IS A MOBILE",
+                "> WALKING SIMULATION.",
+                "> EVERY MINUTE POWERS UP",
+                "> A UNIQUE CYBER PUNK.",
+              ]} 
+              delay={30}
+              startDelay={1500}
+              className="text-[10px] xs:text-xs sm:text-base mb-2 sm:mb-6 leading-normal sm:leading-loose text-bbs/80"
+            />
           </div>
 
-          <TypewriterText 
-            text={[
-              "=========================================",
-              " W A L K  I T .",
-              " L E V E L  I T .",
-              " E V O L V E  I T .",
-              "========================================="
-            ]} 
-            delay={50}
-            className="text-sm xs:text-base sm:text-xl md:text-3xl mb-6 sm:mb-8 leading-relaxed whitespace-pre-wrap break-all sm:break-normal"
-          />
+          {/* Character Artwork: Always on the RIGHT on mobile and laptop */}
+          <div className="col-span-5 sm:col-span-5 lg:col-span-5 flex justify-end lg:row-span-2">
+            <PunkShowcase />
+          </div>
 
-          <TypewriterText 
-            text={[
-              "> SYSTEM_INFO: PACE PUNKS IS A MOBILE",
-              "> WALKING SIMULATION.",
-              "> EVERY VERIFIED MINUTE POWERS UP A",
-              "> PIXEL PUNK WITH UNIQUE STATS.",
-              " "
-            ]} 
-            delay={30}
-            startDelay={1500}
-            className="text-xs sm:text-base mb-6 sm:mb-10 leading-loose text-bbs/80"
-          />
-
-          <TerminalPrompt />
+          {/* Terminal Prompt: Full width under top section on mobile, left column bottom on laptop */}
+          <div className="col-span-12 lg:col-span-7 mt-1 sm:mt-3 lg:mt-0">
+            <TerminalPrompt />
+          </div>
 
         </div>
 
-        {/* Right Column: Character Artwork */}
-        <div className="w-full lg:w-[40%] flex justify-center lg:justify-end">
-          <PunkShowcase />
-        </div>
       </div>
     </div>
   );
@@ -525,10 +531,10 @@ function PunkShowcase() {
   }, [punks.length]);
 
   return (
-    <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[3/4] flex items-center justify-center">
+    <div className="relative w-full max-w-[165px] xs:max-w-[195px] sm:max-w-[260px] lg:max-w-[360px] aspect-[3/4] flex items-center justify-center">
       {/* Ambient scene backlight */}
       <div 
-        className={`absolute -inset-4 blur-3xl rounded-full pointer-events-none -z-10 transition-all duration-300 ${
+        className={`absolute -inset-2 sm:-inset-4 blur-2xl sm:blur-3xl rounded-full pointer-events-none -z-10 transition-all duration-300 ${
           isGlitching ? 'bg-bbs/30 scale-105' : 'bg-bbs/15 scale-100'
         }`} 
       />
@@ -564,23 +570,23 @@ function PunkShowcase() {
         )}
 
         {/* Soft edge-dissolve into page background */}
-        <div className="absolute inset-0 z-20 pointer-events-none shadow-[inset_0_0_45px_22px_var(--background)]" />
+        <div className="absolute inset-0 z-20 pointer-events-none shadow-[inset_0_0_30px_15px_var(--background)] sm:shadow-[inset_0_0_45px_22px_var(--background)]" />
 
         {/* Authentic scanline overlay */}
         <div className="absolute inset-0 z-25 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.18)_50%)] bg-[length:100%_4px]" />
       </div>
 
       {/* Retro BBS HUD tags - corner crosshairs & live buffer decoder */}
-      <div className={`absolute top-0 left-0 z-30 font-mono text-xs px-1 border transition-colors duration-150 backdrop-blur-xs ${
+      <div className={`absolute top-0 left-0 z-30 font-mono text-[9px] xs:text-[10px] sm:text-xs px-1 border transition-colors duration-150 backdrop-blur-xs ${
         isGlitching 
           ? 'bg-bbs text-background border-bbs font-bold shadow-[0_0_10px_var(--color-bbs)]' 
           : 'bg-background/80 text-bbs border-bbs/30'
       }`}>
         + {telemetry || `BUFFER_${punks[punkIndex]}`}
       </div>
-      <div className="absolute top-0 right-0 z-30 font-mono text-xs text-bbs select-none opacity-60">┌ ┐</div>
-      <div className="absolute bottom-0 left-0 z-30 font-mono text-xs text-bbs select-none opacity-60">└</div>
-      <div className="absolute bottom-0 right-0 z-30 font-mono text-xs text-bbs select-none opacity-60">┘</div>
+      <div className="absolute top-0 right-0 z-30 font-mono text-[9px] sm:text-xs text-bbs select-none opacity-60">┌ ┐</div>
+      <div className="absolute bottom-0 left-0 z-30 font-mono text-[9px] sm:text-xs text-bbs select-none opacity-60">└</div>
+      <div className="absolute bottom-0 right-0 z-30 font-mono text-[9px] sm:text-xs text-bbs select-none opacity-60">┘</div>
     </div>
   );
 }

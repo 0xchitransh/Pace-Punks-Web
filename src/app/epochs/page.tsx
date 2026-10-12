@@ -104,17 +104,9 @@ const epochsData: EpochData[] = [
   },
 ];
 
-const mockRecentActivity = [
-  { id: "tx_01", wallet: "0x7a2...f4e1", steps: 1420, punkId: "#0741", time: "1m ago" },
-  { id: "tx_02", wallet: "0x3bc...98d2", steps: 2280, punkId: "#0742", time: "4m ago" },
-  { id: "tx_03", wallet: "0x91e...11c4", steps: 1100, punkId: "#0740", time: "9m ago" },
-  { id: "tx_04", wallet: "0x44d...bb90", steps: 3500, punkId: "#0739", time: "16m ago" },
-];
-
 export default function EpochsPage() {
   // Tab & Interactive state
   const [activeEpochIndex, setActiveEpochIndex] = React.useState(0);
-  const [viewMode, setViewMode] = React.useState<"OVERVIEW" | "TELEMETRY">("OVERVIEW");
 
   const activeEpoch = epochsData[activeEpochIndex];
 
@@ -145,17 +137,6 @@ export default function EpochsPage() {
           </div>
         </div>
 
-        {/* System Directive Banner */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs border border-bbs/40 p-2.5 sm:p-3 bg-background/85">
-          <div className="border-b sm:border-b-0 sm:border-r border-bbs/30 pb-1.5 sm:pb-0 sm:pr-3">
-            <span className="text-bbs/60 block text-[10px] sm:text-xs mb-0.5">&gt; DIRECTIVE:</span>
-            <span className="font-semibold text-bbs text-xs sm:text-sm">STEP-VERIFIED ON-CHAIN RELEASE</span>
-          </div>
-          <div>
-            <span className="text-bbs/60 block text-[10px] sm:text-xs mb-0.5">&gt; PROTOCOL:</span>
-            <span className="font-semibold text-bbs text-xs sm:text-sm">ZERO SPECULATION / UTILITY ONLY</span>
-          </div>
-        </div>
 
         {/* Epoch Selector Station Tabs - Compact 3-Column on mobile */}
         <div className="grid grid-cols-3 gap-1.5 sm:gap-3">
@@ -228,32 +209,7 @@ export default function EpochsPage() {
             </div>
           </div>
 
-          {/* Mode Switcher Navigation */}
-          <div className="flex items-center gap-1.5 sm:gap-2 border-b border-bbs/30 pb-2.5 mb-4 sm:mb-6 text-xs overflow-x-auto">
-            <button
-              onClick={() => setViewMode("OVERVIEW")}
-              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 font-bold transition-colors whitespace-nowrap border ${
-                viewMode === "OVERVIEW"
-                  ? "border-bbs bg-bbs/25 text-bbs shadow-[0_0_12px_var(--color-bbs-dim)]"
-                  : "border-bbs/40 text-bbs/70 hover:bg-bbs/10 hover:text-bbs"
-              }`}
-            >
-              [1] OVERVIEW &amp; SPEC
-            </button>
-            <button
-              onClick={() => setViewMode("TELEMETRY")}
-              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 font-bold transition-colors whitespace-nowrap border ${
-                viewMode === "TELEMETRY"
-                  ? "border-bbs bg-bbs/25 text-bbs shadow-[0_0_12px_var(--color-bbs-dim)]"
-                  : "border-bbs/40 text-bbs/70 hover:bg-bbs/10 hover:text-bbs"
-              }`}
-            >
-              [2] MINTER FEED
-            </button>
-          </div>
 
-          {/* VIEW MODE 1: OVERVIEW & SPEC */}
-          {viewMode === "OVERVIEW" && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
               
               {/* Left Column: Holographic Punk Preview Card */}
@@ -358,46 +314,6 @@ export default function EpochsPage() {
 
               </div>
             </div>
-          )}
-
-          {/* VIEW MODE 2: LIVE COMMUNITY MINTER FEED */}
-          {viewMode === "TELEMETRY" && (
-            <div className="flex flex-col gap-3 max-w-4xl mx-auto py-1">
-              <div className="flex justify-between items-center border-b border-bbs/30 pb-1.5 text-xs">
-                <span className="font-bold text-bbs text-[11px] sm:text-xs">&gt;&gt; MINT DISPATCH QUEUE</span>
-                <span className="text-[10px] text-bbs/70">BLOCKS: OK</span>
-              </div>
-
-              <div className="overflow-x-auto -mx-1 px-1 sm:mx-0 sm:px-0">
-                <table className="w-full text-left text-xs border-collapse min-w-[480px]">
-                  <thead>
-                    <tr className="border-b border-bbs/40 text-bbs/60 uppercase text-[10px] sm:text-xs">
-                      <th className="py-1.5 px-2">ID</th>
-                      <th className="py-1.5 px-2">WALLET</th>
-                      <th className="py-1.5 px-2">STEPS</th>
-                      <th className="py-1.5 px-2">PUNK</th>
-                      <th className="py-1.5 px-2 text-right">TIME</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {mockRecentActivity.map((tx) => (
-                      <tr key={tx.id} className="border-b border-bbs/20 hover:bg-bbs/10 transition-colors text-[11px] sm:text-xs">
-                        <td className="py-2 px-2 font-mono text-bbs/70">{tx.id}</td>
-                        <td className="py-2 px-2 font-mono font-bold">{tx.wallet}</td>
-                        <td className="py-2 px-2 font-mono">{tx.steps.toLocaleString()}</td>
-                        <td className="py-2 px-2 font-mono text-bbs font-bold">{tx.punkId}</td>
-                        <td className="py-2 px-2 text-right text-bbs/60">{tx.time}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="text-[10px] sm:text-[11px] text-bbs/60 border border-bbs/30 p-2 bg-background/80 mt-1">
-                &gt; All mint transactions require zero speculative value. GP and Punks are earned solely through verified steps.
-              </div>
-            </div>
-          )}
 
         </div>
 

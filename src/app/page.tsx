@@ -62,7 +62,7 @@ export default function HomePage() {
                   Move
                 </h3>
                 <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed">
-                  Walk for at least 10 minutes. The app verifies each session on your phone, and overlapping data only counts once.
+                  Go for a walk. The app verifies each step session directly on your phone.
                 </p>
               </div>
             </div>
@@ -77,7 +77,7 @@ export default function HomePage() {
                   Score
                 </h3>
                 <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed">
-                  Earn up to <strong className="text-[#f7ebc9] font-bold">35 Movement Score</strong> a day. It never resets, and it unlocks your place in each Punk release.
+                  Earn Movement Scores for your steps and unlock exclusive benefits and rewards.
                 </p>
               </div>
             </div>
@@ -92,7 +92,7 @@ export default function HomePage() {
                   Earn GP
                 </h3>
                 <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed">
-                  Verified minutes earn GP, the in-game currency. Spend it on repairs, levels and upgrades for your Punk.
+                  Verified Movement Scores earn rewards and in-game tokens, which can be used for repairs, upgrades, and level-ups.
                 </p>
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function HomePage() {
                   Level up
                 </h3>
                 <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed">
-                  Climb from level 1 to 30, gain two attribute points per level, then unlock one evolution with a new look.
+                  Climb up your level. Each level upgrade grants up to 3 attribute upgrades, helping you earn even greater rewards.
                 </p>
               </div>
             </div>

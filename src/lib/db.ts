@@ -95,7 +95,7 @@ export async function addWaitlistEntry({
           email: normalizedEmail,
           wallet_address: walletAddress || null,
           queue_number: nextQueue,
-          ip: ip || null,
+          ip_address: ip || null,
           user_agent: userAgent || null,
         })
         .select()

@@ -140,7 +140,7 @@ export default function HomePage() {
                   BATTERY
                 </span>
                 <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed mb-4">
-                  Your daily rewardable minutes. It recharges for free every day, and you can&apos;t buy extra.
+                  Your daily walk capacity. It recharges for free every day, and you can&apos;t buy extra.
                 </p>
               </div>
               <p className="text-xs sm:text-sm text-[#ffd76f] font-mono font-bold tracking-wider pt-3 border-t border-[#504364]/50">
@@ -155,7 +155,7 @@ export default function HomePage() {
                   DURABILITY
                 </span>
                 <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed mb-4">
-                  A 0–100 condition meter that drops as you walk. Fix it with GP or a repair patch from a Pace Box.
+                  A 0–100 condition meter that drops as you walk. Repair it with MST or a repair patch from a Pace Box.
                 </p>
               </div>
               <p className="text-xs sm:text-sm text-[#3EE6D2] font-mono font-bold tracking-wider pt-3 border-t border-[#504364]/50">
@@ -643,14 +643,14 @@ function PunkStatsInteractive() {
       key: "E",
       val: stats.E,
       color: "#FF7A3D",
-      desc: "Raises your share of the daily GP pool.",
+      desc: "Raises your chances to earn better rewards.",
     },
     {
       name: "STAMINA",
       key: "S",
       val: stats.S,
       color: "#3EE6D2",
-      desc: "Bigger battery, so more minutes a day count toward GP.",
+      desc: "Bigger battery, more time to earn more rewards.",
     },
     {
       name: "RESILIENCE",
@@ -664,14 +664,14 @@ function PunkStatsInteractive() {
       key: "M",
       val: stats.M,
       color: "#FF4FA3",
-      desc: "Rewards five active days a week. Rest days never break it.",
+      desc: "Build your walk streak to get bonuses.",
     },
     {
       name: "FOCUS",
       key: "F",
       val: stats.F,
       color: "#FFC93D",
-      desc: "More XP from each walk, then cosmetic mastery after level 30.",
+      desc: "More XP for each walk, then mastery after level 50.",
     },
   ];
 

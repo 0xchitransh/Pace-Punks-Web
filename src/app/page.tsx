@@ -8,7 +8,7 @@ import { CorridorRunGame } from "@/components/game/CorridorRunGame";
 
 export default function HomePage() {
   return (
-    <div className="w-full min-h-screen bg-background text-bbs p-3 pt-4 sm:p-5 sm:pt-6 md:p-8 lg:p-10 font-mono uppercase tracking-wider sm:tracking-widest relative z-10">
+    <div className="w-full min-h-screen bg-transparent text-bbs p-3 pt-4 sm:p-5 sm:pt-6 md:p-8 lg:p-10 font-mono uppercase tracking-wider sm:tracking-widest relative z-10">
       <div className="max-w-[1520px] mx-auto">
         
         {/* Responsive Grid: Left Column BBS Terminal, Right Column Game */}

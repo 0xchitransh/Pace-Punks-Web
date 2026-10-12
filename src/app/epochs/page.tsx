@@ -119,7 +119,7 @@ export default function EpochsPage() {
   const activeEpoch = epochsData[activeEpochIndex];
 
   return (
-    <div className="w-full min-h-screen bg-background text-bbs p-2.5 sm:p-6 md:p-10 font-mono tracking-wider sm:tracking-widest relative z-10 flex flex-col items-center">
+    <div className="w-full min-h-screen bg-transparent text-bbs p-2.5 sm:p-6 md:p-10 font-mono tracking-wider sm:tracking-widest relative z-10 flex flex-col items-center">
       <div className="w-full max-w-6xl flex flex-col gap-4 sm:gap-6">
 
         {/* Global Terminal Header */}

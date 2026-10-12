@@ -42,7 +42,7 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="w-full bg-background border-b-2 border-bbs text-bbs font-mono tracking-wider relative z-50">
+    <nav className="w-full bg-background/85 backdrop-blur-sm border-b border-bbs/25 text-bbs font-mono tracking-wider relative z-50">
       <div className="max-w-[1500px] mx-auto px-2.5 sm:px-4 md:px-5 h-14 flex items-center justify-between gap-1.5 sm:gap-3 flex-nowrap">
         
         {/* Logo / Header */}

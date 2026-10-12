@@ -25,16 +25,13 @@
 
 body {
   background-color: var(--background);
-  background-image: 
-    linear-gradient(to right, rgba(73, 67, 96, 0.22) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(73, 67, 96, 0.22) 1px, transparent 1px);
-  background-size: 20px 20px;
   color: var(--foreground);
   font-family: var(--font-vt323), monospace;
   font-size: 1.2rem;
   letter-spacing: 0.04em;
   line-height: 1.4;
   overflow-x: hidden;
+  text-shadow: none;
 }
 
 .bg-bbs, .bg-bbs *, [class*="bg-bbs"], .text-background {

@@ -9,27 +9,28 @@ export function PixelBlockBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d", { alpha: true });
+    const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
     let animId: number;
     let width = 0;
     let height = 0;
 
-    const size = 18;
-    const gap = 2;
-    const step = size + gap; // 20px
+    const CELL_SIZE = 24; // 24px grid squares matching pixel-block.framer.website
 
-    // Palette extracted directly from pixel-block.framer.website tokens
-    const blockShades = [
-      "#494360", // Token --token-dd3cbe28-4964-42d1-96bc-59d71d203094
-      "#504364", // Token --token-1b09d492-1150-4936-8ffb-6d3f1ab8c961
-      "#231d3c", // Token --token-dfb5dc4e-10ba-49a8-b2b6-968568d0cba4
-      "#2c2548", // Subtle transition tone
-      "#383056", // Highlight slate tone
+    // Authentic dark palette from pixel-block tokens
+    const BASE_BG = "#17132c";
+    const GRID_LINE = "rgba(255, 255, 255, 0.045)"; // Soft, crisp 1px grid line
+
+    const BLOCK_SHADES = [
+      "#494360", // Inspected slate-purple token
+      "#504364", // Token --token-1b09d492
+      "#231d3c", // Token --token-dfb5dc4e
+      "#2c2446", // Dark indigo block
+      "#382f55", // Highlight block
     ];
 
-    interface Block {
+    interface PixelBlock {
       col: number;
       row: number;
       color: string;
@@ -38,7 +39,7 @@ export function PixelBlockBackground() {
       lastChange: number;
     }
 
-    let blocks: Block[] = [];
+    let blocks: PixelBlock[] = [];
 
     const init = () => {
       const w = window.innerWidth;
@@ -54,20 +55,20 @@ export function PixelBlockBackground() {
       ctx.scale(dpr, dpr);
 
       blocks = [];
-      const cols = Math.ceil(w / step);
-      const rows = Math.ceil(h / step);
+      const cols = Math.ceil(w / CELL_SIZE);
+      const rows = Math.ceil(h / CELL_SIZE);
 
-      // Low, elegant density (~6%) exactly matching pixel-block.framer.website
+      // Gentle ~5% density of scattered blocks across the uniform grid
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
-          if (Math.random() * 100 < 6) {
+          if (Math.random() * 100 < 5.5) {
             blocks.push({
               col: c,
               row: r,
-              color: blockShades[Math.floor(Math.random() * blockShades.length)],
-              delay: Math.random() * 10000,
-              duration: 4000 + Math.random() * 6000,
-              lastChange: performance.now() + Math.random() * 5000,
+              color: BLOCK_SHADES[Math.floor(Math.random() * BLOCK_SHADES.length)],
+              delay: Math.random() * 12000,
+              duration: 5000 + Math.random() * 7000,
+              lastChange: performance.now() + Math.random() * 6000,
             });
           }
         }
@@ -75,26 +76,59 @@ export function PixelBlockBackground() {
     };
 
     let lastDraw = 0;
-    const INTERVAL = 1000 / 18;
+    const INTERVAL = 1000 / 15; // 15 FPS calm, smooth ambient refresh
 
     const render = (now: number) => {
       animId = requestAnimationFrame(render);
       if (now - lastDraw < INTERVAL) return;
       lastDraw = now;
 
-      ctx.clearRect(0, 0, width, height);
+      // 1. Draw base deep purple canvas
+      ctx.fillStyle = BASE_BG;
+      ctx.fillRect(0, 0, width, height);
 
+      // 2. Soft radial center glow (spotlight effect behind the content)
+      const grad = ctx.createRadialGradient(
+        width * 0.5, height * 0.38, 50,
+        width * 0.5, height * 0.38, Math.max(width, height) * 0.75
+      );
+      grad.addColorStop(0, "rgba(35, 29, 60, 0.45)");
+      grad.addColorStop(0.7, "rgba(23, 19, 44, 0)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+
+      // 3. Draw visible grid lines across the entire canvas
+      ctx.strokeStyle = GRID_LINE;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let x = 0; x <= width; x += CELL_SIZE) {
+        ctx.moveTo(x + 0.5, 0);
+        ctx.lineTo(x + 0.5, height);
+      }
+      for (let y = 0; y <= height; y += CELL_SIZE) {
+        ctx.moveTo(0, y + 0.5);
+        ctx.lineTo(width, y + 0.5);
+      }
+      ctx.stroke();
+
+      // 4. Draw the scattered dark slate pixel blocks inside grid cells
       for (let i = 0; i < blocks.length; i++) {
         const b = blocks[i];
+
         if (now - b.lastChange > b.duration + b.delay) {
           b.lastChange = now;
-          b.delay = Math.random() * 8000;
-          b.duration = 4000 + Math.random() * 6000;
-          b.color = blockShades[Math.floor(Math.random() * blockShades.length)];
+          b.delay = Math.random() * 10000;
+          b.duration = 5000 + Math.random() * 7000;
+          b.color = BLOCK_SHADES[Math.floor(Math.random() * BLOCK_SHADES.length)];
         }
 
         ctx.fillStyle = b.color;
-        ctx.fillRect(b.col * step, b.row * step, size, size);
+        ctx.fillRect(
+          b.col * CELL_SIZE + 1,
+          b.row * CELL_SIZE + 1,
+          CELL_SIZE - 1,
+          CELL_SIZE - 1
+        );
       }
     };
 
@@ -112,15 +146,7 @@ export function PixelBlockBackground() {
   return (
     <div 
       className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
-      style={{
-        backgroundColor: "#17132c",
-        backgroundImage: `
-          radial-gradient(circle at 50% 38%, #221c38 0%, #17132c 70%, #120e23 100%),
-          linear-gradient(to right, rgba(73, 67, 96, 0.22) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(73, 67, 96, 0.22) 1px, transparent 1px)
-        `,
-        backgroundSize: "100% 100%, 20px 20px, 20px 20px"
-      }}
+      style={{ backgroundColor: "#17132c" }}
     >
       <canvas
         ref={canvasRef}

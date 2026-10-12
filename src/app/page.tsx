@@ -629,8 +629,6 @@ function TerminalPrompt() {
 const BUILDS: Record<string, { E: number; S: number; R: number; M: number; F: number; art: string }> = {
   "LV 1": { E: 20, S: 20, R: 20, M: 20, F: 20, art: "/assets/punks/0016.webp" },
   "WALKER": { E: 20, S: 36, R: 26, M: 26, F: 20, art: "/assets/punks/0008.webp" },
-  "GRINDER": { E: 38, S: 20, R: 20, M: 20, F: 30, art: "/assets/punks/0001.webp" },
-  "LV 30": { E: 32, S: 32, R: 32, M: 31, F: 31, art: "/assets/punks/0014.webp" },
 };
 
 function PunkStatsInteractive() {
@@ -695,7 +693,7 @@ function PunkStatsInteractive() {
               BUILD:
             </span>
             <div className="inline-flex border border-[#504364] bg-[#17132c]">
-              {(["LV 1", "WALKER", "GRINDER", "LV 30"] as const).map((tab) => {
+              {(["LV 1", "WALKER"] as const).map((tab) => {
                 const isSelected = activeBuild === tab;
                 return (
                   <button

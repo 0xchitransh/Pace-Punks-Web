@@ -107,6 +107,7 @@ const epochsData: EpochData[] = [
 export default function EpochsPage() {
   // Tab & Interactive state
   const [activeEpochIndex, setActiveEpochIndex] = React.useState(0);
+  const [mintStatus, setMintStatus] = React.useState<"IDLE" | "CHECKING" | "LOCKED">("IDLE");
 
   const activeEpoch = epochsData[activeEpochIndex];
 
@@ -302,14 +303,35 @@ export default function EpochsPage() {
                 </div>
 
 
-                {/* Actions */}
-                <div className="flex flex-wrap items-center gap-3 pt-1">
-                  <Link
-                    href="/mint"
-                    className="w-full sm:w-auto text-center border-2 border-bbs bg-bbs text-background px-6 py-2.5 font-bold text-sm hover:bg-transparent hover:text-bbs transition-all shadow-[3px_3px_0_var(--color-bbs)]"
-                  >
-                    [+] EXECUTE MINT NOW
-                  </Link>
+                {/* Actions & Mint Status Notification */}
+                <div className="flex flex-col gap-3 pt-1">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setMintStatus("CHECKING");
+                        setTimeout(() => setMintStatus("LOCKED"), 600);
+                      }}
+                      className="w-full sm:w-auto text-center border-2 border-bbs bg-bbs text-background px-6 py-2.5 font-bold text-sm hover:bg-transparent hover:text-bbs transition-all shadow-[3px_3px_0_var(--color-bbs)] cursor-pointer uppercase"
+                    >
+                      {mintStatus === "CHECKING" ? "[...] VERIFYING STRIDE BUFFER" : "[+] EXECUTE MINT NOW"}
+                    </button>
+                  </div>
+
+                  {mintStatus === "LOCKED" && (
+                    <div className="border border-[#ffd76f] bg-[#17132c]/95 p-3 sm:p-4 text-xs font-mono text-[#f7ebc9] flex flex-col gap-1.5 shadow-[0_0_15px_rgba(255,215,111,0.25)] animate-fadeIn">
+                      <div className="flex items-center gap-2 text-[#ffd76f] font-bold">
+                        <span className="w-2 h-2 bg-[#ffd76f] inline-block animate-pulse"></span>
+                        <span>[!] TELEMETRY NOTICE: MINT GATE NOT READY</span>
+                      </div>
+                      <p className="text-[#ffd76f] text-xs sm:text-sm font-bold tracking-wide">
+                        HOLD ON PUNK, KEEP MOVING UNTIL THE ENGINE ACTIVATES.
+                      </p>
+                      <p className="text-[11px] text-[#b9b3c9] leading-relaxed">
+                        Every step you take is being recorded into the node memory. Your Movement Score and GP will unlock mint eligibility as soon as the active epoch concludes its telemetry handshake.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
               </div>

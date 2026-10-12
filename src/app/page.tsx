@@ -284,8 +284,7 @@ function TerminalPrompt() {
       return [
         `[+] CONNECTING TO DATABASE RELAY...`,
         `[+] TRANSMITTING OPERATOR IDENTITY: ${entry.email}`,
-        `[+] STATUS: 200 OK - RECORD SECURED IN DATABASE.`,
-        `[+] ASSIGNED QUEUE NUMBER: #${Number(entry.queueNumber).toLocaleString()} / 6,000`,
+        `[+] ASSIGNED QUEUE NUMBER: [REDACTED // REDACTED]`,
         `[+] WAITLIST STANDING: ${data.isNew ? "NEW REGISTRATION CONFIRMED" : "EXISTING ENTRY VERIFIED"}`,
         `[+] WELCOME TO PACE PUNKS, RUNNER.`,
       ];
@@ -416,7 +415,7 @@ function TerminalPrompt() {
                 ...prev,
                 `================ WAITLIST DATABASE RECORD ================`,
                 `OPERATOR EMAIL : ${data.entry.email}`,
-                `QUEUE STANDING : #${Number(data.entry.queueNumber).toLocaleString()} / 6,000`,
+                `QUEUE STANDING : [REDACTED // REDACTED]`,
                 `REGISTERED AT  : ${new Date(data.entry.createdAt).toLocaleString()}`,
                 `DATABASE STATUS: ACTIVE & CONFIRMED IN DATABASE`,
                 `=========================================================`,

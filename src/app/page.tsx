@@ -612,7 +612,7 @@ function TerminalPrompt() {
           onClick={() => { setInput("JOIN"); inputRef.current?.focus(); }}
           className="px-2.5 py-1 pb-btn-primary text-xs font-bold cursor-pointer font-sans"
         >
-          Get launch news ↓
+          Join waitlist ↓
         </button>
         <button
           type="button"

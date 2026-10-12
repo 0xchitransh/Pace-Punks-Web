@@ -16,34 +16,14 @@ export default function HomePage() {
           
           {/* Left Column: BBS Terminal Header, Typewriter & Interactive Prompt */}
           <div className="lg:col-span-5 flex flex-col justify-start">
-            <div className="mb-2 sm:mb-4 text-xs sm:text-base">
-              <p className="mb-0.5 sm:mb-1">CONNECTING TO BBS...</p>
-              <p className="mb-0.5 sm:mb-1">BAUD RATE: 9600</p>
-              <p className="mb-2 sm:mb-3">STATUS: <span className="text-bbs font-bold">ESTABLISHED</span></p>
-            </div>
-
             <TypewriterText 
               text={[
-                "===================",
-                " WALK IT.",
-                " LEVEL IT.",
-                " EVOLVE IT.",
-                "==================="
+                "WALK IT.",
+                "LEVEL IT.",
+                "EVOLVE IT."
               ]} 
               delay={50}
-              className="text-sm xs:text-base sm:text-xl lg:text-3xl mb-2.5 sm:mb-5 leading-tight sm:leading-relaxed whitespace-pre-wrap font-bold"
-            />
-
-            <TypewriterText 
-              text={[
-                "> PACE PUNKS IS A MOBILE",
-                "> WALKING SIMULATION.",
-                "> EVERY MINUTE POWERS UP",
-                "> A UNIQUE CYBER PUNK.",
-              ]} 
-              delay={30}
-              startDelay={1500}
-              className="text-xs sm:text-base mb-2.5 sm:mb-5 leading-normal sm:leading-loose text-bbs/80"
+              className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl mb-2 sm:mb-3 leading-tight tracking-wider whitespace-pre-wrap font-bold text-[#f7ebc9]"
             />
 
             {/* Terminal Prompt */}
@@ -432,10 +412,10 @@ function TerminalPrompt() {
 
   return (
     <div 
-      className="flex flex-col gap-2 text-sm md:text-base cursor-text font-mono" 
+      className="flex flex-col gap-3 text-sm md:text-base cursor-text font-mono pb-panel p-4 sm:p-5" 
       onClick={() => inputRef.current?.focus()}
     >
-      <div className="flex flex-col gap-1.5 overflow-y-auto min-h-[110px] sm:min-h-[160px] max-h-[380px] pr-2 scrollbar-none">
+      <div className="flex flex-col gap-1.5 overflow-y-auto min-h-[110px] sm:min-h-[160px] max-h-[380px] pr-2 scrollbar-none text-[#b9b3c9]">
         {history.map((line, i) => (
           <div key={i} className="leading-relaxed whitespace-pre-wrap select-text">
             {line}
@@ -444,8 +424,8 @@ function TerminalPrompt() {
         <div ref={bottomRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="flex items-center gap-2 mt-4 pt-2 border-t border-bbs/20">
-        <span className="select-none font-bold text-bbs shrink-0">
+      <form onSubmit={handleSubmit} className="flex items-center gap-2 mt-2 pt-3 border-t border-[#504364]">
+        <span className="select-none font-bold text-[#ffd76f] shrink-0 text-sm">
           {mode === "AWAITING_EMAIL" ? "EMAIL:\\>" : "C:\\>"}
         </span>
         <input 
@@ -454,44 +434,44 @@ function TerminalPrompt() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={mode === "AWAITING_EMAIL" ? "ENTER YOUR EMAIL ADDRESS TO JOIN WAITLIST" : "TYPE 'JOIN' OR 'EPOCHS'..."}
-          className="flex-1 bg-transparent text-bbs border-none focus:outline-none focus:ring-0 p-0 m-0 uppercase w-full placeholder:text-bbs/30"
+          placeholder={mode === "AWAITING_EMAIL" ? "ENTER EMAIL TO JOIN WAITLIST" : "TYPE 'JOIN' OR 'EPOCHS'..."}
+          className="flex-1 bg-transparent text-[#f7ebc9] border-none focus:outline-none focus:ring-0 p-0 m-0 uppercase w-full placeholder:text-[#827c98] text-sm"
           autoFocus
           spellCheck={false}
         />
-        <span className="bg-bbs w-2 h-5 inline-block shrink-0"></span>
+        <span className="bg-[#ffd76f] w-2 h-4 inline-block shrink-0"></span>
       </form>
 
-      {/* Mobile-Friendly Quick Command Chips */}
-      <div className="flex flex-wrap items-center gap-1.5 mt-2 pt-2 border-t border-bbs/20 text-[10px] sm:text-xs">
-        <span className="text-bbs/60">&gt; QUICK:</span>
+      {/* Clean Embedded Quick Command Buttons */}
+      <div className="flex flex-wrap items-center gap-2 mt-2 pt-2.5 border-t border-[#504364]/60 text-[11px] sm:text-xs">
+        <span className="text-[#827c98]">&gt; QUICK:</span>
         <button
           type="button"
           onClick={() => { setInput("JOIN"); inputRef.current?.focus(); }}
-          className="px-2 py-0.5 border border-bbs/50 text-bbs hover:bg-bbs hover:text-black transition-colors cursor-pointer"
+          className="px-2.5 py-1 pb-btn-primary text-xs font-bold cursor-pointer"
         >
-          [JOIN]
+          JOIN WAITLIST
         </button>
         <button
           type="button"
           onClick={() => router.push("/epochs")}
-          className="px-2 py-0.5 border border-bbs/50 text-bbs hover:bg-bbs hover:text-black transition-colors cursor-pointer"
+          className="px-2.5 py-1 pb-btn-secondary text-xs font-bold cursor-pointer"
         >
-          [EPOCHS]
+          EPOCHS
         </button>
         <button
           type="button"
           onClick={() => router.push("/game")}
-          className="px-2 py-0.5 border border-bbs/50 text-bbs hover:bg-bbs hover:text-black transition-colors cursor-pointer"
+          className="px-2.5 py-1 pb-btn-secondary text-xs font-bold cursor-pointer"
         >
-          [GAME]
+          GAME
         </button>
         <button
           type="button"
           onClick={() => router.push("/collection")}
-          className="px-2 py-0.5 border border-bbs/50 text-bbs hover:bg-bbs hover:text-black transition-colors cursor-pointer"
+          className="px-2.5 py-1 pb-btn-secondary text-xs font-bold cursor-pointer"
         >
-          [COLLECTION]
+          COLLECTION
         </button>
       </div>
     </div>

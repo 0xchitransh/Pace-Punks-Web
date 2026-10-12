@@ -16,6 +16,7 @@
   --color-slate-block: #494360;
   --color-amber: #ffd76f;
   --color-lavender: #c1b8d1;
+  --border-color: #504364;
 }
 
 * {
@@ -32,6 +33,43 @@ body {
   line-height: 1.4;
   overflow-x: hidden;
   text-shadow: none;
+}
+
+/* Authentic Pixel Block embedded panel styling */
+.pb-panel {
+  background-color: rgba(35, 29, 60, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid #504364;
+  border-radius: 0px;
+}
+
+/* Primary Gold Button matching "Get launch news ↓" */
+.pb-btn-primary {
+  background-color: #ffd76f;
+  color: #17132c;
+  border: 1px solid #ffd76f;
+  font-weight: 700;
+  transition: all 0.15s ease-in-out;
+}
+.pb-btn-primary:hover {
+  background-color: #f6edcf;
+  border-color: #f6edcf;
+  transform: translateY(-1px);
+}
+
+/* Secondary Dark Surface Button matching "Play while you wait ↓" */
+.pb-btn-secondary {
+  background-color: #231d3c;
+  color: #f7ebc9;
+  border: 1px solid #504364;
+  font-weight: 700;
+  transition: all 0.15s ease-in-out;
+}
+.pb-btn-secondary:hover {
+  background-color: #2e264e;
+  border-color: #73628e;
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .bg-bbs, .bg-bbs *, [class*="bg-bbs"], .text-background {

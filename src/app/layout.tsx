@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { VT323, Pixelify_Sans, Silkscreen, Sora } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "@/components/Navbar";
-import { CityBackground } from "@/components/CityBackground";
 import { PixelBlockBackground } from "@/components/PixelBlockBackground";
 import "./globals.css";
 
@@ -56,10 +55,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${vt323.variable} ${pixelifySans.variable} ${silkscreen.variable} ${sora.variable} antialiased min-h-screen bg-background text-foreground flex flex-col font-mono`}
+        className={`${vt323.variable} ${pixelifySans.variable} ${silkscreen.variable} ${sora.variable} antialiased min-h-screen bg-background text-foreground flex flex-col font-mono relative`}
       >
         <PixelBlockBackground />
-        <CityBackground />
         <Providers>
           <Navbar />
           <main className="flex-1 w-full relative z-10">{children}</main>

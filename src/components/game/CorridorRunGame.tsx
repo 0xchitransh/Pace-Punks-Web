@@ -7,34 +7,30 @@ export function CorridorRunGame({ isEmbedded = false }: { isEmbedded?: boolean }
   const [showBoard, setShowBoard] = React.useState(false);
 
   return (
-    <div className="w-full flex flex-col gap-2">
-      {/* Top Terminal Header & Telemetry */}
-      <div className="flex items-center justify-between border-b border-bbs/50 pb-1 text-xs gap-2">
-        <div className="flex items-center gap-1.5 text-bbs/70 text-[10px] sm:text-xs truncate max-w-[180px] xs:max-w-[260px] sm:max-w-none">
-          <Link href="/" className="hover:text-white transition-colors">ROOT</Link>
-          <span>/</span>
-          <span className="hidden xs:inline">SIMULATION</span>
-          <span className="hidden xs:inline">/</span>
-          <span className="text-bbs font-bold">CORRIDOR_RUN.EXE</span>
+    <div className="w-full flex flex-col gap-2.5 pb-panel p-2.5 sm:p-3">
+      {/* Top Embedded Header & Telemetry */}
+      <div className="flex items-center justify-between border-b border-[#504364] pb-2 text-xs gap-2">
+        <div className="flex items-center gap-2 text-[#b9b3c9] text-[11px] sm:text-xs truncate max-w-[200px] sm:max-w-none">
+          <Link href="/" className="hover:text-[#f7ebc9] transition-colors">ARCADE</Link>
+          <span className="text-[#504364]">/</span>
+          <span className="text-[#f7ebc9] font-bold">CORRIDOR_RUN</span>
         </div>
 
-        <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-bbs/80 shrink-0">
-          <span className="hidden sm:inline">&gt; CANV: 2D</span>
-          <span className="text-bbs font-bold hidden xs:inline">&gt; ONLINE</span>
+        <div className="flex items-center gap-2 text-[11px] text-[#b9b3c9] shrink-0">
           <button
             onClick={() => setShowBoard(!showBoard)}
-            className="px-2 py-0.5 border border-bbs text-bbs hover:bg-bbs hover:text-background transition-colors font-bold cursor-pointer"
+            className="px-2.5 py-0.5 pb-btn-secondary text-[11px] font-bold cursor-pointer"
           >
-            {showBoard ? "[HIDE]" : "[LEADERBOARD]"}
+            {showBoard ? "HIDE SCORES" : "LEADERBOARD"}
           </button>
         </div>
       </div>
 
       {/* Embedded Arcade Cabinet Screen */}
-      <div className={`relative border-2 border-bbs/70 shadow-[0_8px_30px_rgba(0,0,0,0.6)] bg-black overflow-hidden w-full ${
+      <div className={`relative border border-[#504364] bg-black overflow-hidden w-full ${
         isEmbedded 
           ? "h-[280px] xs:h-[320px] sm:h-[380px] md:h-[440px] lg:h-[480px] xl:h-[510px]" 
-          : "h-[320px] xs:h-[380px] sm:h-[450px] md:h-[500px] max-h-[calc(100dvh-135px)]"
+          : "h-[340px] xs:h-[400px] sm:h-[480px] md:h-[520px] max-h-[calc(100dvh-135px)]"
       }`}>
         <iframe
           src="/game/index.html"
@@ -45,26 +41,26 @@ export function CorridorRunGame({ isEmbedded = false }: { isEmbedded?: boolean }
       </div>
 
       {/* Tactical Controls & Quick Guide */}
-      <div className="border border-bbs/40 px-2.5 py-1 bg-background/90 text-[10px] sm:text-xs flex flex-wrap items-center justify-between gap-1.5 sm:gap-2">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-bbs font-bold">&gt;&gt; CONTROLS:</span>
+      <div className="border border-[#504364] px-3 py-1.5 bg-[#17132c]/80 text-[10px] sm:text-xs flex flex-wrap items-center justify-between gap-1.5 sm:gap-2">
+        <div className="flex items-center gap-2 flex-wrap text-[#b9b3c9]">
+          <span className="text-[#ffd76f] font-bold">&gt;&gt; CONTROLS:</span>
           {/* Mobile Touch Hints */}
           <span className="sm:hidden flex items-center gap-1.5">
-            <span><b className="text-bbs">[TAP]</b> JUMP</span>
+            <span><b className="text-[#f7ebc9]">[TAP]</b> JUMP</span>
             <span>·</span>
-            <span><b className="text-bbs">[SWIPE ↓]</b> DIVE</span>
+            <span><b className="text-[#f7ebc9]">[SWIPE ↓]</b> DIVE</span>
             <span>·</span>
-            <span><b className="text-bbs">[HOLD]</b> HIGH</span>
+            <span><b className="text-[#f7ebc9]">[HOLD]</b> HIGH</span>
           </span>
           {/* Desktop Keyboard Hints */}
           <span className="hidden sm:inline-flex items-center gap-2.5">
-            <span><b className="text-bbs">[SPACE/↑]</b> JUMP</span>
-            <span><b className="text-bbs">[↓]</b> DIVE</span>
-            <span><b className="text-bbs">[P]</b> PAUSE</span>
-            <span><b className="text-bbs">[TOUCH]</b> TAP</span>
+            <span><b className="text-[#f7ebc9]">[SPACE/↑]</b> JUMP</span>
+            <span><b className="text-[#f7ebc9]">[↓]</b> DIVE</span>
+            <span><b className="text-[#f7ebc9]">[P]</b> PAUSE</span>
+            <span><b className="text-[#f7ebc9]">[TOUCH]</b> TAP</span>
           </span>
         </div>
-        <div className="text-bbs/70 hidden md:block text-[11px]">
+        <div className="text-[#b9b3c9]/70 hidden md:block text-[11px]">
           BONUS GOLD CHIPS (+25) · AVOID DRONES
         </div>
       </div>

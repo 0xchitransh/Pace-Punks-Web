@@ -167,50 +167,44 @@ export default function EpochsPage() {
                 onClick={() => {
                   setActiveEpochIndex(idx);
                 }}
-                className={`text-left p-2 sm:p-3.5 border-2 transition-all relative ${
+                className={`text-left p-3 sm:p-4 transition-all relative pb-panel ${
                   isCurrent
-                    ? "border-bbs bg-bbs/15 shadow-[0_0_15px_var(--color-bbs-dim)]"
-                    : "border-bbs/40 bg-background/60 hover:border-bbs/70 hover:bg-bbs/5"
+                    ? "border-[#ffd76f] bg-[#231d3c] shadow-[0_0_15px_rgba(255,215,111,0.15)]"
+                    : "border-[#504364] bg-[#231d3c]/50 hover:border-[#ffd76f]/50 hover:bg-[#231d3c]"
                 }`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                  <span className="text-xs xs:text-sm sm:text-lg font-bold text-bbs tracking-wider">
+                  <span className={`text-xs xs:text-sm sm:text-base font-bold tracking-wider ${
+                    isCurrent ? "text-[#ffd76f]" : "text-[#f7ebc9]"
+                  }`}>
                     EPOCH {ep.number}
                   </span>
-                  <span
-                    className={`text-[9px] xs:text-[10px] px-1.5 py-0.5 font-bold self-start sm:self-auto ${
-                      ep.status === "LIVE"
-                        ? "border border-bbs text-bbs bg-bbs/20 font-bold"
-                        : "border border-bbs/40 text-bbs/60"
-                    }`}
-                  >
-                    {ep.status}
-                  </span>
+                  {ep.status !== "LIVE" && (
+                    <span className="text-[9px] xs:text-[10px] px-2 py-0.5 font-bold self-start sm:self-auto border border-[#504364] text-[#b9b3c9]">
+                      {ep.status}
+                    </span>
+                  )}
                 </div>
                 {isCurrent && (
-                  <div className="absolute -top-1 -right-1 sm:-top-1.5 sm:-right-1.5 w-2 h-2 sm:w-3 sm:h-3 bg-bbs border border-background"></div>
+                  <div className="absolute top-0 right-0 w-2 h-2 bg-[#ffd76f]"></div>
                 )}
               </button>
             );
           })}
         </div>
 
-        {/* Main Advanced Interactive Console for Active Epoch */}
-        <div className="border-2 border-bbs bg-background/95 p-3 sm:p-6 md:p-8 shadow-[0_0_20px_var(--color-bbs-dim)] relative">
-          
-          {/* HUD Corner Accents */}
-          <span className="absolute -top-2.5 -left-1.5 text-bbs text-base font-mono">┌</span>
-          <span className="absolute -top-2.5 -right-1.5 text-bbs text-base font-mono">┐</span>
-          <span className="absolute -bottom-2.5 -left-1.5 text-bbs text-base font-mono">└</span>
-          <span className="absolute -bottom-2.5 -right-1.5 text-bbs text-base font-mono">┘</span>
+        {/* Main Clean Embedded Console for Active Epoch */}
+        <div className="pb-panel p-4 sm:p-6 md:p-8 relative">
 
           {/* Epoch Top Header with Glitched / Redacted Status */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 sm:pb-4 mb-4 sm:mb-6 border-b-2 border-bbs/40 gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 sm:pb-4 mb-4 sm:mb-6 border-b border-[#504364] gap-3">
             <div>
               <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                <span className="text-[10px] sm:text-xs px-1.5 py-0.5 border border-bbs text-bbs bg-bbs/20 font-bold">
-                  {activeEpoch.status}
-                </span>
+                {activeEpoch.status !== "LIVE" && (
+                  <span className="text-[10px] sm:text-xs px-1.5 py-0.5 border border-bbs text-bbs bg-bbs/20 font-bold">
+                    {activeEpoch.status}
+                  </span>
+                )}
                 <span className="text-[10px] sm:text-xs text-bbs/70 font-mono">
                   WINDOW: [CLASSIFIED // REDACTED]
                 </span>
@@ -254,7 +248,7 @@ export default function EpochsPage() {
                   : "border-bbs/40 text-bbs/70 hover:bg-bbs/10 hover:text-bbs"
               }`}
             >
-              [2] LIVE MINTER FEED
+              [2] MINTER FEED
             </button>
           </div>
 

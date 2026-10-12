@@ -91,20 +91,20 @@ export default function CollectionPage() {
             transition={{ duration: 0.3, delay: i * 0.02 }}
           >
             <Link href={`/punk/${punk.id}`} className="block group">
-              <div className="card overflow-hidden hover:shadow-lg transition-shadow">
+              <div className="pb-panel overflow-hidden transition-all group-hover:border-[#ffd76f] group-hover:translate-y-[-2px]">
                 {/* Artwork placeholder */}
-                <div className="aspect-square bg-gradient-to-br from-background to-border/50 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                  <span className="text-3xl font-black text-foreground/10">
+                <div className="aspect-square bg-[#17132c] flex items-center justify-center border-b border-[#504364]">
+                  <span className="text-3xl font-black text-[#ffd76f]/30">
                     {String(punk.id).padStart(2, "0")}
                   </span>
                 </div>
                 {/* Info */}
-                <div className="p-3">
-                  <p className="font-semibold text-sm truncate">{punk.name}</p>
+                <div className="p-3 bg-[#231d3c]/80">
+                  <p className="font-bold text-sm text-[#f7ebc9] truncate">{punk.name}</p>
                   <div className="flex items-center justify-between mt-1.5">
-                    <span className="text-secondary text-xs">{punk.epoch}</span>
+                    <span className="text-[#b9b3c9] text-xs">{punk.epoch}</span>
                     <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${rarityColor(
+                      className={`text-[10px] font-bold px-1.5 py-0.5 border border-[#504364] ${rarityColor(
                         punk.rarity
                       )}`}
                     >

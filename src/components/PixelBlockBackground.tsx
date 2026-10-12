@@ -12,40 +12,29 @@ export function PixelBlockBackground() {
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
-    let animId: number;
-    let width = 0;
-    let height = 0;
+    const SIZE = 10; // Exact 10px size
+    const GAP = 2;   // Exact 2px gap
+    const STEP = SIZE + GAP; // 12px cell pitch
 
-    const CELL_SIZE = 24; // 24px grid squares matching pixel-block.framer.website
-
-    // Authentic dark palette from pixel-block tokens
     const BASE_BG = "#17132c";
-    const GRID_LINE = "rgba(255, 255, 255, 0.045)"; // Soft, crisp 1px grid line
-
-    const BLOCK_SHADES = [
-      "#494360", // Inspected slate-purple token
-      "#504364", // Token --token-1b09d492
-      "#231d3c", // Token --token-dfb5dc4e
-      "#2c2446", // Dark indigo block
-      "#382f55", // Highlight block
+    const SLATE_BLOCKS = [
+      "#261f3f",
+      "#2e254c",
+      "#382d5a",
+      "#42366b",
+      "#4c3e7b",
+      "#58488d",
     ];
 
-    interface PixelBlock {
-      col: number;
-      row: number;
-      color: string;
-      delay: number;
-      duration: number;
-      lastChange: number;
-    }
+    // Seeded random pseudo generator so grid stays completely stable and sticky across scrolls/renders
+    const seededRandom = (x: number, y: number) => {
+      const s = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453123;
+      return s - Math.floor(s);
+    };
 
-    let blocks: PixelBlock[] = [];
-
-    const init = () => {
+    const drawGrid = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      width = w;
-      height = h;
 
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(w * dpr);
@@ -54,104 +43,87 @@ export function PixelBlockBackground() {
       canvas.style.height = `${h}px`;
       ctx.scale(dpr, dpr);
 
-      blocks = [];
-      const cols = Math.ceil(w / CELL_SIZE);
-      const rows = Math.ceil(h / CELL_SIZE);
+      // 1. Draw solid background
+      ctx.fillStyle = BASE_BG;
+      ctx.fillRect(0, 0, w, h);
 
-      // Gentle ~5% density of scattered blocks across the uniform grid
-      for (let r = 0; r < rows; r++) {
+      // 2. Soft top spotlight gradient
+      const grad = ctx.createRadialGradient(
+        w * 0.5, h * 0.38, 50,
+        w * 0.5, h * 0.38, Math.max(w, h) * 0.85
+      );
+      grad.addColorStop(0, "rgba(42, 34, 70, 0.6)");
+      grad.addColorStop(1, "rgba(23, 19, 44, 0)");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, w, h);
+
+      // Calculate scroll offset to tie grid directly to page scroll
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      const offsetY = -(scrollY % STEP);
+
+      // 3. Subtle crisp grid lines (1px)
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.04)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let x = 0; x <= w; x += STEP) {
+        ctx.moveTo(x + 0.5, 0);
+        ctx.lineTo(x + 0.5, h);
+      }
+      for (let y = offsetY; y <= h + STEP; y += STEP) {
+        ctx.moveTo(0, y + 0.5);
+        ctx.lineTo(w, y + 0.5);
+      }
+      ctx.stroke();
+
+      // 4. Rich volume of pixel blocks (seeded by global row to stick with scroll)
+      const cols = Math.ceil(w / STEP);
+      const rows = Math.ceil(h / STEP) + 2;
+      const startRow = Math.floor(scrollY / STEP);
+
+      for (let r = -1; r <= rows; r++) {
+        const globalRow = startRow + r;
+        const screenY = r * STEP + offsetY;
         for (let c = 0; c < cols; c++) {
-          if (Math.random() * 100 < 5.5) {
-            blocks.push({
-              col: c,
-              row: r,
-              color: BLOCK_SHADES[Math.floor(Math.random() * BLOCK_SHADES.length)],
-              delay: Math.random() * 12000,
-              duration: 5000 + Math.random() * 7000,
-              lastChange: performance.now() + Math.random() * 6000,
-            });
+          const val = seededRandom(c, globalRow);
+          if (val < 0.32) {
+            const colorIdx = Math.floor(seededRandom(c + 100, globalRow + 100) * SLATE_BLOCKS.length);
+            ctx.fillStyle = SLATE_BLOCKS[colorIdx];
+            ctx.fillRect(c * STEP, screenY, SIZE, SIZE);
           }
         }
       }
     };
 
-    let lastDraw = 0;
-    const INTERVAL = 1000 / 15; // 15 FPS calm, smooth ambient refresh
+    drawGrid();
 
-    const render = (now: number) => {
-      animId = requestAnimationFrame(render);
-      if (now - lastDraw < INTERVAL) return;
-      lastDraw = now;
-
-      // 1. Draw base deep purple canvas
-      ctx.fillStyle = BASE_BG;
-      ctx.fillRect(0, 0, width, height);
-
-      // 2. Soft radial center glow (spotlight effect behind the content)
-      const grad = ctx.createRadialGradient(
-        width * 0.5, height * 0.38, 50,
-        width * 0.5, height * 0.38, Math.max(width, height) * 0.75
-      );
-      grad.addColorStop(0, "rgba(35, 29, 60, 0.45)");
-      grad.addColorStop(0.7, "rgba(23, 19, 44, 0)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, width, height);
-
-      // 3. Draw visible grid lines across the entire canvas
-      ctx.strokeStyle = GRID_LINE;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      for (let x = 0; x <= width; x += CELL_SIZE) {
-        ctx.moveTo(x + 0.5, 0);
-        ctx.lineTo(x + 0.5, height);
-      }
-      for (let y = 0; y <= height; y += CELL_SIZE) {
-        ctx.moveTo(0, y + 0.5);
-        ctx.lineTo(width, y + 0.5);
-      }
-      ctx.stroke();
-
-      // 4. Draw the scattered dark slate pixel blocks inside grid cells
-      for (let i = 0; i < blocks.length; i++) {
-        const b = blocks[i];
-
-        if (now - b.lastChange > b.duration + b.delay) {
-          b.lastChange = now;
-          b.delay = Math.random() * 10000;
-          b.duration = 5000 + Math.random() * 7000;
-          b.color = BLOCK_SHADES[Math.floor(Math.random() * BLOCK_SHADES.length)];
-        }
-
-        ctx.fillStyle = b.color;
-        ctx.fillRect(
-          b.col * CELL_SIZE + 1,
-          b.row * CELL_SIZE + 1,
-          CELL_SIZE - 1,
-          CELL_SIZE - 1
-        );
-      }
+    const onScroll = () => {
+      requestAnimationFrame(drawGrid);
     };
 
-    init();
-    animId = requestAnimationFrame(render);
-
-    const onResize = () => init();
+    const onResize = () => drawGrid();
     window.addEventListener("resize", onResize);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => {
       window.removeEventListener("resize", onResize);
-      cancelAnimationFrame(animId);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
   return (
     <div 
-      className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
-      style={{ backgroundColor: "#17132c" }}
+      className="fixed inset-0 z-0 pointer-events-none overflow-hidden w-full h-full"
+      style={{
+        backgroundColor: "#17132c",
+      }}
     >
       <canvas
         ref={canvasRef}
         className="w-full h-full block"
-        style={{ imageRendering: "pixelated" }}
+        style={{
+          imageRendering: "pixelated",
+          opacity: 0.65, // Restored previous rich pixel volume
+        }}
       />
     </div>
   );

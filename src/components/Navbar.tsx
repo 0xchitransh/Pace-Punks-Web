@@ -38,55 +38,54 @@ export function Navbar() {
   const links = [
     { href: "/", label: "HOME", key: "1" },
     { href: "/epochs", label: "EPOCHS", key: "2" },
-    { href: "/game", label: "GAME", key: "3" },
   ];
 
   return (
-    <nav className="w-full bg-background/85 backdrop-blur-sm border-b border-bbs/25 text-bbs font-mono tracking-wider relative z-50">
-      <div className="max-w-[1500px] mx-auto px-2.5 sm:px-4 md:px-5 h-14 flex items-center justify-between gap-1.5 sm:gap-3 flex-nowrap">
+    <nav className="w-full bg-transparent text-bbs font-mono tracking-wider relative z-50">
+      <div className="max-w-[1500px] mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2 flex-nowrap">
         
         {/* Logo / Header */}
-        <Link href="/" className="flex items-center gap-1.5 hover:text-[#fff] transition-colors whitespace-nowrap shrink-0">
-          <span className="text-base sm:text-lg md:text-xl font-bold hidden xs:inline sm:inline">{'<PACE_PUNKS.SYS>'}</span>
-          <span className="text-base font-bold xs:hidden">{'<PPS>'}</span>
+        <Link href="/" className="flex items-center gap-2 hover:text-[#fff] transition-colors whitespace-nowrap shrink-0">
+          <span className="w-2.5 h-2.5 bg-[#ffd76f] inline-block shadow-[0_0_8px_rgba(255,215,111,0.5)]"></span>
+          <span className="text-base sm:text-lg font-bold tracking-widest text-[#f7ebc9] hidden xs:inline sm:inline">PACE PUNKS</span>
+          <span className="text-base font-bold xs:hidden text-[#f7ebc9]">PP</span>
         </Link>
 
-        {/* Desktop / Tablet Center Links - BBS Menu Style */}
-        <div className="hidden md:flex items-center gap-2.5 lg:gap-4 xl:gap-6 justify-center whitespace-nowrap shrink-0">
+        {/* Desktop / Tablet Center Links - Embedded Pixel Block Style */}
+        <div className="hidden md:flex items-center gap-3 lg:gap-6 justify-center whitespace-nowrap shrink-0">
           {links.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-xs lg:text-sm transition-colors py-0.5 ${
+                className={`text-xs lg:text-sm transition-all px-2.5 py-1 ${
                   isActive
-                    ? "text-black bg-bbs px-1.5 font-bold"
-                    : "text-bbs hover:text-[#fff]"
+                    ? "text-[#17132c] bg-[#ffd76f] font-bold"
+                    : "text-[#b9b3c9] hover:text-[#f7ebc9] hover:bg-[#231d3c]"
                 }`}
               >
-                [{link.key}] {link.label}
+                {link.label}
               </Link>
             );
           })}
         </div>
 
         {/* Action / Settings */}
-        <div className="flex items-center gap-1.5 sm:gap-2 lg:gap-3 shrink-0 whitespace-nowrap">
+        <div className="flex items-center gap-2 lg:gap-3 shrink-0 whitespace-nowrap">
           {/* Color Switcher */}
-          <div className="relative border border-bbs px-1.5 sm:px-2 py-0.5 text-[11px] sm:text-xs lg:text-sm flex items-center">
-             <span className="mr-1 opacity-80 hidden sm:inline">COLOR:</span>
-             <span className="mr-1 opacity-80 sm:hidden">CLR:</span>
+          <div className="relative border border-[#504364] bg-[#231d3c] px-2 py-1 text-[11px] sm:text-xs flex items-center">
+             <span className="mr-1 text-[#b9b3c9] hidden sm:inline">CLR:</span>
              <select 
                value={themeColor} 
                onChange={(e) => setThemeColor(e.target.value)}
-               className="bg-background text-bbs outline-none appearance-none cursor-pointer pr-3 sm:pr-3.5 uppercase font-mono max-w-[65px] xs:max-w-[85px] sm:max-w-none"
+               className="bg-transparent text-[#f7ebc9] outline-none appearance-none cursor-pointer pr-3.5 uppercase font-mono max-w-[70px] sm:max-w-none text-xs"
              >
                {brandColors.map((color) => (
-                 <option key={color.hex} value={color.hex} className="bg-background text-foreground">{color.name}</option>
+                 <option key={color.hex} value={color.hex} className="bg-[#17132c] text-[#f7ebc9]">{color.name}</option>
                ))}
              </select>
-             <span className="absolute right-1 sm:right-1.5 pointer-events-none text-[8px] sm:text-[10px]">▼</span>
+             <span className="absolute right-1.5 pointer-events-none text-[8px] text-[#b9b3c9]">▼</span>
           </div>
 
           {/* Web3 Wallet Connect Button */}
@@ -118,7 +117,7 @@ export function Navbar() {
                       userSelect: "none",
                     },
                   })}
-                  className="flex items-center gap-1 sm:gap-1.5 lg:gap-2"
+                  className="flex items-center gap-1.5"
                 >
                   {(() => {
                     if (!connected) {
@@ -126,7 +125,7 @@ export function Navbar() {
                         <button
                           onClick={openConnectModal}
                           type="button"
-                          className="bg-bbs text-black font-mono px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs lg:text-sm font-bold border border-bbs hover:bg-black hover:text-bbs transition-colors uppercase tracking-wider cursor-pointer"
+                          className="pb-btn-primary px-3 sm:px-4 py-1 text-xs font-bold uppercase tracking-wider cursor-pointer"
                         >
                           <span className="hidden xs:inline">CONNECT WALLET</span>
                           <span className="xs:hidden">CONNECT</span>
@@ -139,7 +138,7 @@ export function Navbar() {
                         <button
                           onClick={openChainModal}
                           type="button"
-                          className="bg-red-600 text-white font-mono px-1.5 sm:px-2 py-0.5 text-[11px] sm:text-xs lg:text-sm font-bold border border-red-500 uppercase cursor-pointer"
+                          className="bg-red-600 text-white font-mono px-2 py-1 text-xs font-bold border border-red-500 uppercase cursor-pointer"
                         >
                           WRONG NET
                         </button>

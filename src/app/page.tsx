@@ -4,17 +4,18 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { CorridorRunGame } from "@/components/game/CorridorRunGame";
 
 export default function HomePage() {
   return (
-    <div className="w-full min-h-screen bg-background text-bbs p-3 pt-4 sm:p-6 sm:pt-8 md:p-12 font-mono uppercase tracking-wider sm:tracking-widest relative z-10">
-      <div className="max-w-6xl mx-auto">
+    <div className="w-full min-h-screen bg-background text-bbs p-3 pt-4 sm:p-5 sm:pt-6 md:p-8 lg:p-10 font-mono uppercase tracking-wider sm:tracking-widest relative z-10">
+      <div className="max-w-[1520px] mx-auto">
         
-        {/* Responsive Grid: Character on the right for BOTH mobile and laptop */}
-        <div className="grid grid-cols-12 gap-3 sm:gap-6 lg:gap-16 items-start">
+        {/* Responsive Grid: Left Column BBS Terminal, Right Column Game */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-12 items-start">
           
-          {/* Top Left Header Text on Mobile / Left Column Top on Laptop */}
-          <div className="col-span-7 sm:col-span-7 lg:col-span-7 flex flex-col justify-start">
+          {/* Left Column: BBS Terminal Header, Typewriter & Interactive Prompt */}
+          <div className="lg:col-span-5 flex flex-col justify-start">
             <div className="mb-2 sm:mb-4 text-xs sm:text-base">
               <p className="mb-0.5 sm:mb-1">CONNECTING TO BBS...</p>
               <p className="mb-0.5 sm:mb-1">BAUD RATE: 9600</p>
@@ -44,16 +45,16 @@ export default function HomePage() {
               startDelay={1500}
               className="text-xs sm:text-base mb-2.5 sm:mb-5 leading-normal sm:leading-loose text-bbs/80"
             />
+
+            {/* Terminal Prompt */}
+            <div className="w-full mt-2 sm:mt-4">
+              <TerminalPrompt />
+            </div>
           </div>
 
-          {/* Character Artwork: Always on the RIGHT on mobile and laptop */}
-          <div className="col-span-5 sm:col-span-5 lg:col-span-5 flex justify-end lg:row-span-2">
-            <PunkShowcase />
-          </div>
-
-          {/* Terminal Prompt: Full width under top section on mobile, left column bottom on laptop */}
-          <div className="col-span-12 lg:col-span-7 mt-3 sm:mt-5 lg:mt-0">
-            <TerminalPrompt />
+          {/* Right Column: Whole Game Page */}
+          <div className="lg:col-span-7 w-full">
+            <CorridorRunGame isEmbedded={true} />
           </div>
 
         </div>
@@ -492,102 +493,6 @@ function TerminalPrompt() {
         >
           [COLLECTION]
         </button>
-      </div>
-    </div>
-  );
-}
-
-function PunkShowcase() {
-  const [punkIndex, setPunkIndex] = useState(0);
-  const [isGlitching, setIsGlitching] = useState(false);
-  const [telemetry, setTelemetry] = useState<string | null>(null);
-  const punks = ["0008", "0014", "0016", "0042", "0096"];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // 1. Trigger buffer desync / CRT scan wipe
-      setIsGlitching(true);
-      const hex = Math.floor(Math.random() * 0xffff).toString(16).toUpperCase().padStart(4, "0");
-      setTelemetry(`SYNC_0x${hex}...`);
-
-      // 2. Switch character midway through scan wipe
-      const switchTimer = setTimeout(() => {
-        setPunkIndex((prev) => (prev + 1) % punks.length);
-        setTelemetry(null);
-      }, 220);
-
-      // 3. Stabilize signal
-      const endTimer = setTimeout(() => {
-        setIsGlitching(false);
-      }, 480);
-
-      return () => {
-        clearTimeout(switchTimer);
-        clearTimeout(endTimer);
-      };
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [punks.length]);
-
-  return (
-    <div className="relative w-full max-w-[170px] xs:max-w-[200px] sm:max-w-[280px] lg:max-w-[380px] aspect-square flex items-center justify-center">
-      {/* Subtle dark grounding shadow under feet - NO white glow */}
-      <div className="absolute -bottom-2 inset-x-10 h-8 bg-black/70 blur-xl pointer-events-none -z-10" />
-
-      {/* Main Image Frame with deep circular radial mask fade to eliminate all box edges */}
-      <div 
-        className={`relative w-full h-full overflow-hidden transition-all duration-150 ${
-          isGlitching ? 'brightness-125 contrast-125 filter hue-rotate-15' : 'brightness-100 contrast-100'
-        }`}
-        style={{
-          WebkitMaskImage: "radial-gradient(circle at 50% 50%, rgba(0,0,0,1) 34%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.3) 66%, rgba(0,0,0,0) 78%)",
-          maskImage: "radial-gradient(circle at 50% 50%, rgba(0,0,0,1) 34%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.3) 66%, rgba(0,0,0,0) 78%)"
-        }}
-      >
-        {punks.map((punk, idx) => (
-          <img 
-            key={punk}
-            src={`/punks/${punk}.webp`} 
-            alt={`Punk #${punk}`} 
-            style={{
-              filter: "drop-shadow(0 8px 18px rgba(0,0,0,0.6))"
-            }}
-            className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-200 ${
-              idx === punkIndex ? 'opacity-100' : 'opacity-0'
-            } ${isGlitching ? 'scale-[1.01]' : 'scale-100'}`} 
-          />
-        ))}
-
-        {/* CRT Scan Wipe Laser Beam during character switch */}
-        {isGlitching && (
-          <>
-            <div className="absolute left-0 right-0 h-6 bg-bbs/30 shadow-[0_0_25px_var(--color-bbs)] border-b-2 border-bbs animate-scan-wipe z-40 pointer-events-none" />
-            <div 
-              className="absolute inset-0 pointer-events-none z-35 glitch-slice-1 mix-blend-screen bg-bbs/15" 
-              style={{ clipPath: 'polygon(0 25%, 100% 25%, 100% 48%, 0 48%)' }} 
-            />
-            <div 
-              className="absolute inset-0 pointer-events-none z-35 glitch-slice-2 mix-blend-screen bg-bbs/15" 
-              style={{ clipPath: 'polygon(0 62%, 100% 62%, 100% 82%, 0 82%)' }} 
-            />
-          </>
-        )}
-
-        {/* Smooth circular vignette overlay perfectly merging into background color */}
-        <div className="absolute inset-0 z-20 pointer-events-none bg-[radial-gradient(circle_at_50%_50%,transparent_32%,var(--background)_76%)]" />
-
-        {/* Authentic subtle scanline overlay */}
-        <div className="absolute inset-0 z-25 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.18)_50%)] bg-[length:100%_4px]" />
-      </div>
-
-      {/* Subtle Retro BBS HUD telemetry tag */}
-      <div className={`absolute top-0 left-0 z-30 font-mono text-[9px] xs:text-[10px] sm:text-xs px-1 border transition-colors duration-150 backdrop-blur-xs ${
-        isGlitching 
-          ? 'bg-bbs text-background border-bbs font-bold shadow-[0_0_10px_var(--color-bbs)]' 
-          : 'bg-background/80 text-bbs border-bbs/30'
-      }`}>
-        + {telemetry || `BUFFER_${punks[punkIndex]}`}
       </div>
     </div>
   );

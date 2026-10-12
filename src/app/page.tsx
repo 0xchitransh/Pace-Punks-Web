@@ -8,22 +8,22 @@ import { CorridorRunGame } from "@/components/game/CorridorRunGame";
 
 export default function HomePage() {
   return (
-    <div className="w-full min-h-screen bg-transparent text-bbs p-3 pt-4 sm:p-5 sm:pt-6 md:p-8 lg:p-10 font-mono uppercase tracking-wider sm:tracking-widest relative z-10">
+    <div className="w-full min-h-screen bg-transparent text-bbs p-3 pt-4 sm:p-5 sm:pt-6 md:p-8 lg:p-10 relative z-10">
       <div className="max-w-[1520px] mx-auto">
         
         {/* Responsive Grid: Left Column BBS Terminal, Right Column Game */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 xl:gap-12 items-start mb-16 sm:mb-24">
           
           {/* Left Column: BBS Terminal Header, Typewriter & Interactive Prompt */}
           <div className="lg:col-span-5 flex flex-col justify-start">
             <TypewriterText 
               text={[
-                "WALK IT.",
-                "LEVEL IT.",
-                "EVOLVE IT."
+                "Walk it.",
+                "Level it.",
+                "Evolve it."
               ]} 
               delay={50}
-              className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl mb-2 sm:mb-3 leading-tight tracking-wider whitespace-pre-wrap font-bold text-[#f7ebc9]"
+              className="text-4xl xs:text-5xl sm:text-6xl lg:text-7xl mb-3 sm:mb-4 whitespace-pre-wrap font-bold font-display tracking-[-0.02em] leading-[1.08] text-[#f7ebc9]"
             />
 
             {/* Terminal Prompt */}
@@ -38,6 +38,168 @@ export default function HomePage() {
           </div>
 
         </div>
+
+        {/* ========================================================
+            SECTION 1: HOW IT WORKS
+            "Your steps are the game controller."
+            ======================================================== */}
+        <section className="mb-16 sm:mb-24 pt-4 border-t border-[#504364]/60">
+          <p className="text-[12px] sm:text-xs text-[#ffd76f] tracking-widest uppercase mb-2">
+            HOW IT WORKS
+          </p>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold font-display tracking-tight text-[#f7ebc9] mb-8">
+            Your steps are the game controller.
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Step 1 */}
+            <div className="pb-panel p-5 sm:p-6 flex flex-col justify-between relative group hover:border-[#ffd76f] transition-colors">
+              <div>
+                <span className="text-3xl sm:text-4xl font-bold font-display text-[#ffd76f] block mb-3">
+                  1
+                </span>
+                <h3 className="text-lg sm:text-xl font-bold font-display text-[#f7ebc9] mb-2">
+                  Move
+                </h3>
+                <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed">
+                  Walk for at least 10 minutes. The app verifies each session on your phone, and overlapping data only counts once.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="pb-panel p-5 sm:p-6 flex flex-col justify-between relative group hover:border-[#ffd76f] transition-colors">
+              <div>
+                <span className="text-3xl sm:text-4xl font-bold font-display text-[#ffd76f] block mb-3">
+                  2
+                </span>
+                <h3 className="text-lg sm:text-xl font-bold font-display text-[#f7ebc9] mb-2">
+                  Score
+                </h3>
+                <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed">
+                  Earn up to <strong className="text-[#f7ebc9] font-bold">35 Movement Score</strong> a day. It never resets, and it unlocks your place in each Punk release.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="pb-panel p-5 sm:p-6 flex flex-col justify-between relative group hover:border-[#ffd76f] transition-colors">
+              <div>
+                <span className="text-3xl sm:text-4xl font-bold font-display text-[#ffd76f] block mb-3">
+                  3
+                </span>
+                <h3 className="text-lg sm:text-xl font-bold font-display text-[#f7ebc9] mb-2">
+                  Earn GP
+                </h3>
+                <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed">
+                  Verified minutes earn GP, the in-game currency. Spend it on repairs, levels and upgrades for your Punk.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 4 */}
+            <div className="pb-panel p-5 sm:p-6 flex flex-col justify-between relative group hover:border-[#ffd76f] transition-colors">
+              <div>
+                <span className="text-3xl sm:text-4xl font-bold font-display text-[#ffd76f] block mb-3">
+                  4
+                </span>
+                <h3 className="text-lg sm:text-xl font-bold font-display text-[#f7ebc9] mb-2">
+                  Level up
+                </h3>
+                <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed">
+                  Climb from level 1 to 30, gain two attribute points per level, then unlock one evolution with a new look.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================
+            SECTION 2: YOUR PUNK
+            "Five stats. Each one has a single job."
+            ======================================================== */}
+        <section className="mb-16 sm:mb-20 pt-4 border-t border-[#504364]/60">
+          <p className="text-[12px] sm:text-xs text-[#ffd76f] tracking-widest uppercase mb-2">
+            YOUR PUNK
+          </p>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold font-display tracking-tight text-[#f7ebc9] mb-2">
+            Five stats. Each one has a single job.
+          </h2>
+          <p className="text-xs sm:text-sm text-[#b9b3c9] mb-8">
+            Every Punk starts at 20 in each attribute and caps at 100. You decide where the points go.
+          </p>
+
+          <PunkStatsInteractive />
+
+          {/* Three Mechanism Cards (Battery, Durability, Pace Boxes) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+            {/* Battery */}
+            <div className="pb-panel p-5 sm:p-6 flex flex-col justify-between">
+              <div>
+                <span className="inline-block px-2.5 py-0.5 text-[11px] font-bold bg-[#3EE6D2] text-[#0b0820] mb-3 uppercase tracking-wider">
+                  BATTERY
+                </span>
+                <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed mb-4">
+                  Your daily rewardable minutes. It recharges for free every day, and you can&apos;t buy extra.
+                </p>
+              </div>
+              <p className="text-xs sm:text-sm text-[#ffd76f] font-mono font-bold tracking-wider pt-3 border-t border-[#504364]/50">
+                33 MIN/DAY AT STAMINA 20
+              </p>
+            </div>
+
+            {/* Durability */}
+            <div className="pb-panel p-5 sm:p-6 flex flex-col justify-between">
+              <div>
+                <span className="inline-block px-2.5 py-0.5 text-[11px] font-bold bg-[#FF7A3D] text-[#0b0820] mb-3 uppercase tracking-wider">
+                  DURABILITY
+                </span>
+                <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed mb-4">
+                  A 0–100 condition meter that drops as you walk. Fix it with GP or a repair patch from a Pace Box.
+                </p>
+              </div>
+              <p className="text-xs sm:text-sm text-[#3EE6D2] font-mono font-bold tracking-wider pt-3 border-t border-[#504364]/50">
+                RESILIENCE SLOWS WEAR BY UP TO 50%
+              </p>
+            </div>
+
+            {/* Pace Boxes */}
+            <div className="pb-panel p-5 sm:p-6 flex flex-col justify-between">
+              <div>
+                <span className="inline-block px-2.5 py-0.5 text-[11px] font-bold bg-[#FF4FA3] text-[#0b0820] mb-3 uppercase tracking-wider">
+                  PACE BOXES
+                </span>
+                <p className="text-xs sm:text-sm text-[#b9b3c9] leading-relaxed mb-3">
+                  Free to open. No keys, no paid rerolls, and the odds are published.
+                </p>
+                <table className="w-full text-xs text-[#b9b3c9]">
+                  <tbody>
+                    <tr className="border-b border-[#504364]/40">
+                      <td className="py-1">Repair patch</td>
+                      <td className="py-1 text-right text-[#FF4FA3] font-bold font-mono">40%</td>
+                    </tr>
+                    <tr className="border-b border-[#504364]/40">
+                      <td className="py-1">Attribute upgrade card</td>
+                      <td className="py-1 text-right text-[#FF4FA3] font-bold font-mono">25%</td>
+                    </tr>
+                    <tr className="border-b border-[#504364]/40">
+                      <td className="py-1">Focus booster</td>
+                      <td className="py-1 text-right text-[#FF4FA3] font-bold font-mono">20%</td>
+                    </tr>
+                    <tr className="border-b border-[#504364]/40">
+                      <td className="py-1">Cosmetic</td>
+                      <td className="py-1 text-right text-[#FF4FA3] font-bold font-mono">10%</td>
+                    </tr>
+                    <tr>
+                      <td className="py-1">Invite code</td>
+                      <td className="py-1 text-right text-[#FF4FA3] font-bold font-mono">5%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
 
       </div>
     </div>
@@ -82,9 +244,9 @@ function TerminalPrompt() {
 
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([
-    "PACE PUNKS OPERATIONAL KERNEL V1.0.4 - [ONLINE]",
-    "TYPE 'JOIN' TO REGISTER FOR EARLY ACCESS WAITLIST",
-    "TYPE 'EPOCHS' OR 'HELP' FOR SYSTEM COMMAND MATRIX.",
+    "Pace Punks operational kernel v1.0.4 — [ONLINE]",
+    "A world of big ideas, curious characters, and pixel gameplay.",
+    "Type 'JOIN' to register for early access, or 'HELP' for commands.",
   ]);
   const [mode, setMode] = useState<"COMMAND" | "AWAITING_EMAIL">("COMMAND");
   const [cmdHistory, setCmdHistory] = useState<string[]>([]);
@@ -412,10 +574,10 @@ function TerminalPrompt() {
 
   return (
     <div 
-      className="flex flex-col gap-3 text-sm md:text-base cursor-text font-mono pb-panel p-4 sm:p-5" 
+      className="flex flex-col gap-3 text-sm md:text-base cursor-text pb-panel p-4 sm:p-5" 
       onClick={() => inputRef.current?.focus()}
     >
-      <div className="flex flex-col gap-1.5 overflow-y-auto min-h-[110px] sm:min-h-[160px] max-h-[380px] pr-2 scrollbar-none text-[#b9b3c9]">
+      <div className="flex flex-col gap-1.5 overflow-y-auto min-h-[110px] sm:min-h-[160px] max-h-[380px] pr-2 scrollbar-none text-[#b9b3c9] font-sans">
         {history.map((line, i) => (
           <div key={i} className="leading-relaxed whitespace-pre-wrap select-text">
             {line}
@@ -424,8 +586,8 @@ function TerminalPrompt() {
         <div ref={bottomRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="flex items-center gap-2 mt-2 pt-3 border-t border-[#504364]">
-        <span className="select-none font-bold text-[#ffd76f] shrink-0 text-sm">
+      <form onSubmit={handleSubmit} className="flex items-center gap-2 mt-2 pt-3 border-t border-[#504364] font-mono">
+        <span className="select-none font-bold text-[#ffd76f] shrink-0 text-xs sm:text-sm">
           {mode === "AWAITING_EMAIL" ? "EMAIL:\\>" : "C:\\>"}
         </span>
         <input 
@@ -434,8 +596,8 @@ function TerminalPrompt() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={mode === "AWAITING_EMAIL" ? "ENTER EMAIL TO JOIN WAITLIST" : "TYPE 'JOIN' OR 'EPOCHS'..."}
-          className="flex-1 bg-transparent text-[#f7ebc9] border-none focus:outline-none focus:ring-0 p-0 m-0 uppercase w-full placeholder:text-[#827c98] text-sm"
+          placeholder={mode === "AWAITING_EMAIL" ? "Enter your email..." : "Type 'JOIN' or 'EPOCHS'..."}
+          className="flex-1 bg-transparent text-[#f7ebc9] border-none focus:outline-none focus:ring-0 p-0 m-0 uppercase w-full placeholder:text-[#827c98] text-xs sm:text-sm tracking-wider"
           autoFocus
           spellCheck={false}
         />
@@ -443,37 +605,174 @@ function TerminalPrompt() {
       </form>
 
       {/* Clean Embedded Quick Command Buttons */}
-      <div className="flex flex-wrap items-center gap-2 mt-2 pt-2.5 border-t border-[#504364]/60 text-[11px] sm:text-xs">
+      <div className="flex flex-wrap items-center gap-2 mt-2 pt-2.5 border-t border-[#504364]/60 text-[11px] sm:text-xs font-mono">
         <span className="text-[#827c98]">&gt; QUICK:</span>
         <button
           type="button"
           onClick={() => { setInput("JOIN"); inputRef.current?.focus(); }}
-          className="px-2.5 py-1 pb-btn-primary text-xs font-bold cursor-pointer"
+          className="px-2.5 py-1 pb-btn-primary text-xs font-bold cursor-pointer font-sans"
         >
-          JOIN WAITLIST
+          Get launch news ↓
         </button>
         <button
           type="button"
           onClick={() => router.push("/epochs")}
-          className="px-2.5 py-1 pb-btn-secondary text-xs font-bold cursor-pointer"
+          className="px-2.5 py-1 pb-btn-secondary text-xs font-bold cursor-pointer font-sans"
         >
-          EPOCHS
+          Epochs →
         </button>
         <button
           type="button"
           onClick={() => router.push("/game")}
-          className="px-2.5 py-1 pb-btn-secondary text-xs font-bold cursor-pointer"
+          className="px-2.5 py-1 pb-btn-secondary text-xs font-bold cursor-pointer font-sans"
         >
-          GAME
+          Play arcade →
         </button>
         <button
           type="button"
           onClick={() => router.push("/collection")}
-          className="px-2.5 py-1 pb-btn-secondary text-xs font-bold cursor-pointer"
+          className="px-2.5 py-1 pb-btn-secondary text-xs font-bold cursor-pointer font-sans"
         >
-          COLLECTION
+          Collection →
         </button>
       </div>
     </div>
   );
 }
+
+const BUILDS: Record<string, { E: number; S: number; R: number; M: number; F: number; art: string }> = {
+  "LV 1": { E: 20, S: 20, R: 20, M: 20, F: 20, art: "/assets/punks/0016.webp" },
+  "WALKER": { E: 20, S: 36, R: 26, M: 26, F: 20, art: "/assets/punks/0008.webp" },
+  "GRINDER": { E: 38, S: 20, R: 20, M: 20, F: 30, art: "/assets/punks/0001.webp" },
+  "LV 30": { E: 32, S: 32, R: 32, M: 31, F: 31, art: "/assets/punks/0014.webp" },
+};
+
+function PunkStatsInteractive() {
+  const [activeBuild, setActiveBuild] = useState<string>("LV 1");
+  const stats = BUILDS[activeBuild];
+
+  const statItems = [
+    {
+      name: "EFFICIENCY",
+      key: "E",
+      val: stats.E,
+      color: "#FF7A3D",
+      desc: "Raises your share of the daily GP pool.",
+    },
+    {
+      name: "STAMINA",
+      key: "S",
+      val: stats.S,
+      color: "#3EE6D2",
+      desc: "Bigger battery, so more minutes a day count toward GP.",
+    },
+    {
+      name: "RESILIENCE",
+      key: "R",
+      val: stats.R,
+      color: "#8C7CFF",
+      desc: "Your Punk wears out slower, so you repair less.",
+    },
+    {
+      name: "MOMENTUM",
+      key: "M",
+      val: stats.M,
+      color: "#FF4FA3",
+      desc: "Rewards five active days a week. Rest days never break it.",
+    },
+    {
+      name: "FOCUS",
+      key: "F",
+      val: stats.F,
+      color: "#FFC93D",
+      desc: "More XP from each walk, then cosmetic mastery after level 30.",
+    },
+  ];
+
+  return (
+    <div className="pb-panel p-5 sm:p-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        {/* Left Column: Punk Artwork & Build Switcher */}
+        <div className="lg:col-span-5 flex flex-col items-center">
+          <div className="w-full max-w-[420px] aspect-square border-2 border-[#504364] bg-[#0b0820] overflow-hidden shadow-[4px_4px_0_#FF4FA3]">
+            <img
+              src={stats.art}
+              alt={`Pace Punk with ${activeBuild} build`}
+              className="w-full h-full object-cover pixelated"
+            />
+          </div>
+
+          {/* Build Selector Tabs */}
+          <div className="flex items-center gap-2 mt-5 flex-wrap justify-center">
+            <span className="text-[11px] sm:text-xs text-[#b9b3c9] font-bold uppercase tracking-wider mr-1">
+              BUILD:
+            </span>
+            <div className="inline-flex border border-[#504364] bg-[#17132c]">
+              {(["LV 1", "WALKER", "GRINDER", "LV 30"] as const).map((tab) => {
+                const isSelected = activeBuild === tab;
+                return (
+                  <button
+                    key={tab}
+                    type="button"
+                    onClick={() => setActiveBuild(tab)}
+                    className={`px-3 py-1.5 text-xs font-bold transition-all cursor-pointer ${
+                      isSelected
+                        ? "bg-[#ffd76f] text-[#17132c]"
+                        : "text-[#b9b3c9] hover:text-[#f7ebc9] hover:bg-[#231d3c]"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: 5 Stat Bars & Descriptions */}
+        <div className="lg:col-span-7 flex flex-col gap-5">
+          {statItems.map((item) => (
+            <div key={item.key} className="flex flex-col gap-1.5">
+              <div className="flex items-baseline justify-between">
+                <span 
+                  className="text-xs sm:text-sm font-bold tracking-wider"
+                  style={{ color: item.color }}
+                >
+                  {item.name}
+                </span>
+                <span className="text-sm sm:text-base font-bold font-mono text-[#f7ebc9]">
+                  {item.val}
+                </span>
+              </div>
+
+              {/* Segmented / Stepped Progress Bar */}
+              <div className="w-full h-3.5 bg-[#0b0820] border border-[#504364] relative overflow-hidden">
+                <div 
+                  className="h-full transition-all duration-300"
+                  style={{ 
+                    width: `${item.val}%`, 
+                    backgroundColor: item.color 
+                  }}
+                />
+                {/* 10-step divider marks */}
+                <div 
+                  className="absolute inset-0 pointer-events-none opacity-40"
+                  style={{
+                    backgroundImage: "repeating-linear-gradient(90deg, transparent, transparent calc(10% - 1px), #0b0820 calc(10% - 1px), #0b0820 10%)"
+                  }}
+                />
+              </div>
+
+              <p className="text-[11px] sm:text-xs text-[#b9b3c9]">
+                {item.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  );
+}
+

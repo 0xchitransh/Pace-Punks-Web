@@ -21,9 +21,9 @@
   --a-mom: #FF4FA3;
   --a-foc: #FFC93D;
 
-  --f-display: "Pixelify Sans", "Silkscreen", ui-monospace, monospace;
-  --f-label: "Silkscreen", ui-monospace, "Courier New", monospace;
-  --f-body: "Sora", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-display: "Pixelify Sans", sans-serif;
+  --f-label: "Pixelify Sans", sans-serif;
+  --f-body: "Pixelify Sans", sans-serif;
 
   --step--1: .8125rem;
   --step-0: 1rem;

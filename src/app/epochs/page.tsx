@@ -132,8 +132,8 @@ export default function EpochsPage() {
               <span>/</span>
               <span className="text-bbs font-bold">EPOCHS.EXE</span>
             </div>
-            <h1 className="text-base xs:text-lg sm:text-2xl md:text-3xl font-bold tracking-wider break-words">
-              [ SYSTEM ARCHIVE: MINTING EPOCHS ]
+            <h1 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold font-display tracking-tight break-words text-[#f7ebc9]">
+              SYSTEM ARCHIVE: MINTING EPOCHS
             </h1>
           </div>
 

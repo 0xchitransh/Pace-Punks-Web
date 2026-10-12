@@ -1,32 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import { VT323, Pixelify_Sans, Silkscreen, Sora } from "next/font/google";
+import { Pixelify_Sans, DM_Sans, Space_Mono } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "@/components/Navbar";
 import { PixelBlockBackground } from "@/components/PixelBlockBackground";
 import "./globals.css";
 
-const vt323 = VT323({
-  weight: "400",
-  variable: "--font-vt323",
-  subsets: ["latin"],
-});
-
 const pixelifySans = Pixelify_Sans({
-  weight: ["500", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-pixelify-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const silkscreen = Silkscreen({
+const dmSans = DM_Sans({
+  weight: ["400", "500", "700"],
+  variable: "--font-dm-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
   weight: ["400", "700"],
-  variable: "--font-silkscreen",
+  variable: "--font-space-mono",
   subsets: ["latin"],
-});
-
-const sora = Sora({
-  weight: ["400", "600"],
-  variable: "--font-sora",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -55,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${vt323.variable} ${pixelifySans.variable} ${silkscreen.variable} ${sora.variable} antialiased min-h-screen bg-background text-foreground flex flex-col font-mono relative`}
+        className={`${pixelifySans.variable} ${dmSans.variable} ${spaceMono.variable} antialiased min-h-screen bg-background text-foreground flex flex-col font-sans relative`}
       >
         <PixelBlockBackground />
         <Providers>

@@ -41,14 +41,14 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="w-full bg-transparent text-bbs font-mono tracking-wider relative z-50">
+    <nav className="w-full bg-transparent text-bbs relative z-50">
       <div className="max-w-[1500px] mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2 flex-nowrap">
         
         {/* Logo / Header */}
         <Link href="/" className="flex items-center gap-2 hover:text-[#fff] transition-colors whitespace-nowrap shrink-0">
           <span className="w-2.5 h-2.5 bg-[#ffd76f] inline-block shadow-[0_0_8px_rgba(255,215,111,0.5)]"></span>
-          <span className="text-base sm:text-lg font-bold tracking-widest text-[#f7ebc9] hidden xs:inline sm:inline">PACE PUNKS</span>
-          <span className="text-base font-bold xs:hidden text-[#f7ebc9]">PP</span>
+          <span className="text-base sm:text-lg font-bold font-display tracking-normal text-[#f7ebc9] hidden xs:inline sm:inline">PACE PUNKS</span>
+          <span className="text-base font-bold font-display xs:hidden text-[#f7ebc9]">PP</span>
         </Link>
 
         {/* Desktop / Tablet Center Links - Embedded Pixel Block Style */}
@@ -59,7 +59,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-xs lg:text-sm transition-all px-2.5 py-1 ${
+                className={`text-xs font-mono tracking-wider transition-all px-2.5 py-1 ${
                   isActive
                     ? "text-[#17132c] bg-[#ffd76f] font-bold"
                     : "text-[#b9b3c9] hover:text-[#f7ebc9] hover:bg-[#231d3c]"

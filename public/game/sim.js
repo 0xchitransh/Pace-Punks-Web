@@ -12,18 +12,18 @@
 (function (root) {
   "use strict";
 
-  var VERSION = 3;
+  var VERSION = 5;
   var TPS = 60;                 // simulation ticks per second
 
   // World units: the view is 540 units tall. The floor line (the punk's feet) is at GROUND.
   var GROUND = 436;
   var PLAYER = { w: 197, h: 208, hitX0: 64, hitX1: 148, hitTop: 22, hitBottom: 4 };
 
-  // Speed climbs quickly to SPEED_MID (about a minute in), then keeps climbing slowly to SPEED_MAX
-  // (about four minutes in). Gaps between obstacles also tighten until RAMP_POINTS distance points.
-  var SPEED0 = 8, SPEED_MID = 15, SPEED_MAX = 20, GAIN1 = 0.0018, GAIN2 = 0.0005;
+  // Speed climbs quickly to SPEED_MID (under a minute in), then keeps climbing to SPEED_MAX
+  // (about three minutes in). Gaps between obstacles also tighten until RAMP_POINTS distance points.
+  var SPEED0 = 10, SPEED_MID = 18, SPEED_MAX = 24, GAIN1 = 0.0028, GAIN2 = 0.0008;
   var T_MID = (SPEED_MID - SPEED0) / GAIN1;
-  var RAMP_POINTS = 4000;
+  var RAMP_POINTS = 3000;
   var JUMP_V = 15.5, G_HOLD = 0.62, G_RISE = 1.25, G_FALL = 1.0, G_DIVE = 2.4;
   var JUMP_BUFFER = 8;          // ticks a press is remembered while still in the air
   var SPAWN_AHEAD = 1500;       // obstacles appear this far ahead of the punk, on every screen size
@@ -35,13 +35,13 @@
   // weight at the start and weight once the ramp is done (blended in between)
   var KINDS = {
     crate:     { w: 54,  h: 58,  lift: 0,   min: 0,   wt: 5, wt2: 3 },
-    crate2:    { w: 106, h: 58,  lift: 0,   min: 60,  wt: 3, wt2: 3 },
+    crate2:    { w: 106, h: 58,  lift: 0,   min: 40,  wt: 3, wt2: 3 },
     canister:  { w: 30,  h: 80,  lift: 0,   min: 0,   wt: 4, wt2: 3 },
-    canister2: { w: 76,  h: 80,  lift: 0,   min: 120, wt: 3, wt2: 4 },
-    barrier:   { w: 80,  h: 66,  lift: 0,   min: 30,  wt: 4, wt2: 3 },
-    stack:     { w: 58,  h: 104, lift: 0,   min: 180, wt: 3, wt2: 5 },
-    droneLow:  { w: 74,  h: 40,  lift: 36,  min: 260, wt: 3, wt2: 5 },
-    droneHigh: { w: 74,  h: 40,  lift: 224, min: 420, wt: 3, wt2: 4 }
+    canister2: { w: 76,  h: 80,  lift: 0,   min: 70,  wt: 3, wt2: 4 },
+    barrier:   { w: 80,  h: 66,  lift: 0,   min: 20,  wt: 4, wt2: 3 },
+    stack:     { w: 58,  h: 104, lift: 0,   min: 110, wt: 3, wt2: 5 },
+    droneLow:  { w: 74,  h: 40,  lift: 36,  min: 160, wt: 3, wt2: 5 },
+    droneHigh: { w: 74,  h: 40,  lift: 224, min: 250, wt: 3, wt2: 4 }
   };
   var KIND_ORDER = ["crate", "crate2", "canister", "canister2", "barrier", "stack", "droneLow", "droneHigh"];
 
@@ -102,30 +102,34 @@
     // more often as the run goes on. A tall stack only leads a combo at speed 11 and up, where the
     // jump window is at least 14 ticks. From speed 14 a combo can grow to three (one held jump).
     var r = s.rand();
-    if (sc > 320 && r < 0.25 + 0.25 * lvl && KINDS[kind].lift === 0 && KINDS[kind].w <= 58 && (kind !== "stack" || s.speed >= 11)) {
+    if (sc > 200 && r < 0.3 + 0.3 * lvl && KINDS[kind].lift === 0 && KINDS[kind].w <= 58 && (kind !== "stack" || s.speed >= 11)) {
       end = addObstacle(s, s.rand() < 0.5 ? "crate" : "canister", end + 40 + Math.floor(s.rand() * 30));
-      if (sc > 1500 && s.speed >= 14 && kind !== "stack" && s.rand() < 0.4 * lvl) {
+      if (sc > 1000 && s.speed >= 15 && kind !== "stack" && s.rand() < 0.45 * lvl) {
         end = addObstacle(s, s.rand() < 0.5 ? "crate" : "canister", end + 40 + Math.floor(s.rand() * 30));
       }
     }
-    // GP chips: an arc over the obstacle or a line on the floor after it.
+    // GP chips: an arc over the obstacle or a low line after it. Both sit where the punk's body
+    // passes whatever jump clears the obstacle: the arc at head height (170 to 190 units up, which a
+    // jump's peak and a run along the floor both reach), the line far enough out that a long jump
+    // has landed by then, and the next obstacle waits until after the line.
     var c = s.rand();
     if (c < 0.42) {
       var n = 3 + Math.floor(s.rand() * 3), i;
       if (KINDS[kind].lift > 100 || c < 0.14) {
-        var fx = end + 120 + Math.floor(s.rand() * 80);
-        for (i = 0; i < n; i++) s.coins.push({ id: s.nextId++, x: fx + i * 44, y: 30 });
+        var fx = end + 80 + Math.floor(s.speed * 20);
+        for (i = 0; i < n; i++) s.coins.push({ id: s.nextId++, x: fx + i * 44, y: 60 });
+        end = Math.max(end, fx + (n - 1) * 44 + 40);
       } else {
-        var mid = (x + end) / 2, top = KINDS[kind].lift + KINDS[kind].h + 70;
+        var mid = (x + end) / 2;
         for (i = 0; i < n; i++) {
           var u = (i - (n - 1) / 2);
-          s.coins.push({ id: s.nextId++, x: mid - 18 + u * 46, y: top - u * u * 14 });
+          s.coins.push({ id: s.nextId++, x: mid + u * 40, y: 190 - u * u * 5 });
         }
       }
     }
-    // Gap to the next group, in ticks of running: 50 to 96 at the start, 34 to 62 once the ramp is done.
+    // Gap to the next group, in ticks of running: 46 to 88 at the start, 30 to 56 once the ramp is done.
     var sp = s.speed;
-    s.nextSpawn = (end - s.dist) + Math.floor(sp * (50 - 16 * lvl + s.rand() * (46 - 18 * lvl)) + 70);
+    s.nextSpawn = (end - s.dist) + Math.floor(sp * (46 - 16 * lvl + s.rand() * (42 - 16 * lvl)) + 70);
   }
 
   function input(s, type) {

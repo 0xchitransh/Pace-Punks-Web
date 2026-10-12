@@ -81,12 +81,19 @@
     [[x + 1, y + 1], [x + w - 4, y + 1], [x + 1, y + h - 4], [x + w - 4, y + h - 4]].forEach(function (q) { P(q[0], q[1], 3, 3, "#B4BEC6"); P(q[0] + 1, q[1] + 1, 1, 1, deep); });
     P(x + 4, y + 3, w - 8, 1, strip); P(x + 5, y + 3, w - 10, 1, shadeOf(strip, 0.5));
     if (label === "hazard") { for (var i = 0; i < 8; i += 2) { P(x + ((w - 8) >> 1) + i, y + h - 8, 1, 3, "#E8C04A"); P(x + ((w - 8) >> 1) + i + 1, y + h - 8, 1, 3, INK); } }
-    else if (label === "pp") {
-      // "PP" on a dark plate so the crate slats don't cut through the letters
-      var lx = x + ((w - 11) >> 1), ly = y + ((h - 5) >> 1), glyph = [[0, 0, 2, 5], [2, 0, 2, 1], [3, 1, 2, 1], [2, 2, 2, 1]];
-      P(lx - 2, ly - 2, 15, 9, INK); P(lx - 1, ly - 1, 13, 7, deep);
-      glyph.forEach(function (r) { P(lx + r[0], ly + r[1], r[2], r[3], "#FFF3DE"); P(lx + 6 + r[0], ly + r[1], r[2], r[3], "#E86AA6"); });
+    else if (label === "logo") {
+      // the Pace Punks P on a dark plate, with a one-pixel glow around it
+      var lx = x + ((w - 8) >> 1), ly = y + ((h - 10) >> 1);
+      P(lx - 2, ly - 2, 12, 14, INK); P(lx - 1, ly - 1, 10, 12, LOGO_BG);
+      logoCells(function (cx, cy) { P(lx + cx - 1, ly + cy, 3, 1, LOGO_GLOW); P(lx + cx, ly + cy - 1, 1, 3, LOGO_GLOW); });
+      logoCells(function (cx, cy) { P(lx + cx, ly + cy, 1, 1, LOGO); });
     }
+  }
+  // The Pace Punks P logo, 8 by 10 cells, cyan on dark navy.
+  var LOGO = "#01F8FF", LOGO_BG = "#060E1E", LOGO_GLOW = "#0B4656";
+  var LOGO_ROWS = ["#######.", ".#######", "......##", "..##..##", "..######", "...#####", "..#####.", "..##....", "..##....", "..##...."];
+  function logoCells(fn) {
+    for (var r = 0; r < 10; r++) for (var c = 0; c < 8; c++) if (LOGO_ROWS[r][c] === "#") fn(c, r);
   }
   // server box: grille and status lights
   function server(P, x, y, w, h) {
@@ -125,16 +132,16 @@
     var K = Sim.KINDS;
     var STEEL = "#7A8A96", RUST = "#B9783E", TEAL = "#5F7C7A", MINT = "#8CF5CF", AMBER = "#F3B95F";
     SPR.crate = [
-      sprite(K.crate.w, K.crate.h, function (P, w, h) { crate(P, 0, 0, w, h, STEEL, MINT, "pp"); }),
+      sprite(K.crate.w, K.crate.h, function (P, w, h) { crate(P, 0, 0, w, h, STEEL, MINT, "logo"); }),
       sprite(K.crate.w, K.crate.h, function (P, w, h) { crate(P, 0, 0, w, h, RUST, AMBER, "hazard"); }),
       sprite(K.crate.w, K.crate.h, function (P, w, h) { server(P, 0, 0, w, h); })
     ];
     SPR.crate2 = [
-      sprite(K.crate2.w, K.crate2.h, function (P, w, h) { crate(P, 0, 0, 26, h, STEEL, MINT, "pp"); crate(P, 27, 0, 26, h, RUST, AMBER, "hazard"); }),
-      sprite(K.crate2.w, K.crate2.h, function (P, w, h) { server(P, 0, 0, 26, h); crate(P, 27, 0, 26, h, TEAL, AMBER, "pp"); })
+      sprite(K.crate2.w, K.crate2.h, function (P, w, h) { crate(P, 0, 0, 26, h, STEEL, MINT, "logo"); crate(P, 27, 0, 26, h, RUST, AMBER, "hazard"); }),
+      sprite(K.crate2.w, K.crate2.h, function (P, w, h) { server(P, 0, 0, 26, h); crate(P, 27, 0, 26, h, TEAL, AMBER, "logo"); })
     ];
     SPR.stack = [
-      sprite(K.stack.w, K.stack.h, function (P, w, h) { crate(P, 0, 25, w, 27, STEEL, MINT, "hazard"); crate(P, 2, 0, w - 4, 25, TEAL, AMBER, "pp"); }),
+      sprite(K.stack.w, K.stack.h, function (P, w, h) { crate(P, 0, 25, w, 27, STEEL, MINT, "hazard"); crate(P, 2, 0, w - 4, 25, TEAL, AMBER, "logo"); }),
       sprite(K.stack.w, K.stack.h, function (P, w, h) { crate(P, 0, 25, w, 27, RUST, AMBER, "hazard"); server(P, 2, 0, w - 4, 25); })
     ];
     SPR.canister = [
@@ -160,13 +167,43 @@
     })];
     SPR.droneLow = [sprite(K.droneLow.w, K.droneLow.h, droneArt(0)), sprite(K.droneLow.w, K.droneLow.h, droneArt(1))];
     SPR.droneHigh = SPR.droneLow;
-    SPR.chip = sprite(28, 28, function (P) {
-      var rows = [[4, 6], [2, 10], [1, 12], [1, 12], [0, 14], [0, 14], [0, 14], [0, 14], [0, 14], [0, 14], [1, 12], [1, 12], [2, 10], [4, 6]];
-      rows.forEach(function (r, y) { P(r[0], y, r[1], 1, INK); });
-      rows.forEach(function (r, y) { if (y > 0 && y < 13) P(r[0] + 1, y, r[1] - 2, 1, y > 9 ? "#D9961C" : "#FFC93D"); });
-      P(3, 2, 4, 1, "#FFF0B0"); P(2, 3, 1, 3, "#FFF0B0");
-      P(5, 4, 2, 7, "#8A5406"); P(7, 4, 2, 1, "#8A5406"); P(7, 7, 2, 1, "#8A5406"); P(9, 5, 1, 2, "#8A5406");
-    });
+    SPR.chip = coinSprite();
+  }
+  // GP chip: a gold-rimmed token with the P logo glowing on a dark face. Drawn smooth at 4x so it
+  // stays crisp at any screen size. 30 units across, plus room for the soft halo.
+  function coinSprite() {
+    var D = 30, pad = 8, k = 4, n = (D + pad * 2) * k;
+    var c = document.createElement("canvas"); c.width = c.height = n;
+    var g = c.getContext("2d"); g.scale(k, k); g.translate(pad + D / 2, pad + D / 2);
+    function disc(r, col) { g.fillStyle = col; g.beginPath(); g.arc(0, 0, r, 0, Math.PI * 2); g.fill(); }
+    g.shadowColor = "rgba(14,18,24,.55)"; g.shadowBlur = 6; disc(15, INK); g.shadowBlur = 0;
+    var rim = g.createLinearGradient(0, -14, 0, 14);
+    rim.addColorStop(0, "#FFE38A"); rim.addColorStop(0.45, "#FFC93D"); rim.addColorStop(1, "#C98512");
+    disc(13.6, rim);
+    disc(10.6, "#7A4A08");
+    disc(9.8, LOGO_BG);
+    var cs = 1.5, ox = -4 * cs + 0.4, oy = -5 * cs;
+    g.shadowColor = "rgba(1,248,255,.9)"; g.shadowBlur = 3.5; g.fillStyle = LOGO;
+    logoCells(function (cx, cy) { g.fillRect(ox + cx * cs, oy + cy * cs, cs + 0.02, cs + 0.02); });
+    g.shadowBlur = 0;
+    // a little shine on the rim
+    g.strokeStyle = "rgba(255,250,225,.85)"; g.lineWidth = 1.3; g.lineCap = "round";
+    g.beginPath(); g.arc(0, 0, 12.2, Math.PI * 1.08, Math.PI * 1.42); g.stroke();
+    return { c: c, pad: pad, d: D };
+  }
+  // a chip centred on (x, y); t < 0 means no glint (the HUD icon)
+  function drawChip(x, y, t, sc) {
+    var C = SPR.chip, z = sc || 1, full = (C.d + C.pad * 2) * z;
+    ctx.drawImage(C.c, x - full / 2, y - full / 2, full, full);
+    if (t < 0) return;
+    var ph = (t % 2400) / 2400;            // a glint crosses the face once every 2.4 s
+    if (ph > 0.18) return;
+    var gx = x - 12 + (ph / 0.18) * 24;
+    ctx.save();
+    ctx.beginPath(); ctx.arc(x, y, 13.6, 0, Math.PI * 2); ctx.clip();
+    ctx.fillStyle = "rgba(255,255,240,.35)";
+    ctx.beginPath(); ctx.moveTo(gx - 3, y - 15); ctx.lineTo(gx + 2, y - 15); ctx.lineTo(gx + 6, y + 15); ctx.lineTo(gx + 1, y + 15); ctx.fill();
+    ctx.restore();
   }
   function spriteFor(o, t) {
     var v = SPR[o.kind];
@@ -189,7 +226,7 @@
       audio = new AC();
       sfxBus = audio.createGain(); sfxBus.gain.value = 1.6; sfxBus.connect(audio.destination);
     }
-    if (audio.state === "suspended") audio.resume();
+    if (audio.state !== "running" && audio.state !== "closed") { try { audio.resume(); } catch (e) {} }
     return audio;
   }
   function wireMusic() {
@@ -217,6 +254,20 @@
     if (music.paused) music.play().catch(function () {});
     musicLevel(MUSIC_VOL, 18000, 0.6);
   }
+  // Phones only let sound start on some touches (a finger lifting, not landing), and a slow
+  // connection can leave the first play() waiting, so every tap or key, and a check every two
+  // seconds, start the soundtrack again whenever it should be playing and is not.
+  function kickMusic(gesture) {
+    if (gesture && audio && audio.state !== "running" && audio.state !== "closed") { try { audio.resume(); } catch (e) {} }
+    if (!musicStarted || musicOff || document.hidden || !(mode === "playing" || mode === "over")) return;
+    if (music.paused) { music.play().catch(function () {}); if (mode === "over") musicDuck(); }
+  }
+  ["pointerup", "touchend", "click", "keydown"].forEach(function (ev) {
+    window.addEventListener(ev, function () { kickMusic(true); }, true);
+  });
+  setInterval(function () { kickMusic(false); }, 2000);
+  // Buffer the soundtrack once the page has loaded, so the first run does not wait on the download.
+  window.addEventListener("load", function () { if (!musicOff && !musicStarted) music.preload = "auto"; });
   function musicDuck() { if (!music.paused) musicLevel(MUSIC_DUCK, 650, 0.5); }
   function musicHold() { if (!music.paused) music.pause(); }
   function sfx(kind) {
@@ -562,7 +613,7 @@
     for (var i = 0; i < n; i++) particles.push({ x: PXS + 90 + Math.random() * 50, y: GROUND - 2, vx: -1 - Math.random() * 3, vy: -Math.random() * 2.2, life: 1, r: 2 + Math.random() * 3, c: "rgba(200,214,226," });
   }
   function popChip() {
-    for (var i = 0; i < 8; i++) particles.push({ x: PXS + 130, y: GROUND - s.y - 120, vx: Math.random() * 4 - 1, vy: Math.random() * -4, life: 1, r: 2 + Math.random() * 2, c: "rgba(255,201,61," });
+    for (var i = 0; i < 8; i++) particles.push({ x: PXS + 130, y: GROUND - s.y - 120, vx: Math.random() * 4 - 1, vy: Math.random() * -4, life: 1, r: 2 + Math.random() * 2, c: i % 2 ? "rgba(255,201,61," : "rgba(1,248,255," });
   }
 
   // ---------- drawing ----------
@@ -631,9 +682,7 @@
         o = s.coins[i];
         var cx = PXS + (o.x - dist);
         if (cx > VW + 30 || cx < -30) continue;
-        var spin = Math.abs(Math.cos(t / 220 + o.id));
-        var cw = 28 * Math.max(0.2, spin);
-        ctx.drawImage(SPR.chip.c, cx - cw / 2 - SPR.chip.pad * cw / 28, GROUND - o.y - 14 - SPR.chip.pad, cw + SPR.chip.pad * 2 * cw / 28, 28 + SPR.chip.pad * 2);
+        drawChip(cx, GROUND - o.y + Math.sin(t / 260 + o.id * 0.7) * 2, t + o.id * 300);
       }
     }
 
@@ -677,22 +726,22 @@
   function hud() {
     if (mode === "ready") return;
     var sc = Sim.score(s);
-    var isMilestone = mode === "playing" && lastMile > 0 && sc - lastMile * 100 < 20;
-    ctx.font = "700 22px Silkscreen, monospace";
+    var blink = mode === "playing" && lastMile > 0 && sc - lastMile * 100 < 20 && (Math.floor(performance.now() / 120) % 2 === 0);
+    ctx.font = '700 22px "Pixelify Sans", sans-serif';
     ctx.textAlign = "right"; ctx.textBaseline = "top";
     var txt = pad(sc), hi = "HI " + pad(Math.max(best, sc));
     ctx.fillStyle = "#0B0820";
     ctx.fillText(txt, VW - 22, 20); ctx.fillText(hi, VW - 22 - ctx.measureText(txt).width - 26, 20);
     ctx.fillStyle = "rgba(255,243,222,.62)";
     ctx.fillText(hi, VW - 24 - ctx.measureText(txt).width - 26, 18);
-    ctx.fillStyle = isMilestone ? "#FF7A3D" : "#FFF3DE";
+    ctx.fillStyle = blink ? "#FF7A3D" : "#FFF3DE";
     ctx.fillText(txt, VW - 24, 18);
     // chips
     ctx.textAlign = "left";
-    ctx.drawImage(SPR.chip.c, 18, 14, 28 + 16, 28 + 16);
+    drawChip(36, 34, -1, 0.95);
     ctx.fillStyle = "#0B0820"; ctx.fillText("x" + s.coinCount, 58, 22);
     ctx.fillStyle = "#FFC93D"; ctx.fillText("x" + s.coinCount, 56, 20);
-    ctx.font = "400 11px Silkscreen, monospace";
+    ctx.font = '700 13px "Pixelify Sans", sans-serif';
     ctx.fillStyle = ranked || (mode === "over" && runId) ? "rgba(62,230,210,.9)" : "rgba(189,179,217,.75)";
     ctx.fillText(runId ? "RANKED RUN" : "PRACTICE RUN", 20, 52);
   }

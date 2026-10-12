@@ -3,9 +3,14 @@
 @theme {
   --color-bbs: var(--bbs-color);
   --color-bbs-dim: color-mix(in srgb, var(--bbs-color) 40%, transparent);
-  --font-mono: var(--font-vt323), monospace;
-  --font-sans: var(--font-vt323), monospace;
-  --font-display: var(--font-vt323), monospace;
+  --font-display: var(--font-pixelify-sans), "Pixelify Sans", sans-serif;
+  --font-sans: var(--font-pixelify-sans), "Pixelify Sans", sans-serif;
+  --font-mono: var(--font-pixelify-sans), "Pixelify Sans", monospace;
+}
+
+.font-display {
+  font-family: var(--font-pixelify-sans), "Pixelify Sans", sans-serif !important;
+  font-feature-settings: "blwf" on, "cv03" on, "cv04" on, "cv09" on, "cv11" on;
 }
 
 :root {
@@ -20,6 +25,7 @@
 }
 
 * {
+  font-family: var(--font-pixelify-sans), "Pixelify Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -27,12 +33,23 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-vt323), monospace;
-  font-size: 1.2rem;
-  letter-spacing: 0.04em;
-  line-height: 1.4;
+  font-family: var(--font-pixelify-sans), "Pixelify Sans", sans-serif;
+  font-feature-settings: "blwf" on, "cv03" on, "cv04" on, "cv09" on, "cv11" on;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
   overflow-x: hidden;
   text-shadow: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-pixelify-sans), "Pixelify Sans", sans-serif !important;
+  font-feature-settings: "blwf" on, "cv03" on, "cv04" on, "cv09" on, "cv11" on;
+  letter-spacing: -0.02em;
+}
+
+button, input, select, textarea, kbd, code, table, th, td {
+  font-family: var(--font-pixelify-sans), "Pixelify Sans", sans-serif !important;
 }
 
 /* Authentic Pixel Block embedded panel styling */
@@ -81,7 +98,7 @@ input {
   color: var(--bbs-color);
   border: none;
   border-bottom: 2px solid var(--bbs-color);
-  font-family: var(--font-vt323), monospace;
+  font-family: var(--font-space-mono), monospace;
 }
 
 input:focus {

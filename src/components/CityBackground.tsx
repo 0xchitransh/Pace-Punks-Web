@@ -15,19 +15,12 @@ export function CityBackground() {
 
   return (
     <div 
-      className="fixed inset-0 z-0 pointer-events-none opacity-30 mix-blend-screen"
+      className="fixed inset-0 z-0 pointer-events-none opacity-25 mix-blend-screen"
       style={{
-        // One building skyline layer plus sky, scaled responsively for both mobile and laptop
-        backgroundImage: `
-          url('/bg/Buildings%201.png'),
-          url('/bg/Sky.png')
-        `,
-        backgroundPosition: `
-          ${scrollY * -0.25}px bottom,
-          center center
-        `,
-        backgroundRepeat: 'repeat-x, no-repeat',
-        backgroundSize: 'auto clamp(380px, 58vh, 520px), cover',
+        backgroundImage: `url('/bg/Buildings%201.png')`,
+        backgroundPosition: `${scrollY * -0.25}px bottom`,
+        backgroundRepeat: 'repeat-x',
+        backgroundSize: 'auto clamp(380px, 58vh, 520px)',
         imageRendering: 'pixelated'
       }}
     />

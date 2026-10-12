@@ -3,6 +3,7 @@ import { VT323, Pixelify_Sans, Silkscreen, Sora } from "next/font/google";
 import { Providers } from "@/components/Providers";
 import { Navbar } from "@/components/Navbar";
 import { CityBackground } from "@/components/CityBackground";
+import { PixelBlockBackground } from "@/components/PixelBlockBackground";
 import "./globals.css";
 
 const vt323 = VT323({
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#140F33",
+  themeColor: "#17132c",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -57,10 +58,11 @@ export default function RootLayout({
       <body
         className={`${vt323.variable} ${pixelifySans.variable} ${silkscreen.variable} ${sora.variable} antialiased min-h-screen bg-background text-foreground flex flex-col font-mono`}
       >
+        <PixelBlockBackground />
         <CityBackground />
         <Providers>
           <Navbar />
-          <main className="flex-1 w-full">{children}</main>
+          <main className="flex-1 w-full relative z-10">{children}</main>
         </Providers>
       </body>
     </html>

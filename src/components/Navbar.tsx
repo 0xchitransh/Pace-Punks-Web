@@ -6,7 +6,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useEffect, useState } from "react";
 
 const brandColors = [
-  { name: "CREAM", hex: "#FFF3DE" },
+  { name: "CREAM", hex: "#f7ebc9" },
   { name: "CLASSIC GREEN", hex: "#33ff33" },
   { name: "AMBER", hex: "#FFB000" },
   { name: "BLUE", hex: "#8C7CFF" },

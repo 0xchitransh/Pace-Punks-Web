@@ -31,7 +31,7 @@ export function CorridorRunGame({ isEmbedded = false }: { isEmbedded?: boolean }
       </div>
 
       {/* Embedded Arcade Cabinet Screen */}
-      <div className={`relative border-2 border-bbs shadow-[0_0_20px_var(--color-bbs-dim)] bg-black overflow-hidden w-full ${
+      <div className={`relative border-2 border-bbs/70 shadow-[0_8px_30px_rgba(0,0,0,0.6)] bg-black overflow-hidden w-full ${
         isEmbedded 
           ? "h-[280px] xs:h-[320px] sm:h-[380px] md:h-[440px] lg:h-[480px] xl:h-[510px]" 
           : "h-[320px] xs:h-[380px] sm:h-[450px] md:h-[500px] max-h-[calc(100dvh-135px)]"

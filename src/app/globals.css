@@ -9,9 +9,13 @@
 }
 
 :root {
-  --background: #140F33;
-  --bbs-color: #FFF3DE;
+  --background: #17132c;
+  --bbs-color: #f7ebc9;
   --foreground: var(--bbs-color);
+  --color-card: #231d3c;
+  --color-slate-block: #494360;
+  --color-amber: #ffd76f;
+  --color-lavender: #c1b8d1;
 }
 
 * {
@@ -21,32 +25,20 @@
 
 body {
   background-color: var(--background);
+  background-image: 
+    linear-gradient(to right, rgba(73, 67, 96, 0.22) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(73, 67, 96, 0.22) 1px, transparent 1px);
+  background-size: 20px 20px;
   color: var(--foreground);
   font-family: var(--font-vt323), monospace;
   font-size: 1.2rem;
   letter-spacing: 0.04em;
   line-height: 1.4;
   overflow-x: hidden;
-  text-shadow: 0 0 6px color-mix(in srgb, var(--bbs-color) 90%, transparent), 0 0 12px color-mix(in srgb, var(--bbs-color) 70%, transparent), 0 0 22px color-mix(in srgb, var(--bbs-color) 40%, transparent);
 }
 
 .bg-bbs, .bg-bbs *, [class*="bg-bbs"], .text-background {
   text-shadow: none !important;
-}
-
-/* CRT Scanline Effect */
-body::after {
-  content: " ";
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-  z-index: 999;
-  background-size: 100% 2px, 3px 100%;
-  pointer-events: none;
 }
 
 input {

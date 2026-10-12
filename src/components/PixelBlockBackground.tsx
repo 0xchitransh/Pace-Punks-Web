@@ -12,21 +12,27 @@ export function PixelBlockBackground() {
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
-    const SIZE = 10; // Exact 10px size
-    const GAP = 2;   // Exact 2px gap
-    const STEP = SIZE + GAP; // 12px cell pitch
+    // Reference site exact measurements:
+    // Blocks are ~36px with a 2px gap = 38px pitch
+    const SIZE = 36;  // block size matching pixel-block.framer.website
+    const GAP = 2;    // gap between blocks
+    const STEP = SIZE + GAP; // 38px cell pitch
 
-    const BASE_BG = "#17132c";
+    // Exact colors from pixel-block.framer.website CSS tokens:
+    const BASE_BG = "#17132c";  // --token-e0c1c505 = #17132c
+
+    // Purple/violet block shades visible in the reference
     const SLATE_BLOCKS = [
       "#261f3f",
-      "#2e254c",
-      "#382d5a",
-      "#42366b",
-      "#4c3e7b",
-      "#58488d",
+      "#2d2550",
+      "#332b5e",
+      "#3d3368",
+      "#47397e",
+      "#504364",
+      "#231d3c",
     ];
 
-    // Seeded random pseudo generator so grid stays completely stable and sticky across scrolls/renders
+    // Seeded random – stays stable across scroll/renders
     const seededRandom = (x: number, y: number) => {
       const s = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453123;
       return s - Math.floor(s);
@@ -43,40 +49,16 @@ export function PixelBlockBackground() {
       canvas.style.height = `${h}px`;
       ctx.scale(dpr, dpr);
 
-      // 1. Draw solid background
+      // 1. Draw solid dark background
       ctx.fillStyle = BASE_BG;
       ctx.fillRect(0, 0, w, h);
 
-      // 2. Soft top spotlight gradient
-      const grad = ctx.createRadialGradient(
-        w * 0.5, h * 0.38, 50,
-        w * 0.5, h * 0.38, Math.max(w, h) * 0.85
-      );
-      grad.addColorStop(0, "rgba(42, 34, 70, 0.6)");
-      grad.addColorStop(1, "rgba(23, 19, 44, 0)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, w, h);
-
-      // Calculate scroll offset to tie grid directly to page scroll
+      // Calculate scroll offset to lock grid to page scroll
       const scrollY = window.scrollY || window.pageYOffset || 0;
       const offsetY = -(scrollY % STEP);
 
-      // 3. Subtle crisp grid lines (1px)
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.04)";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      for (let x = 0; x <= w; x += STEP) {
-        ctx.moveTo(x + 0.5, 0);
-        ctx.lineTo(x + 0.5, h);
-      }
-      for (let y = offsetY; y <= h + STEP; y += STEP) {
-        ctx.moveTo(0, y + 0.5);
-        ctx.lineTo(w, y + 0.5);
-      }
-      ctx.stroke();
-
-      // 4. Rich volume of pixel blocks (seeded by global row to stick with scroll)
-      const cols = Math.ceil(w / STEP);
+      // 2. Draw pixel blocks first (below grid lines)
+      const cols = Math.ceil(w / STEP) + 1;
       const rows = Math.ceil(h / STEP) + 2;
       const startRow = Math.floor(scrollY / STEP);
 
@@ -85,13 +67,30 @@ export function PixelBlockBackground() {
         const screenY = r * STEP + offsetY;
         for (let c = 0; c < cols; c++) {
           const val = seededRandom(c, globalRow);
-          if (val < 0.32) {
-            const colorIdx = Math.floor(seededRandom(c + 100, globalRow + 100) * SLATE_BLOCKS.length);
+          // ~30% density – matches reference site
+          if (val < 0.30) {
+            const colorIdx = Math.floor(
+              seededRandom(c + 100, globalRow + 100) * SLATE_BLOCKS.length
+            );
             ctx.fillStyle = SLATE_BLOCKS[colorIdx];
             ctx.fillRect(c * STEP, screenY, SIZE, SIZE);
           }
         }
       }
+
+      // 3. Very subtle grid lines (matching reference's faint grid)
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.025)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let x = 0; x <= w + STEP; x += STEP) {
+        ctx.moveTo(x + 0.5, 0);
+        ctx.lineTo(x + 0.5, h);
+      }
+      for (let y = offsetY; y <= h + STEP; y += STEP) {
+        ctx.moveTo(0, y + 0.5);
+        ctx.lineTo(w, y + 0.5);
+      }
+      ctx.stroke();
     };
 
     drawGrid();
@@ -111,7 +110,7 @@ export function PixelBlockBackground() {
   }, []);
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-0 pointer-events-none overflow-hidden w-full h-full"
       style={{
         backgroundColor: "#17132c",
@@ -122,7 +121,7 @@ export function PixelBlockBackground() {
         className="w-full h-full block"
         style={{
           imageRendering: "pixelated",
-          opacity: 0.65, // Restored previous rich pixel volume
+          opacity: 1,
         }}
       />
     </div>

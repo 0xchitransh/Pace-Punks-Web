@@ -12,25 +12,15 @@ export function PixelBlockBackground() {
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
-    // Reference site exact measurements:
-    // Blocks are ~36px with a 2px gap = 38px pitch
-    const SIZE = 36;  // block size matching pixel-block.framer.website
-    const GAP = 2;    // gap between blocks
-    const STEP = SIZE + GAP; // 38px cell pitch
+    const SIZE = 6;   // block size
+    const GAP = 1;    // gap between blocks
+    const STEP = SIZE + GAP; // 7px cell pitch
 
     // Exact colors from pixel-block.framer.website CSS tokens:
     const BASE_BG = "#17132c";  // --token-e0c1c505 = #17132c
 
-    // Purple/violet block shades visible in the reference
-    const SLATE_BLOCKS = [
-      "#261f3f",
-      "#2d2550",
-      "#332b5e",
-      "#3d3368",
-      "#47397e",
-      "#504364",
-      "#231d3c",
-    ];
+    // Single block color — same shade as reference site
+    const BLOCK_COLOR = "#231d3c";
 
     // Seeded random – stays stable across scroll/renders
     const seededRandom = (x: number, y: number) => {
@@ -69,10 +59,7 @@ export function PixelBlockBackground() {
           const val = seededRandom(c, globalRow);
           // ~30% density – matches reference site
           if (val < 0.30) {
-            const colorIdx = Math.floor(
-              seededRandom(c + 100, globalRow + 100) * SLATE_BLOCKS.length
-            );
-            ctx.fillStyle = SLATE_BLOCKS[colorIdx];
+            ctx.fillStyle = BLOCK_COLOR;
             ctx.fillRect(c * STEP, screenY, SIZE, SIZE);
           }
         }

@@ -351,25 +351,6 @@ export default function EpochsPage() {
                   </div>
                 </div>
 
-                {/* Tier Milestone Matrix */}
-                <div className="border border-bbs/40 p-2.5 sm:p-3 bg-bbs/[0.03]">
-                  <h3 className="text-xs font-bold text-bbs border-b border-bbs/30 pb-1 mb-2">
-                    &gt;&gt; STEP MILESTONE REWARDS
-                  </h3>
-                  <div className="space-y-2 text-xs">
-                    {activeEpoch.tiers.map((t, i) => (
-                      <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-bbs/15 pb-1 gap-0.5 sm:gap-1">
-                        <div className="flex items-center gap-2">
-                          <span className="px-1.5 py-0.2 bg-bbs/20 border border-bbs/50 text-[9px] sm:text-[10px] font-bold">
-                            {t.tier}
-                          </span>
-                          <span className="font-bold text-xs">{t.steps} STEPS</span>
-                        </div>
-                        <span className="text-[11px] text-bbs/80">{t.reward}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
 
                 {/* Actions */}
                 <div className="flex flex-wrap items-center gap-3 pt-1">

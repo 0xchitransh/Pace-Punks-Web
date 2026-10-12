@@ -102,7 +102,7 @@ function WhyToPlaySection({ onClose }: { onClose: () => void }) {
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 bg-[#ffd76f] inline-block animate-pulse"></span>
           <span className="text-[#ffd76f] font-bold text-xs sm:text-sm tracking-wider uppercase">
-            &gt;&gt; ARCADE ACCESS PROTOCOL // WHY TO PLAY?
+            &gt;&gt; WHY TO PLAY?
           </span>
         </div>
         <button

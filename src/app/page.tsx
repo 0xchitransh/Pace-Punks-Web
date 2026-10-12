@@ -621,20 +621,6 @@ function TerminalPrompt() {
         >
           Epochs →
         </button>
-        <button
-          type="button"
-          onClick={() => router.push("/game")}
-          className="px-2.5 py-1 pb-btn-secondary text-xs font-bold cursor-pointer font-sans"
-        >
-          Play arcade →
-        </button>
-        <button
-          type="button"
-          onClick={() => router.push("/collection")}
-          className="px-2.5 py-1 pb-btn-secondary text-xs font-bold cursor-pointer font-sans"
-        >
-          Collection →
-        </button>
       </div>
     </div>
   );

@@ -363,12 +363,14 @@ export async function getPublicLeaderboard(limit = 25): Promise<PublicLeaderboar
         .limit(limit);
 
       if (data && data.length > 0) {
-        return data.map((item, idx) => ({
-          rank: idx + 1,
-          username: item.username,
-          score: item.best_score,
-          createdAt: item.created_at,
-        }));
+        return data
+          .filter((item) => item.username && item.username.toLowerCase() !== "murgboi")
+          .map((item, idx) => ({
+            rank: idx + 1,
+            username: item.username,
+            score: item.best_score,
+            createdAt: item.created_at,
+          }));
       }
     } catch (err) {
       console.error("Supabase get leaderboard error:", err);

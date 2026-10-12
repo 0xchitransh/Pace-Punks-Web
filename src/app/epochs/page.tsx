@@ -344,8 +344,6 @@ export default function EpochsPage() {
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <span className="text-bbs/70">&gt; NAV:</span>
             <Link href="/" className="hover:underline text-bbs font-bold">[1] HOME</Link>
-            <Link href="/collection" className="hover:underline text-bbs font-bold">[3] COLLECTION</Link>
-            <Link href="/game" className="hover:underline text-bbs font-bold">[5] MINI GAME</Link>
           </div>
           <div className="text-[10px] sm:text-[11px] text-bbs/60">
             SECURE PROTOCOL // ERC-721

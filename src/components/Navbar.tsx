@@ -52,7 +52,6 @@ export function Navbar() {
             className="w-7 h-7 sm:w-8 sm:h-8 object-contain pixelated rounded-sm"
           />
           <span className="text-base sm:text-lg font-bold font-display tracking-normal text-[#f7ebc9] hidden xs:inline sm:inline">PACE PUNKS</span>
-          <span className="text-base font-bold font-display xs:hidden text-[#f7ebc9]">PP</span>
         </Link>
 
         {/* Desktop / Tablet Center Links - Embedded Pixel Block Style */}

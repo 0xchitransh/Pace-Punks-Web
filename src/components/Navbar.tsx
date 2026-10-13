@@ -45,8 +45,12 @@ export function Navbar() {
       <div className="max-w-[1500px] mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2 flex-nowrap">
         
         {/* Logo / Header */}
-        <Link href="/" className="flex items-center gap-2 hover:text-[#fff] transition-colors whitespace-nowrap shrink-0">
-          <span className="w-2.5 h-2.5 bg-[#ffd76f] inline-block shadow-[0_0_8px_rgba(255,215,111,0.5)]"></span>
+        <Link href="/" className="flex items-center gap-2.5 hover:text-[#fff] transition-colors whitespace-nowrap shrink-0">
+          <img
+            src="/logo.jpg"
+            alt="Pace Punks"
+            className="w-7 h-7 sm:w-8 sm:h-8 object-contain pixelated rounded-sm"
+          />
           <span className="text-base sm:text-lg font-bold font-display tracking-normal text-[#f7ebc9] hidden xs:inline sm:inline">PACE PUNKS</span>
           <span className="text-base font-bold font-display xs:hidden text-[#f7ebc9]">PP</span>
         </Link>

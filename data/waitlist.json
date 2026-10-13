@@ -39,5 +39,14 @@
     "createdAt": "2026-10-12T13:17:22.321Z",
     "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
     "ip": "::1"
+  },
+  {
+    "id": "wl_1791834367397_xxj2h",
+    "email": "chitranshraj35@gmail.com",
+    "walletAddress": "0xdf290E3b718A4065DE402c1877DE91eEf5c71f58",
+    "queueNumber": 1426,
+    "createdAt": "2026-10-12T19:46:07.397Z",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+    "ip": "::1"
   }
 ]

@@ -241,53 +241,49 @@ export async function submitLeaderboardScore({
 
   if (supabase) {
     try {
-      const { data: existing } = await supabase
+      // 1. Fetch previous runs for this email to check previous best
+      const { data: userRecords } = await supabase
         .from("game_leaderboard")
-        .select("*")
-        .eq("email", normalizedEmail)
-        .maybeSingle();
+        .select("best_score")
+        .eq("email", normalizedEmail);
 
-      let bestScore = numScore;
-      let isNewBest = true;
-
-      if (existing) {
-        bestScore = Math.max(existing.best_score, numScore);
-        isNewBest = numScore > existing.best_score;
-
-        await supabase
-          .from("game_leaderboard")
-          .update({
-            username: cleanUser,
-            score: numScore,
-            best_score: bestScore,
-            ip_address: ip || null,
-            user_agent: userAgent || null,
-            updated_at: new Date().toISOString(),
-          })
-          .eq("email", normalizedEmail);
-      } else {
-        await supabase.from("game_leaderboard").insert({
-          username: cleanUser,
-          email: normalizedEmail,
-          score: numScore,
-          best_score: numScore,
-          ip_address: ip || null,
-          user_agent: userAgent || null,
-        });
+      let prevBest = 0;
+      if (userRecords && userRecords.length > 0) {
+        prevBest = Math.max(...userRecords.map((r) => r.best_score || 0));
       }
 
-      // Rank calculation
-      const { count: higherCount } = await supabase
-        .from("game_leaderboard")
-        .select("*", { count: "exact", head: true })
-        .gt("best_score", bestScore);
+      const bestScore = Math.max(prevBest, numScore);
+      const isNewBest = numScore > prevBest || (userRecords?.length === 0);
 
-      const { count: totalCount } = await supabase
-        .from("game_leaderboard")
-        .select("*", { count: "exact", head: true });
+      // 2. Insert new attempt into game_leaderboard
+      await supabase.from("game_leaderboard").insert({
+        username: cleanUser,
+        email: normalizedEmail,
+        score: numScore,
+        best_score: bestScore,
+        ip_address: ip || null,
+        user_agent: userAgent || null,
+      });
 
-      const rank = (higherCount || 0) + 1;
-      const totalPlayers = totalCount || 1;
+      // 3. Compute distinct runner ranks by highest best_score per email
+      const { data: allRecords } = await supabase
+        .from("game_leaderboard")
+        .select("email, best_score");
+
+      const bestByEmail = new Map<string, number>();
+      if (allRecords) {
+        for (const row of allRecords) {
+          const cur = bestByEmail.get(row.email) || 0;
+          if ((row.best_score || 0) > cur) {
+            bestByEmail.set(row.email, row.best_score || 0);
+          }
+        }
+      }
+
+      const allBests = Array.from(bestByEmail.values());
+      const runnerBest = bestByEmail.get(normalizedEmail) || bestScore;
+      const rank = allBests.filter((s) => s > runnerBest).length + 1;
+      const totalPlayers = Math.max(1, bestByEmail.size);
 
       return {
         success: true,
@@ -358,19 +354,30 @@ export async function getPublicLeaderboard(limit = 25): Promise<PublicLeaderboar
     try {
       const { data } = await supabase
         .from("game_leaderboard")
-        .select("username, best_score, created_at")
-        .order("best_score", { ascending: false })
-        .limit(limit);
+        .select("username, email, best_score, created_at")
+        .order("best_score", { ascending: false });
 
       if (data && data.length > 0) {
-        return data
-          .filter((item) => item.username && item.username.toLowerCase() !== "murgboi")
-          .map((item, idx) => ({
-            rank: idx + 1,
-            username: item.username,
-            score: item.best_score,
-            createdAt: item.created_at,
-          }));
+        const byEmail = new Map<string, { username: string; best_score: number; created_at: string }>();
+
+        for (const item of data) {
+          if (item.username && item.username.toLowerCase() === "murgboi") continue;
+          const existing = byEmail.get(item.email);
+          if (!existing || item.best_score > existing.best_score) {
+            byEmail.set(item.email, item);
+          }
+        }
+
+        const sorted = Array.from(byEmail.values())
+          .sort((a, b) => b.best_score - a.best_score)
+          .slice(0, limit);
+
+        return sorted.map((item, idx) => ({
+          rank: idx + 1,
+          username: item.username,
+          score: item.best_score,
+          createdAt: item.created_at,
+        }));
       }
     } catch (err) {
       console.error("Supabase get leaderboard error:", err);

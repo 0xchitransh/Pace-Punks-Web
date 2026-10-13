@@ -14,7 +14,7 @@ export function CorridorRunGame({ isEmbedded = false }: { isEmbedded?: boolean }
         <div className="flex items-center gap-2 text-[#b9b3c9] text-[11px] sm:text-xs truncate max-w-[200px] sm:max-w-none">
           <Link href="/" className="hover:text-[#f7ebc9] transition-colors">ARCADE</Link>
           <span className="text-[#504364]">/</span>
-          <span className="text-[#f7ebc9] font-bold">CORRIDOR_RUN</span>
+          <span className="text-[#f7ebc9] font-bold">PUNKS_RUN</span>
         </div>
 
         <div className="flex items-center gap-2 text-[11px] text-[#b9b3c9] shrink-0">

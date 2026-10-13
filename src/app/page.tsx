@@ -366,7 +366,7 @@ function TerminalPrompt() {
           "==================== SYSTEM COMMAND DIRECTORY ====================",
           "  JOIN [email]     : REGISTER FOR EARLY ACCESS WAITLIST IN DATABASE",
           "  STATUS           : CHECK YOUR WAITLIST QUEUE STANDING (LIVE DB)",
-          "  GAME / PLAY      : LAUNCH CORRIDOR RUN ARCADE MINI GAME",
+          "  GAME / PLAY      : LAUNCH PUNKS RUN ARCADE MINI GAME",
           "  EPOCH / EPOCHS   : NAVIGATE TO EPOCHS TIMELINE",
           "  COLLECTION       : INSPECT 6,000 CYBER PUNK ARCHIVE",
           "  HOW / MANUAL     : READ THE WALKING & EVOLUTION MANUAL",
@@ -459,7 +459,7 @@ function TerminalPrompt() {
       case "RUN":
       case "CORRIDOR":
         responses = [
-          `[>>>] INITIALIZING CORRIDOR RUN MINI GAME SIMULATION...`,
+          `[>>>] INITIALIZING PUNKS RUN MINI GAME SIMULATION...`,
           `[>>>] REDIRECTING OPERATOR TO [/game]...`,
         ];
         setTimeout(() => router.push("/game"), 600);

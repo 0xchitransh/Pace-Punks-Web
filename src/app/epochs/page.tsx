@@ -116,14 +116,14 @@ export default function EpochsPage() {
       <div className="w-full max-w-6xl flex flex-col gap-4 sm:gap-6">
 
         {/* Global Terminal Header */}
-        <div className="flex flex-wrap items-center justify-between border-b-2 border-bbs pb-2.5 sm:pb-3 gap-2">
+        <div className="flex flex-wrap items-center justify-between border-b border-[#504364] pb-2.5 sm:pb-3 gap-2">
           <div>
-            <div className="text-[10px] sm:text-xs text-bbs/60 flex flex-wrap items-center gap-1.5 mb-1">
+            <div className="text-[10px] sm:text-xs text-[#b9b3c9] flex flex-wrap items-center gap-1.5 mb-1">
               <Link href="/" className="hover:text-white transition-colors">ROOT</Link>
               <span>/</span>
               <span>GOVERNANCE</span>
               <span>/</span>
-              <span className="text-bbs font-bold">EPOCHS.EXE</span>
+              <span className="text-[#ffd76f] font-bold">EPOCHS.EXE</span>
             </div>
             <h1 className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold font-display tracking-tight break-words text-[#f7ebc9]">
               SYSTEM ARCHIVE: MINTING EPOCHS
@@ -131,8 +131,8 @@ export default function EpochsPage() {
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="text-xs text-bbs/70 hidden sm:inline">&gt; SUB-SYSTEMS:</span>
-            <span className="text-[10px] sm:text-xs px-2 py-0.5 sm:py-1 border border-bbs text-bbs bg-bbs/15 font-bold">
+            <span className="text-xs text-[#b9b3c9] hidden sm:inline">&gt; SUB-SYSTEMS:</span>
+            <span className="text-[10px] sm:text-xs px-2 py-0.5 sm:py-1 border border-[#ffd76f] text-[#ffd76f] bg-[#ffd76f]/10 font-bold">
               NODE_SYNC
             </span>
           </div>
@@ -183,27 +183,27 @@ export default function EpochsPage() {
             <div>
               <div className="flex flex-wrap items-center gap-1.5 mb-1">
                 {activeEpoch.status !== "LIVE" && (
-                  <span className="text-[10px] sm:text-xs px-1.5 py-0.5 border border-bbs text-bbs bg-bbs/20 font-bold">
+                  <span className="text-[10px] sm:text-xs px-1.5 py-0.5 border border-[#ffd76f] text-[#ffd76f] bg-[#ffd76f]/10 font-bold">
                     {activeEpoch.status}
                   </span>
                 )}
-                <span className="text-[10px] sm:text-xs text-bbs/70 font-mono">
+                <span className="text-[10px] sm:text-xs text-[#b9b3c9] font-mono">
                   WINDOW: [CLASSIFIED // REDACTED]
                 </span>
               </div>
-              <h2 className="text-xl sm:text-3xl font-bold tracking-wider text-bbs">
+              <h2 className="text-xl sm:text-3xl font-bold font-display tracking-wider text-[#f7ebc9]">
                 EPOCH {activeEpoch.number}
               </h2>
             </div>
 
             {/* Glitched Redacted Countdown / Time Window */}
-            <div className="border border-bbs/50 p-2 sm:p-2.5 bg-bbs/[0.04] flex flex-col items-start sm:items-end w-full sm:w-auto font-mono">
-              <span className="text-[9px] sm:text-[10px] text-bbs/70 block mb-1">&gt; CLOSURE_STATUS:</span>
+            <div className="border border-[#504364] p-2 sm:p-2.5 bg-[#17132c]/60 flex flex-col items-start sm:items-end w-full sm:w-auto font-mono">
+              <span className="text-[9px] sm:text-[10px] text-[#b9b3c9] block mb-1">&gt; CLOSURE_STATUS:</span>
               <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold">
                 <span className="px-1.5 py-0.5 border border-red-500/60 bg-red-950/40 text-red-400 text-[10px] sm:text-xs tracking-wider">
                   [REDACTED]
                 </span>
-                <span className="tracking-widest text-bbs/80 select-none">
+                <span className="tracking-widest text-[#b9b3c9] select-none">
                   ██:██:██:██
                 </span>
               </div>
@@ -214,13 +214,13 @@ export default function EpochsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
               
               {/* Left Column: Holographic Punk Preview Card */}
-              <div className="lg:col-span-5 flex flex-col items-center border border-bbs/40 p-3 sm:p-4 bg-background/90 relative">
-                <div className="w-full flex items-center justify-between text-[10px] sm:text-[11px] text-bbs/70 mb-2 border-b border-bbs/30 pb-1">
+              <div className="lg:col-span-5 flex flex-col items-center border border-[#504364] p-3 sm:p-4 bg-[#17132c]/60 relative">
+                <div className="w-full flex items-center justify-between text-[10px] sm:text-[11px] text-[#b9b3c9] mb-2 border-b border-[#504364] pb-1">
                   <span>ARCHETYPE_PREVIEW.IMG</span>
-                  <span className="text-bbs font-bold">EDITION #{activeEpoch.number}</span>
+                  <span className="text-[#ffd76f] font-bold">EDITION #{activeEpoch.number}</span>
                 </div>
 
-                <div className="relative w-full aspect-square max-w-[220px] sm:max-w-[280px] border-2 border-bbs bg-black overflow-hidden group">
+                <div className="relative w-full aspect-square max-w-[220px] sm:max-w-[280px] border-2 border-[#504364] bg-[#0b0820] overflow-hidden group">
                   <Image
                     src={activeEpoch.previewPunk}
                     alt={activeEpoch.name}
@@ -237,12 +237,12 @@ export default function EpochsPage() {
                 <div className="w-full mt-3 sm:mt-4 space-y-2 text-xs">
                   <div>
                     <div className="flex justify-between text-[10px] sm:text-[11px] mb-0.5">
-                      <span className="text-bbs/70">&gt; DURABILITY:</span>
+                      <span className="text-[#b9b3c9]">&gt; DURABILITY:</span>
                       <span className="font-bold">{activeEpoch.traits.durability}%</span>
                     </div>
-                    <div className="w-full bg-bbs/20 h-2 border border-bbs/40">
+                    <div className="w-full bg-[#0b0820] h-2 border border-[#504364]">
                       <div
-                        className="bg-bbs h-full transition-all duration-500"
+                        className="bg-[#ffd76f] h-full transition-all duration-500"
                         style={{ width: `${activeEpoch.traits.durability}%` }}
                       ></div>
                     </div>
@@ -250,12 +250,12 @@ export default function EpochsPage() {
 
                   <div>
                     <div className="flex justify-between text-[10px] sm:text-[11px] mb-0.5">
-                      <span className="text-bbs/70">&gt; EFFICIENCY:</span>
+                      <span className="text-[#b9b3c9]">&gt; EFFICIENCY:</span>
                       <span className="font-bold">{activeEpoch.traits.efficiency}%</span>
                     </div>
-                    <div className="w-full bg-bbs/20 h-2 border border-bbs/40">
+                    <div className="w-full bg-[#0b0820] h-2 border border-[#504364]">
                       <div
-                        className="bg-bbs h-full transition-all duration-500"
+                        className="bg-[#ffd76f] h-full transition-all duration-500"
                         style={{ width: `${activeEpoch.traits.efficiency}%` }}
                       ></div>
                     </div>
@@ -263,12 +263,12 @@ export default function EpochsPage() {
 
                   <div>
                     <div className="flex justify-between text-[10px] sm:text-[11px] mb-0.5">
-                      <span className="text-bbs/70">&gt; MOMENTUM:</span>
+                      <span className="text-[#b9b3c9]">&gt; MOMENTUM:</span>
                       <span className="font-bold">{activeEpoch.traits.momentum}%</span>
                     </div>
-                    <div className="w-full bg-bbs/20 h-2 border border-bbs/40">
+                    <div className="w-full bg-[#0b0820] h-2 border border-[#504364]">
                       <div
-                        className="bg-bbs h-full transition-all duration-500"
+                        className="bg-[#ffd76f] h-full transition-all duration-500"
                         style={{ width: `${activeEpoch.traits.momentum}%` }}
                       ></div>
                     </div>
@@ -280,23 +280,23 @@ export default function EpochsPage() {
               <div className="lg:col-span-7 flex flex-col justify-between gap-4 sm:gap-6">
 
                 {/* Live ASCII Verification Stream Bar - Glitched & Redacted */}
-                <div className="border border-bbs/40 p-2.5 sm:p-3 bg-bbs/[0.02]">
+                <div className="border border-[#504364] p-2.5 sm:p-3 bg-[#17132c]/60">
                   <div className="flex justify-between items-center text-xs mb-1.5 font-bold">
-                    <span className="text-bbs/80 text-[11px] sm:text-xs">&gt; VERIFICATION STREAM:</span>
-                    <span className="text-bbs font-mono text-[11px] sm:text-xs px-1.5 py-0.5 border border-bbs/30 bg-bbs/10 tracking-widest">[REDACTED // ██.█%]</span>
+                    <span className="text-[#b9b3c9] text-[11px] sm:text-xs">&gt; VERIFICATION STREAM:</span>
+                    <span className="text-[#ffd76f] font-mono text-[11px] sm:text-xs px-1.5 py-0.5 border border-[#504364] bg-[#17132c] tracking-widest">[REDACTED // ██.█%]</span>
                   </div>
 
                   {/* Desktop / Tablet Glitched ASCII Bar */}
-                  <div className="hidden sm:block w-full font-mono text-xs tracking-widest text-bbs/80 overflow-hidden select-none">
+                  <div className="hidden sm:block w-full font-mono text-xs tracking-widest text-[#b9b3c9] overflow-hidden select-none">
                     [====████▒▒▓▓#?%&amp;*!====████▒▒▓▓====]
                   </div>
 
                   {/* Mobile Compact Glitched ASCII Bar */}
-                  <div className="block sm:hidden w-full font-mono text-[11px] tracking-tight text-bbs/80 overflow-hidden select-none">
+                  <div className="block sm:hidden w-full font-mono text-[11px] tracking-tight text-[#b9b3c9] overflow-hidden select-none">
                     [==███▒▒▓▓?%*!==]
                   </div>
 
-                  <div className="flex justify-between text-[10px] text-bbs/60 mt-1 font-mono">
+                  <div className="flex justify-between text-[10px] text-[#827c98] mt-1 font-mono">
                     <span>RESERVED: [CLASSIFIED]</span>
                     <span>SUPPLY: [REDACTED // ████]</span>
                   </div>
@@ -312,7 +312,7 @@ export default function EpochsPage() {
                         setMintStatus("CHECKING");
                         setTimeout(() => setMintStatus("LOCKED"), 600);
                       }}
-                      className="w-full sm:w-auto text-center border-2 border-bbs bg-bbs text-background px-6 py-2.5 font-bold text-sm hover:bg-transparent hover:text-bbs transition-all shadow-[3px_3px_0_var(--color-bbs)] cursor-pointer uppercase"
+                      className="w-full sm:w-auto text-center pb-btn-primary px-6 py-2.5 text-sm cursor-pointer uppercase"
                     >
                       {mintStatus === "CHECKING" ? "[...] VERIFYING STRIDE BUFFER" : "[+] EXECUTE MINT NOW"}
                     </button>
@@ -340,12 +340,12 @@ export default function EpochsPage() {
         </div>
 
         {/* Tactical Footer Navigation Links */}
-        <div className="border border-bbs/40 p-2.5 sm:p-3 bg-background/90 text-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+        <div className="pb-panel p-2.5 sm:p-3 text-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-            <span className="text-bbs/70">&gt; NAV:</span>
-            <Link href="/" className="hover:underline text-bbs font-bold">[1] HOME</Link>
+            <span className="text-[#b9b3c9]">&gt; NAV:</span>
+            <Link href="/" className="hover:underline text-[#ffd76f] font-bold">[1] HOME</Link>
           </div>
-          <div className="text-[10px] sm:text-[11px] text-bbs/60">
+          <div className="text-[10px] sm:text-[11px] text-[#827c98]">
             SECURE PROTOCOL // ERC-721
           </div>
         </div>

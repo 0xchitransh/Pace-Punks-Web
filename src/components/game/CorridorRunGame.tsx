@@ -76,12 +76,14 @@ export function CorridorRunGame({ isEmbedded = false }: { isEmbedded?: boolean }
           {/* Desktop Keyboard Hints */}
           <span className="hidden sm:inline-flex items-center gap-2.5">
             <span><b className="text-[#f7ebc9]">[SPACE/↑]</b> JUMP</span>
-            <span><b className="text-[#f7ebc9]">[↓]</b> DIVE</span>
             <span><b className="text-[#f7ebc9]">[P]</b> PAUSE</span>
             <span><b className="text-[#f7ebc9]">[TOUCH]</b> TAP</span>
           </span>
         </div>
-        <div className="text-[#b9b3c9]/70 hidden md:block text-[11px]">
+        <div
+          className="text-[#b9b3c9] hidden md:block text-xs tracking-normal"
+          style={{ fontFamily: "var(--font-dm-sans), system-ui, sans-serif" }}
+        >
           BONUS GOLD CHIPS (+25) · AVOID DRONES
         </div>
       </div>
@@ -141,15 +143,15 @@ function WhyToPlaySection({ onClose }: { onClose: () => void }) {
                 COMMUNITY LUCKY DRAW
               </span>
               <h4 className="text-sm sm:text-base font-bold text-[#f7ebc9] mb-1 font-display">
-                Random 25 Players Get Access
+                Random 25 Players With 5000+ Score Get Access
               </h4>
               <p className="text-[11px] text-[#b9b3c9] leading-relaxed">
-                Simply submit your score after a run! 25 random runners each day are selected by our protocol to win an official app access code.
+                Score 5000 or more and submit it after your run! 25 random runners with a 5000+ score each day are selected by our protocol to win an official app access code.
               </p>
             </div>
             <div className="pt-2 border-t border-[#504364]/50 flex justify-between items-center text-[11px]">
               <span className="text-[#FF4FA3] font-bold">25 CODES / DAY</span>
-              <span className="text-[#b9b3c9] font-mono">[ALL PARTICIPANTS]</span>
+              <span className="text-[#b9b3c9] font-mono">[5000+ SCORE ONLY]</span>
             </div>
           </div>
         </div>

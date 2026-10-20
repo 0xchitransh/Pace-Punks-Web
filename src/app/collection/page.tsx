@@ -47,8 +47,8 @@ export default function CollectionPage() {
         transition={{ duration: 0.5 }}
         className="mb-8 sm:mb-12"
       >
-        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 tracking-wider">[ COLLECTION ARCHIVE ]</h1>
-        <p className="text-bbs/70 text-sm sm:text-lg max-w-2xl">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 tracking-wider font-display text-[#f7ebc9]">[ COLLECTION ARCHIVE ]</h1>
+        <p className="text-[#b9b3c9] text-sm sm:text-lg max-w-2xl">
           Browse the Pace Punks archive. Every Punk was earned through verified movement.
         </p>
       </motion.div>
@@ -61,7 +61,7 @@ export default function CollectionPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name or #ID…"
-            className="w-full bg-background/80 border border-bbs/50 px-3.5 py-2.5 sm:px-5 sm:py-3.5 text-xs sm:text-sm focus:outline-none focus:border-bbs placeholder:text-bbs/40 text-bbs font-mono"
+            className="pb-panel w-full px-3.5 py-2.5 sm:px-5 sm:py-3.5 text-xs sm:text-sm focus:outline-none focus:border-[#ffd76f] placeholder:text-[#827c98] text-[#f7ebc9] font-mono"
           />
         </div>
         <div className="flex gap-1.5 sm:gap-2 flex-wrap">
@@ -71,8 +71,8 @@ export default function CollectionPage() {
               onClick={() => setActiveFilter(f)}
               className={`px-2.5 py-1.5 sm:px-4 sm:py-2.5 text-xs sm:text-sm font-bold transition-all cursor-pointer border ${
                 activeFilter === f
-                  ? "bg-bbs text-background border-bbs"
-                  : "bg-background border-bbs/40 text-bbs hover:border-bbs"
+                  ? "bg-[#ffd76f] text-[#17132c] border-[#ffd76f]"
+                  : "pb-btn-secondary"
               }`}
             >
               {f}

@@ -31,7 +31,7 @@ export default function MintPage() {
             className="flex-1 flex justify-center"
           >
             <div className="relative w-72 h-72 md:w-96 md:h-96">
-              <div className="absolute inset-0 bg-gradient-to-br from-mint/20 via-purple/10 to-orange/10 rounded-[3rem] blur-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-mint/10 via-purple/10 to-orange/10 blur-3xl" />
               <div className="relative w-full h-full card flex items-center justify-center overflow-hidden">
                 {state === "success" ? (
                   <motion.div
@@ -70,14 +70,14 @@ export default function MintPage() {
             className="flex-1 w-full"
           >
             <div className="mb-3 flex items-center gap-3">
-              <span className="inline-flex items-center gap-1.5 bg-mint/10 text-mint px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-mint" />
+              <span className="inline-flex items-center gap-1.5 bg-mint/10 text-mint border border-mint/40 px-3 py-1 text-xs font-bold uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 bg-mint" />
                 Live
               </span>
               <span className="text-secondary text-sm">Epoch 01</span>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold font-display text-[#f7ebc9] mb-2">
               Genesis Run
             </h1>
             <p className="text-secondary mb-8">
@@ -94,7 +94,7 @@ export default function MintPage() {
               ].map((s) => (
                 <div
                   key={s.label}
-                  className="bg-background rounded-2xl p-4 border border-border"
+                  className="pb-panel p-4"
                 >
                   <p className="text-secondary text-xs uppercase tracking-wider font-medium mb-1">
                     {s.label}
@@ -121,7 +121,7 @@ export default function MintPage() {
                   </div>
                   <button
                     onClick={handleConnect}
-                    className="w-full bg-foreground text-surface py-4 rounded-full font-semibold text-base hover:opacity-90 transition-opacity cursor-pointer"
+                    className="w-full pb-btn-primary py-4 font-bold text-base cursor-pointer"
                   >
                     Connect Wallet
                   </button>
@@ -136,7 +136,7 @@ export default function MintPage() {
                   exit={{ opacity: 0, y: -10 }}
                   className="card p-8 text-center"
                 >
-                  <div className="w-10 h-10 border-2 border-foreground border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                  <div className="w-10 h-10 border-2 border-[#ffd76f] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
                   <p className="font-semibold">Verifying eligibility…</p>
                   <p className="text-secondary text-sm mt-1">
                     Checking your Pace Punks activity
@@ -158,16 +158,16 @@ export default function MintPage() {
                     <p className="text-secondary text-sm mb-4">
                       742 / 1,000 steps completed — 258 steps remaining
                     </p>
-                    <div className="w-full h-2 bg-background rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-background border border-border overflow-hidden">
                       <div
-                        className="h-full bg-orange rounded-full"
+                        className="h-full bg-orange"
                         style={{ width: "74.2%" }}
                       />
                     </div>
                   </div>
                   <Link
                     href="/"
-                    className="block w-full bg-orange text-white py-4 rounded-full font-semibold text-base text-center hover:opacity-90 transition-opacity"
+                    className="block w-full bg-orange text-[#17132c] py-4 font-bold text-base text-center hover:opacity-90 transition-opacity"
                   >
                     Open Pace Punks App
                   </Link>
@@ -183,7 +183,7 @@ export default function MintPage() {
                 >
                   <div className="card p-6 mb-6 border-mint/30">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-mint" />
+                      <span className="w-2.5 h-2.5 bg-mint" />
                       <p className="font-semibold text-mint">
                         You&apos;re Eligible!
                       </p>
@@ -195,7 +195,7 @@ export default function MintPage() {
                   </div>
                   <button
                     onClick={handleMint}
-                    className="w-full bg-foreground text-surface py-4 rounded-full font-semibold text-base hover:opacity-90 transition-opacity cursor-pointer mintglow"
+                    className="w-full pb-btn-primary py-4 font-bold text-base cursor-pointer"
                   >
                     Mint My Punk
                   </button>
@@ -236,11 +236,11 @@ export default function MintPage() {
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Link
                       href="/my-punks"
-                      className="flex-1 bg-foreground text-surface py-4 rounded-full font-semibold text-base text-center hover:opacity-90 transition-opacity"
+                      className="flex-1 pb-btn-primary py-4 font-bold text-base text-center"
                     >
                       View My Punk
                     </Link>
-                    <button className="flex-1 border border-border text-foreground py-4 rounded-full font-semibold text-base hover:bg-surface transition-colors cursor-pointer">
+                    <button className="flex-1 pb-btn-secondary py-4 font-bold text-base cursor-pointer">
                       Share on X
                     </button>
                   </div>

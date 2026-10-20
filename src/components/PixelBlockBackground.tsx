@@ -2,145 +2,110 @@
 
 import { useEffect, useRef } from "react";
 
+/**
+ * Port of the "LED Matrix" background used on https://pixel-block.framer.website/
+ *
+ * Same settings as the reference page:
+ *   shape: Square, size: 10px, gap: 2px, speed: 80, accent amount: 4%
+ *   accent (4% of cells): #17132c, secondary (96% of cells): #ffd76f
+ *   the canvas layer is fixed to the viewport at 5% opacity over a #17132c page
+ */
+const SIZE = 10;
+const GAP = 2;
+const ANIM_SPEED = 80;
+const PROBABILITY = 4; // percent
+const ACCENT = "#17132c";
+const SECONDARY = "#ffd76f";
+const LAYER_OPACITY = 0.05;
+const PAGE_BG = "#17132c";
+
+// Same timing range as the original component: 0 .. (10099.9 - 99.9 * speed) ms
+const TIMING_RANGE = -99.9 * ANIM_SPEED + 10099.9;
+
+type Cell = {
+  x: number;
+  y: number;
+  delay: number;
+  duration: number;
+  startTime: number;
+  color: string;
+};
+
+const pickColor = () => (Math.random() < PROBABILITY / 100 ? ACCENT : SECONDARY);
+
 export function PixelBlockBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
-    const ctx = canvas.getContext("2d", { alpha: false });
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const SIZE = 6;
-    const GAP = 1;
-    const STEP = SIZE + GAP;
+    let cells: Cell[] = [];
+    let rafId = 0;
 
-    const BASE_BG = "#17132c";
-    const BLOCK_COLOR = "#231d3c";
-
-    // Seeded random — determines WHICH cells have a block (never changes)
-    const seededRandom = (x: number, y: number) => {
-      const s = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453123;
-      return s - Math.floor(s);
+    const buildCells = (width: number, height: number) => {
+      const next: Cell[] = [];
+      const now = performance.now();
+      for (let y = 0; y < height; y += SIZE + GAP) {
+        for (let x = 0; x < width; x += SIZE + GAP) {
+          next.push({
+            x,
+            y,
+            delay: Math.random() * TIMING_RANGE,
+            duration: Math.random() * TIMING_RANGE,
+            startTime: now + Math.random() * 5000,
+            color: pickColor(),
+          });
+        }
+      }
+      return next;
     };
 
-    // Per-block blink state: countdown timer until next toggle
-    type BlockState = { visible: boolean; countdown: number };
-    const blockStates = new Map<string, BlockState>();
-
-    let animFrameId: number;
-    let w = 0;
-    let h = 0;
-    let dpr = 1;
-    let frameCount = 0;
-
     const resize = () => {
-      w = window.innerWidth;
-      h = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
-      canvas.style.width = `${w}px`;
-      canvas.style.height = `${h}px`;
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      cells = buildCells(canvas.width, canvas.height);
+    };
+
+    const frame = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const now = performance.now();
+      for (const cell of cells) {
+        if (now - cell.startTime > cell.delay + cell.duration) {
+          cell.startTime = now + cell.delay;
+          cell.color = pickColor();
+        }
+        ctx.fillStyle = cell.color;
+        ctx.fillRect(cell.x, cell.y, SIZE, SIZE);
+      }
+      rafId = requestAnimationFrame(frame);
     };
 
     resize();
-
-    const getOrCreate = (key: string, seed: number): BlockState => {
-      if (!blockStates.has(key)) {
-        // Randomize initial visibility and give each block a different countdown
-        // so they don't all blink at the same time
-        const startVisible = seed > 0.5;
-        // countdown in frames: 60–400 frames (1s–6.5s at 60fps)
-        const countdown = Math.floor(60 + seed * 340);
-        blockStates.set(key, { visible: startVisible, countdown });
-      }
-      return blockStates.get(key)!;
-    };
-
-    const draw = () => {
-      frameCount++;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      // 1. Solid background
-      ctx.fillStyle = BASE_BG;
-      ctx.fillRect(0, 0, w, h);
-
-      const scrollY = window.scrollY || 0;
-      const offsetY = -(scrollY % STEP);
-      const cols = Math.ceil(w / STEP) + 1;
-      const rows = Math.ceil(h / STEP) + 2;
-      const startRow = Math.floor(scrollY / STEP);
-
-      // 2. Draw pixel blocks — all same color, just toggling on/off
-      ctx.fillStyle = BLOCK_COLOR;
-      for (let r = -1; r <= rows; r++) {
-        const globalRow = startRow + r;
-        const screenY = r * STEP + offsetY;
-        for (let c = 0; c < cols; c++) {
-          const val = seededRandom(c, globalRow);
-          if (val < 0.30) {
-            const key = `${c},${globalRow}`;
-            const state = getOrCreate(key, seededRandom(c + 500, globalRow + 500));
-
-            // Tick countdown
-            state.countdown--;
-            if (state.countdown <= 0) {
-              // Toggle visibility, reset with a new random duration
-              state.visible = !state.visible;
-              // visible blocks stay on longer (2s–8s), hidden blocks are off shorter (0.5s–3s)
-              const seed2 = seededRandom(c + frameCount * 0.001, globalRow);
-              state.countdown = state.visible
-                ? Math.floor(120 + seed2 * 360) // 2s–8s on
-                : Math.floor(30 + seed2 * 150);  // 0.5s–3s off
-            }
-
-            if (state.visible) {
-              ctx.fillRect(c * STEP, screenY, SIZE, SIZE);
-            }
-          }
-        }
-      }
-
-      // 3. Subtle grid lines
-      ctx.strokeStyle = "rgba(255,255,255,0.025)";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      for (let x = 0; x <= w + STEP; x += STEP) {
-        ctx.moveTo(x + 0.5, 0);
-        ctx.lineTo(x + 0.5, h);
-      }
-      for (let y = offsetY; y <= h + STEP; y += STEP) {
-        ctx.moveTo(0, y + 0.5);
-        ctx.lineTo(w, y + 0.5);
-      }
-      ctx.stroke();
-
-      animFrameId = requestAnimationFrame(draw);
-    };
-
-    draw();
-
-    const onResize = () => resize();
-    window.addEventListener("resize", onResize);
+    const observer = new ResizeObserver(resize);
+    observer.observe(canvas);
+    rafId = requestAnimationFrame(frame);
 
     return () => {
-      cancelAnimationFrame(animFrameId);
-      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(rafId);
+      observer.disconnect();
     };
   }, []);
 
   return (
     <div
-      className="fixed inset-0 z-0 pointer-events-none overflow-hidden w-full h-full"
-      style={{ backgroundColor: "#17132c" }}
+      aria-hidden="true"
+      className="fixed top-0 left-0 right-0 z-0 pointer-events-none overflow-hidden"
+      style={{ height: "100vh", backgroundColor: PAGE_BG }}
     >
-      <canvas
-        ref={canvasRef}
-        className="w-full h-full block"
-        style={{ imageRendering: "pixelated" }}
-      />
+      <div style={{ width: "100%", height: "100%", opacity: LAYER_OPACITY }}>
+        <canvas
+          ref={canvasRef}
+          style={{ width: "100%", height: "100%", display: "block" }}
+        />
+      </div>
     </div>
   );
 }

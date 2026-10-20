@@ -43,8 +43,8 @@ export default function HowItWorksPage() {
         transition={{ duration: 0.5 }}
         className="text-center mb-8 sm:mb-16"
       >
-        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 tracking-wider">[ HOW IT WORKS ]</h1>
-        <p className="text-bbs/70 text-sm sm:text-lg max-w-xl mx-auto">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 tracking-wider font-display text-[#f7ebc9]">[ HOW IT WORKS ]</h1>
+        <p className="text-[#b9b3c9] text-sm sm:text-lg max-w-xl mx-auto">
           You don&apos;t buy access to Pace Punks. You earn eligibility by
           moving.
         </p>
@@ -58,18 +58,18 @@ export default function HowItWorksPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="border-2 border-bbs bg-background/85 p-4 sm:p-8 md:p-10 flex flex-col sm:flex-row items-start gap-4 sm:gap-6 shadow-[0_0_15px_var(--color-bbs-dim)]"
+            className="pb-panel hover:border-[#ffd76f] transition-colors p-4 sm:p-8 md:p-10 flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
           >
             <div
-              className={`w-12 h-12 sm:w-16 sm:h-16 border-2 border-bbs bg-bbs/10 flex items-center justify-center shrink-0`}
+              className="w-12 h-12 sm:w-16 sm:h-16 border border-[#ffd76f] bg-[#17132c] flex items-center justify-center shrink-0"
             >
-              <span className="text-lg sm:text-xl font-bold text-bbs">
+              <span className="text-lg sm:text-xl font-bold text-[#ffd76f]">
                 {step.num}
               </span>
             </div>
             <div>
-              <h3 className="text-lg sm:text-2xl font-bold mb-1 sm:mb-2 text-bbs">{step.title}</h3>
-              <p className="text-bbs/80 text-xs sm:text-base leading-relaxed">{step.desc}</p>
+              <h3 className="text-lg sm:text-2xl font-bold font-display mb-1 sm:mb-2 text-[#f7ebc9]">{step.title}</h3>
+              <p className="text-[#b9b3c9] text-xs sm:text-base leading-relaxed">{step.desc}</p>
             </div>
           </motion.div>
         ))}
@@ -82,23 +82,23 @@ export default function HowItWorksPage() {
         transition={{ duration: 0.5 }}
         className="mt-12 sm:mt-20 text-center"
       >
-        <div className="border-2 border-bbs bg-background/90 p-6 sm:p-10 md:p-14 shadow-[0_0_20px_var(--color-bbs-dim)]">
-          <h2 className="text-2xl sm:text-4xl font-bold mb-3 tracking-wider text-bbs">
+        <div className="pb-panel p-6 sm:p-10 md:p-14">
+          <h2 className="text-2xl sm:text-4xl font-bold font-display mb-3 tracking-wider text-[#f7ebc9]">
             [ READY TO EARN YOUR PUNK? ]
           </h2>
-          <p className="text-bbs/70 mb-6 sm:mb-8 max-w-md mx-auto text-xs sm:text-base">
+          <p className="text-[#b9b3c9] mb-6 sm:mb-8 max-w-md mx-auto text-xs sm:text-base">
             Start walking in the Pace Punks app and qualify for the active epoch.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/mint"
-              className="border-2 border-bbs bg-bbs text-background px-6 py-3 font-bold text-xs sm:text-sm hover:bg-transparent hover:text-bbs transition-colors"
+              className="pb-btn-primary px-6 py-3 font-bold text-xs sm:text-sm"
             >
               [+] CHECK ELIGIBILITY / MINT
             </Link>
             <Link
               href="/epochs"
-              className="border-2 border-bbs bg-background text-bbs px-6 py-3 font-bold text-xs sm:text-sm hover:bg-bbs hover:text-background transition-colors"
+              className="pb-btn-secondary px-6 py-3 font-bold text-xs sm:text-sm"
             >
               [&gt;] VIEW ACTIVE EPOCHS
             </Link>

@@ -3,6 +3,17 @@
 @theme {
   --color-bbs: var(--bbs-color);
   --color-bbs-dim: color-mix(in srgb, var(--bbs-color) 40%, transparent);
+  /* Palette tokens (match the Pixel Block reference). Several pages already use
+     bg-background / text-secondary / border-border etc., which were undefined. */
+  --color-background: #17132c;
+  --color-foreground: var(--bbs-color);
+  --color-surface: #231d3c;
+  --color-border: #504364;
+  --color-secondary: #b9b3c9;
+  --color-mint: #3ee6d2;
+  --color-purple: #8c7cff;
+  --color-orange: #ff7a3d;
+  --color-gold: #ffd76f;
   --font-display: var(--font-pixelify-sans), "Pixelify Sans", sans-serif;
   --font-sans: var(--font-pixelify-sans), "Pixelify Sans", sans-serif;
   --font-mono: var(--font-pixelify-sans), "Pixelify Sans", monospace;
@@ -53,11 +64,18 @@ button, input, select, textarea, kbd, code, table, th, td {
 }
 
 /* Authentic Pixel Block embedded panel styling */
-.pb-panel {
-  background-color: rgba(35, 29, 60, 0.85);
-  backdrop-filter: blur(8px);
-  border: 1px solid #504364;
-  border-radius: 0px;
+/* Kept in the components layer so utility classes (hover borders, custom
+   backgrounds, etc.) can still override the defaults. */
+@layer components {
+  .pb-panel,
+  .card {
+    /* Slightly translucent so the animated pixel background reads through the
+       panels instead of the content sitting on top of it as a separate layer. */
+    background-color: rgba(35, 29, 60, 0.78);
+    backdrop-filter: blur(2px);
+    border: 1px solid #504364;
+    border-radius: 0px;
+  }
 }
 
 /* Primary Gold Button matching "Get launch news ↓" */
@@ -93,17 +111,18 @@ button, input, select, textarea, kbd, code, table, th, td {
   text-shadow: none !important;
 }
 
-input {
-  background: transparent;
-  color: var(--bbs-color);
-  border: none;
-  border-bottom: 2px solid var(--bbs-color);
-  font-family: var(--font-space-mono), monospace;
-}
+@layer base {
+  input {
+    background: transparent;
+    color: var(--bbs-color);
+    border: none;
+    border-bottom: 2px solid var(--bbs-color);
+  }
 
-input:focus {
-  outline: none;
-  border-bottom: 2px solid #fff;
+  input:focus {
+    outline: none;
+    border-bottom: 2px solid #fff;
+  }
 }
 
 .blink {

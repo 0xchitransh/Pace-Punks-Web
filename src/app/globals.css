@@ -63,6 +63,15 @@ button, input, select, textarea, kbd, code, table, th, td {
   font-family: var(--font-pixelify-sans), "Pixelify Sans", sans-serif !important;
 }
 
+/* Simple, readable sans-serif for longer copy where the pixel font hurts legibility.
+   !important is needed to beat the global `*` and heading font rules above. */
+.font-readable,
+.font-readable * {
+  font-family: var(--font-dm-sans), system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  font-feature-settings: normal;
+  letter-spacing: normal;
+}
+
 /* Authentic Pixel Block embedded panel styling */
 /* Kept in the components layer so utility classes (hover borders, custom
    backgrounds, etc.) can still override the defaults. */

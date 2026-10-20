@@ -142,10 +142,10 @@ function WhyToPlaySection({ onClose }: { onClose: () => void }) {
               <span className="inline-block px-2 py-0.5 text-[10px] font-bold bg-[#FF4FA3] text-[#0b0820] mb-2 uppercase tracking-wider">
                 COMMUNITY LUCKY DRAW
               </span>
-              <h4 className="text-sm sm:text-base font-bold text-[#f7ebc9] mb-1 font-display">
+              <h4 className="font-readable text-sm sm:text-base font-bold text-[#f7ebc9] mb-1">
                 Random 25 Players With 5000+ Score Get Access
               </h4>
-              <p className="text-[11px] text-[#b9b3c9] leading-relaxed">
+              <p className="font-readable text-xs text-[#b9b3c9] leading-relaxed">
                 Score 5000 or more and submit it after your run! 25 random runners with a 5000+ score each day are selected by our protocol to win an official app access code.
               </p>
             </div>
